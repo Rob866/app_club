@@ -1,0 +1,26 @@
+p.info-alumno{
+  color: white;
+}
+
+.owl-carousel .owl-stage, .owl-carousel.owl-drag .owl-item{
+    -ms-touch-action: auto;
+        touch-action: auto;
+}
+
+@media only screen and (max-width: 345px) {
+   .navbar-brand{
+     font-size:  20px !important;
+   }
+
+}
+
+@media only screen and (max-width: 460px) {
+
+  .owl-carousel.home-slider .slider-item .slider-text h1{
+    font-size: 30px !important;
+  }
+  .fix_padding{
+    padding-left: 0 !important;
+    padding-right: 0 !important
+  }
+}

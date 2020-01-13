@@ -1,0 +1,47 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="ftco-section ftco-project"  style="background:#31de79">
+  <div class="container px-md-5">
+   <p class="info-alumno ftco-animate" style="text-transform: uppercase; font-size:25px;">
+     Alumno:  {{ student.nombre }} {{ student.apellido }}(Paquete {{ paquete.tipo_de_paquete }})
+   </p>
+   <p class="info-alumno ftco-animate"style="text-transform: uppercase; font-size:20px">Horas consumidas: <span style="font-weight: bold">{{ paquete.horas_consumidas}} Hrs</span></p>
+   <p  class="info-alumno ftco-animate" style="text-transform: uppercase; font-size:20px">Horas restantes: <span style="font-weight: bold">{{ paquete.horas_restantes}} Hrs</span></p>
+   <table class="table table-hover table-sm table-bordered ftco-animate" style="background: white">
+   <!--Table head-->
+   <thead>
+     <tr>
+       <th scope="col">Asignatura</th>
+       <th scope="col">Tiempo de sesion</th>
+       <th scope="col">Fecha de clase</th>
+     </tr>
+   </thead>
+   <!--Table head-->
+   <!--Table body-->
+   <tbody>
+     {% for clase in clases %}
+      <tr>
+        <!--<th scope="row"><i style="font-size: 25px" class="fa fa-user"></i></th>-->
+        <td>{{ clase.asignatura }}</td>
+        <td>{{ clase.tiempo_de_sesion }} Hrs</td>
+        <td>{{ clase.tiempo_de_salida}} Hrs</td>
+      </tr>
+     {% endfor %}
+   </tbody>
+   <!--Table body-->
+   </table>
+
+   <div style="height: 40px; width: 100%; position:relative"class="mt-5">
+      <a href="{% url 'app:paquetes' id=student.id %}" style="position: absolute; right:0">
+
+      <button type="button" class="btn btn-primary" style="font-size:15px;">
+            <i class="fa fa-chevron-left"></i> Ir Paquetes</button>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock content  %}

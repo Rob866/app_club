@@ -1,0 +1,93 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+      <section class="ftco-section bg-light" id="blog-section">
+            <div class="container">
+              <div class="row justify-content-center mb-5 pb-5">
+                <div class="col-md-7 heading-section text-center ftco-animate">
+                  <span class="subheading">Blog</span>
+                  <h2 class="mb-4">Nuestro Blog</h2>
+                  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+                </div>
+              </div>
+              <div class="row d-flex">
+                {%for post in posts%}
+                <div class="col-md-4 d-flex ftco-animate">
+                	<div class="blog-entry justify-content-end">
+                   {%if post.imagen %}
+                    <a href="single.html" class="block-20" style="background-image: url({{post.imagen.url}})">
+                    </a>
+                    {%endif%}
+                    <div class="text mt-3 float-right d-block">
+                    	<div class="d-flex align-items-center pt-2 mb-4 topp">
+                    		<div class="one mr-2">
+                    			<span class="day">{{post.create_on.day}}</span>
+                    		</div>
+                    		<div class="two">
+                    			<span class="yr">{{post.create_on.year}}</span>
+                          {%if post.create_on.month == 1 %}
+                          <span class="mos">Enero</span>
+                          {%elif post.create_on.month == 2 %}
+                              <span class="mos">Febrero</span>
+                          {%elif post.create_on.month == 3 %}
+                              <span class="mos">Marzo</span>
+                          {%elif post.create_on.month == 4 %}
+                              <span class="mos">Abril</span>
+                          {%elif post.create_on.month == 5 %}
+                              <span class="mos">Mayo</span>
+                          {%elif post.create_on.month == 6 %}
+                              <span class="mos">Junio</span>
+                          {%elif post.create_on.month == 7 %}
+                              <span class="mos">Julio</span>
+                          {%elif post.create_on.month == 8 %}
+                              <span class="mos">Agosto</span>
+                          {%elif post.create_on.month == 9 %}
+                              <span class="mos">Septiembre</span>
+                          {%elif post.create_on.month == 10 %}
+                              <span class="mos">Octubre</span>
+                          {%elif post.create_on.month == 11 %}
+                              <span class="mos">Noviembre</span>
+                          {%else %}
+                              <span class="mos">Dicembre</span>
+                          {%endif%}
+                    		</div>
+                    	</div>
+                      <h3 class="heading"><a href="single.html">{{ post.titulo}}</a></h3>
+                      <p>{{post.content|truncatewords:10|linebreaks}}</p>
+                      <div class="d-flex align-items-center mt-4 meta">
+      	                <p class="mb-0"> <a href="{% url 'blog:post_detail' id=post.id %}" class="btn btn-primary">Leer mas <span class="ion-ios-arrow-round-forward"></span></a></p>
+      	                <p class="ml-auto mb-0">
+      	                	<a href="#" class="mr-2">{{post.autor}}</a>
+      	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> {{ post.comentarios.all | length }}</a>
+      	                </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                 {%endfor%}
+              </div>
+              {% if is_paginated %}
+
+                   {% if page_obj.has_previous %}
+                     <a class="btn btn-outline-info mb-4" href="?page=1">Primera</a>
+                     <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                   {% endif %}
+
+                   {% for num in page_obj.paginator.page_range %}
+                     {% if page_obj.number == num %}
+                       <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                       <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                     {% endif %}
+                   {% endfor %}
+
+                   {% if page_obj.has_next %}
+                     <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                     <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Ultima</a>
+                   {% endif %}
+
+                {% endif %}
+            </div>
+      </section>
+
+{% endblock content%}

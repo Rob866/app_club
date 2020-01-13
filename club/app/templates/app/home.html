@@ -1,0 +1,48 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+<section class="hero">
+	<h3 class="vr">Club de Tareas</h3>
+	<div class="home-slider js-fullheight owl-carousel">
+		<div class="slider-item js-fullheight">
+			<div class="overlay"></div>
+			<div class="container-fluid p-0">
+				<div class="row d-md-flex no-gutters slider-text js-fullheight align-items-center justify-content-end" data-scrollax-parent="true">
+					<div class="one-third order-md-last img js-fullheight" style="background-image:url({% static 'app/images/bg_1.jpg'%})">
+						<div class="overlay"></div>
+					</div>
+					<div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax="properties: { translateY: '70%'}">
+						<div class="text">
+							<span class="subheading">Bienvenido al Club de Tareas</span>
+							<h1 class="mb-4 mt-3">Pequeños cambios hacen la gran <span>Diferencia</span></h1>
+							<p>Un espacio para el studio y formación de los jovenes.El momento indicado es ahora .</p>
+
+							<p><a href="{% url 'blog:contact' %}" class="btn btn-primary px-5 py-3 mt-3">Contacto</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slider-item js-fullheight">
+			<div class="overlay"></div>
+			<div class="container-fluid p-0">
+				<div class="row d-flex no-gutters slider-text js-fullheight align-items-center justify-content-end" data-scrollax-parent="true">
+					<div class="one-third order-md-last img js-fullheight" style="background-image:url({% static 'app/images/bg_2.jpg'%})">
+						<div class="overlay"></div>
+					</div>
+					<div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+						<div class="text">
+							<span class="subheading">Bienvenido a nuestro centro de Formación</span>
+							<h1 class="mb-4 mt-3"><span>Estratégico</span>. Pluricultural</h1>
+							<p>Un pequeño río llamado Duden fluye por su lugar y le proporciona la regelialia necesaria. Es un país paradisíaco.</p>
+
+							<p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Contacto</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content     %}

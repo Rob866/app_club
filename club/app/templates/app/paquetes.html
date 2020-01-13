@@ -1,0 +1,52 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="ftco-section ftco-project" style="background:#31de79">
+
+		<div class="container px-md-5">
+				<p class="info-alumno ftco-animate" style="text-transform: uppercase; font-size: 25px">
+					Historial de  Paquetes suscritos del  Alumno: {{ student.nombre }} {{ student.apellido}}
+				</p>
+				<button type="button" class="btn btn-primary btn-circle">
+				</button> <span style="color: white" class="ftco-animate">Paquete Activo</span><br>
+				<button type="button" class="btn btn-danger btn-circle">
+				</button>
+				<span style="color:white" class="ftco-animate">Paquete Culminado</span>
+				<div style="width: 100%;height:20px;"></div>
+				<ul class="list-group ftco-animate">
+					{% for paquete in paquetes %}
+					 {% if paquete.status %}
+					 <li class="list-group-item" style="background-color: #3cb371;color:white"> Tipo de paquete: {{ paquete.tipo_de_paquete }}</li>
+					 {%else%}
+					 <li class="list-group-item" style="background-color: #de2d29;color: white"> Tipo de paquete: {{ paquete.tipo_de_paquete }}</li>
+					 {% endif%}
+           <li class="list-group-item"> Fecha de Inscripcion: {{ paquete.fecha_de_inscripcion }}</li>
+					 <li class="list-group-item"> Horas consumidas: {{ paquete.horas_consumidas }} Hrs</li>
+					 <li class="list-group-item"> Horas restantes: {{ paquete.horas_restantes }} Hrs</li>
+
+					 {% if paquete.status%}
+					 <li class="list-group-item">Status: Activo</li>
+					 {% else %}
+					 <li class="list-group-item" >Status: Culminado</li>
+					 {% endif%}
+					 <li class="list-group-item mb-5">
+						 <a href="{% url 'app:clases' id=student.id paquete_id=paquete.id %}">
+				     <button type="button" class="btn btn-primary"">Ver Clases </button>
+				     </a>
+					 </li>
+					{% endfor %}
+				</ul>
+				<div class="mt-5" style="height: 40px; width: 100%; position:relative">
+					<a href="{% url 'app:alumnos' %}?busqueda={{return_query}}" style="position: absolute; right:0">
+
+					<button type="button" class="btn btn-primary" style="font-size:15px;">
+								<i class="fa fa-chevron-left"></i> Ir Alumnos</button>
+					</a>
+				</div>
+
+		</div>
+
+</section>
+
+{% endblock content     %}

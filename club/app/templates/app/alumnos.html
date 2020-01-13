@@ -1,0 +1,72 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+<!--
+background-image: url({% static 'app/images/system.jpg'%}); background-attachment: fixed; background-size: cover;
+background-position: center center; background-repeat: no-repeat;-->
+<section class="ftco-section ftco-project"  style="min-height: 600px;background:#31de79">
+  <div class="container px-md-2">
+    <div class="row justify-content-center">
+      <div class="col-md-7 text-center heading-section  ftco-animate">
+
+          <span class="subheading">Sistema</span>
+        <h2 class="pb-4">Alumnos</h2>
+      </div>
+    </div>
+<div class="input-group md-form form-s pl-0">
+  <div class="container">
+
+    <div class="row justify-content-center pb-3">
+
+        <div class="col-md-5">
+          <form method='GET' style="width:100%">
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control" name="busqueda" placeholder="Escribe tu Id..." value="{{request.GET.busqueda}}">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </div>
+                </div>
+          </form>
+          </div>
+
+
+    </div>
+
+  </div>
+
+
+</div>
+
+{% if  alumnos %}
+<table  class="table table-hover table-sm table-bordered ftco-animate" style="background: white">
+<!--Table head-->
+<thead>
+  <tr>
+    <!--<th scope="col">#</th>-->
+    <th scope="col">Nombre</th>
+    <th scope="col">Apellido</th>
+    <!--<th scope="col">Nivel Académico</th>-->
+    <th scope="col">Paquetes</th>
+  </tr>
+</thead>
+<!--Table head-->
+<!--Table body-->
+<tbody>
+    {% for alumno in alumnos %}
+     <tr style="">
+       <!--<th scope="row"><i style="font-size: 25px" class="fa fa-user"></i></th>-->
+       <td>{{ alumno.nombre }}</td>
+       <td>{{ alumno.apellido }}</td>
+       <td>
+       <p class="mb-0"><a href="{% url 'app:paquetes' id=alumno.id %}" class="btn btn-primary">Detalles</a></p>
+      </td>
+     </tr>
+    {% endfor %}
+</tbody>
+<!--Table body-->
+</table>
+{% endif %}
+</div>
+</section>
+
+{% endblock content     %}
