@@ -1,0 +1,99 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags%}
+{% load static %}
+{% block content %}
+<section>
+  <div class="container">
+    <div class="row"  style="margin-top:120px">
+        <div class="col-md-4">
+            <div class="portlet light profile-sidebar-portlet bordered  justify-content-center ftco-animate">
+                <div class="profile-userpic" style="text-align:center">
+                    <img src="{{ request.user.imagen.url }}" class="img-responsive" alt="">
+                </div>
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">{{ request.user.nombre }}</div>
+                    <div class="profile-usertitle-job">{{ request.user.apellido }} </div>
+                </div>
+                <div class="profile-userbuttons">
+                    <button type="button" class="btn btn-info  btn-sm">Follow</button>
+                    <button type="button" class="btn btn-info  btn-sm">Message</button>
+                </div>
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="#">
+                                <i class="icon-home"></i> Ticket List </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-settings"></i> Support Staff </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-info"></i> Configurations </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="portlet light bordered ftco-animate">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption caption-md">
+                        <i class="icon-globe theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase">Your info</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div>
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Update</a></li>
+                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+                            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="home">
+                                <form method="POST" enctype="multipart/form-data">
+                                  {% csrf_token %}
+                                  {% for field in profile_form %}
+                                  <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {{ field}}
+                                  </div>
+
+                                    {% if field.help_text %}
+                                    <small style="color:gray:">{{ field.help_text}}</small>
+                                    {% endif%}
+
+                                    {% for error in field.error%}
+                                      <p style="color: red">{{ error }}</p>
+                                    {% endfor %}
+
+                                  {% endfor %}
+                                  {% if profile_form.non_fields_errors%}
+                                     <div style="color: red">
+                                       <p>{{ profile.non_fields_errors}}</p>
+                                     </div>
+                                  {% endif%}
+                                  <button type="submit" class="btn btn-default">Guardar Cambios</button>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="profile">Profile</div>
+                            <div role="tabpanel" class="tab-pane" id="messages">Messages</div>
+                            <div role="tabpanel" class="tab-pane" id="settings">Settings</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</section>
+{% endblock content     %}

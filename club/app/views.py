@@ -3,6 +3,7 @@ from .models import Paquete_Inscrito
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
+from  django.contrib.auth import (login,logout,authenticate)
 from django.views.generic import (
     ListView,
     DetailView,
@@ -11,6 +12,9 @@ from django.views.generic import (
     DeleteView
 )
 from django.http import HttpResponseRedirect
+from .forms import (UserAuthentication, UserUpdateForm)
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home(request):
     return render(request, 'app/home.html')
@@ -20,6 +24,61 @@ def about(request):
 
 def services(request):
     return render(request, 'app/services.html')
+
+def testimony(request):
+    return render(request, 'app/testimony.html')
+
+@login_required
+def profile(request):
+    context = {}
+    if request.POST:
+        form = UserUpdateForm(request.POST,request.FILES,instance=request.user)
+        if form.is_valid():
+            form.save()
+    else:
+        form =UserUpdateForm(
+        initial = {
+          'username' :request.user.username,
+          'email': request.user.email,
+          'nombre': request.user.nombre,
+          'apellido': request.user.apellido,
+          'edad': request.user.edad,
+          'escuela': request.user.escuela,
+          'domicilio': request.user.domicilio,
+          'imagen': request.user.imagen,
+          'nivel_academico': request.user.nivel_academico}
+        )
+    context['profile_form'] = form
+    return render(request,'app/profile.html',context)
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('app:home'))
+
+def login_view(request):
+    context= {}
+    user  = request.user
+    if user.is_authenticated:
+        return HttpResponseRedirect(reverse('app:home'))
+
+
+    if request.POST:
+        form = UserAuthentication(request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username,password=password)
+
+            if user:
+                login(request,user)
+                return HttpResponseRedirect(reverse('app:home'))
+    else:
+        form = UserAuthentication()
+    context['login_form'] = form
+    return render(request,'app/login.html',context)
+
+
 
 """"
 class AlumnosListView(ListView):
@@ -74,5 +133,3 @@ def clases(request,id,paquete_id):
          }
     return render(request,'app/clases.html',context)
 """
-def testimony(request):
-    return render(request, 'app/testimony.html')

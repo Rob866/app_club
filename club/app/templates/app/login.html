@@ -1,0 +1,55 @@
+
+{% extends 'app/base.html' %}
+{% load static %}
+{% load crispy_forms_tags%}
+{% block content %}
+
+
+    <section class="ftco-section contact-section ftco-no-pb" id="contact-section">
+      <div class="container">
+        <div class="row no-gutters block-9 ftco-animate ">
+
+          <div class="col-12 col-md-6 d-flex">
+            <div class="bg-white" style="width:100%; height:600px">
+              <div class="one-third order-md-last img js-fullheight" style="background-image:url({% static 'app/images/bg_2.jpg'%})">
+                <div class="overlay"></div>
+              </div>
+             </div>
+            </div>
+            <div class=" col-12 col-md-6 d-flex">
+              <form method="POST" class="bg-light p-5 contact-form">
+                {% csrf_token %}
+                {% for field in login_form %}
+                  <p>
+                    {{ field.label_tag }}
+                    {{ field }}
+
+                    {% if field.help_text %}
+                    <small style="color:gray:">{{ field.help_text}}</small>
+                    {% endif%}
+
+                    {% for error in field.error%}
+                      <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                  </p>
+                  {% if login_form.non_fields_errors%}
+                     <div style="color: red">
+                       <p>{{ login_form.non_fields_errors}}</p>
+                     </div>
+                  {% endif%}
+                {% endfor %}
+                <div class="form-group">
+                  <input type="submit" value="Guardar Cambios" class="btn btn-primary py-3 px-5">
+
+                </div>
+              </form>
+
+            </div>
+
+
+      </div>
+    </section>
+
+
+
+{% endblock content     %}

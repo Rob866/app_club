@@ -4,7 +4,6 @@ import datetime
 from django.conf import settings
 #from django.contrib.auth.models import  User
 
- # name of the foreign key field
 
 class Sesion(models.Model):
     paquete_inscrito = models.ForeignKey('Paquete_Inscrito',related_name="sesiones",on_delete=models.CASCADE,null=True)
@@ -38,22 +37,6 @@ class Tipo_de_Paquete(models.Model):
         return f'{self.horas} Horas'
 
 
-""""
-class Alumno(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id del Alumno")
-    nombre =  models.CharField(max_length=100)
-    apellido = models.CharField(max_length=100)
-    NIVEL_STATUS = (
-         ('k','Kinder'),
-         ('p','Primaria'),
-         ('s','Secundaria'),
-         ('b','bachillerato'),
-         ('u','universidad'))
-    nivel_academico = models.CharField(max_length=1,choices=NIVEL_STATUS,blank=True,help_text='Elige el nivel académico del alumno')
-
-    def __str__(self):
-        return f'{self.nombre} { self.apellido}'
-"""
 class Paquete_Inscrito(models.Model):
      id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id del Paquete")
      #related_name='_clases_concluidas'
