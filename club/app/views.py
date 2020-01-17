@@ -42,6 +42,7 @@ def profile(request):
           'email': request.user.email,
           'nombre': request.user.nombre,
           'apellido': request.user.apellido,
+          'fecha_nacimiento': request.user.fecha_nacimiento,
           'edad': request.user.edad,
           'escuela': request.user.escuela,
           'domicilio': request.user.domicilio,

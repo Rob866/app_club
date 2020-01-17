@@ -37,6 +37,7 @@ class Tipo_de_Paquete(models.Model):
         return f'{self.horas} Horas'
 
 
+
 class Paquete_Inscrito(models.Model):
      id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id del Paquete")
      #related_name='_clases_concluidas'

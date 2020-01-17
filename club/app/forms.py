@@ -1,8 +1,15 @@
 from django import forms
 from django.contrib.auth import (get_user_model, authenticate)
+YEARS= [x for x in range(1940,2021)]
+NIVEL_STATUS = (
+         ('k','Kinder'),
+         ('p','Primaria'),
+         ('s','Secundaria'),
+         ('b','bachillerato'),
+         ('u','universidad'))
 
 class SearchForm(forms.Form):
-    
+
     busqueda =  forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Busqueda'}))
 
 class UserAuthentication(forms.ModelForm):
@@ -24,17 +31,19 @@ class UserAuthentication(forms.ModelForm):
 class UserUpdateForm(forms.ModelForm):
 
     username= forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Username'}))
-    email= forms.CharField(label="Email")
+    email= forms.EmailField(label="Email",widget=forms.EmailInput(attrs={'class': 'form-control'}))
     nombre = forms.CharField(label="Nombre",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
     apellido = forms.CharField(label="Apellido",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Apellido'}))
+    fecha_nacimiento = forms.DateField(label="Fecha de nacimiento",widget=forms.SelectDateWidget(years=YEARS),initial="1990-06-21")
     edad = forms.IntegerField(label="Edad",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Edad'}))
+    nivel_academico = forms.ChoiceField(choices=NIVEL_STATUS,widget=forms.Select(attrs={'class':'custom-select'}))
     escuela = forms.CharField(label="Escuela",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Escuela'}))
     domicilio= forms.CharField(label="Domicilio",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Domicilio'}))
     imagen = forms.ImageField()
 
     class Meta:
         model = get_user_model()
-        fields = ('username','email','nombre','apellido','edad','escuela','domicilio','imagen','nivel_academico')
+        fields = ('username','email','nombre','apellido','fecha_nacimiento','edad','escuela','domicilio','imagen','nivel_academico')
 
     def clean_username(self):
         if self.is_valid():

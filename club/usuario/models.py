@@ -39,7 +39,7 @@ class Usuario(AbstractBaseUser):
     nombre       =  models.CharField(max_length=100)
     apellido     =  models.CharField(max_length=100)
     edad         =  models.IntegerField(blank=True, null=True)
-    fecha_nacimiento = models.DateTimeField(verbose_name="Fecha de nacimiento",blank=True, null=True)
+    fecha_nacimiento = models.DateField(verbose_name="Fecha de nacimiento",blank=True, null=True)
     escuela      =  models.CharField(verbose_name="Nombre de la escuela",max_length=60,blank=True, null=True)
     domicilio    =  models.CharField(verbose_name="Domicilio",max_length=150,blank=True, null=True)
 
@@ -50,7 +50,7 @@ class Usuario(AbstractBaseUser):
          ('b','bachillerato'),
          ('u','universidad'))
 
-    nivel_academico = models.CharField(max_length=1,choices=NIVEL_STATUS,blank=True,help_text='Elige el nivel académico del alumno')
+    nivel_academico = models.CharField(max_length=1,choices=NIVEL_STATUS,blank=True,verbose_name='Nivel académico del alumno')
 
     date_joined  =  models.DateTimeField(verbose_name="Fecha de ingreso",auto_now_add=True)
     last_login   =  models.DateTimeField(verbose_name="Ultima fecha de Sesión",auto_now=True)

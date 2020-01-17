@@ -27,17 +27,21 @@
                     {% if field.help_text %}
                     <small style="color:gray:">{{ field.help_text}}</small>
                     {% endif%}
-
-                    {% for error in field.error%}
-                      <p style="color: red">{{ error }}</p>
-                    {% endfor %}
                   </p>
-                  {% if login_form.non_fields_errors%}
-                     <div style="color: red">
-                       <p>{{ login_form.non_fields_errors}}</p>
-                     </div>
-                  {% endif%}
                 {% endfor %}
+                {% for field in login_form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                          <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                {% for error in login_form.non_field_errors%}
+                <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor%}
                 <div class="form-group">
                   <input type="submit" value="Guardar Cambios" class="btn btn-primary py-3 px-5">
 
