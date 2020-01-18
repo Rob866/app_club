@@ -52,8 +52,8 @@
                                   {% csrf_token %}
                                   {% for field in profile_form %}
                                   <div class="form-group">
-                                    {{ field.label_tag }}
-                                    {{ field}}
+                                      {{ field.label_tag }}
+                                      {{ field }}
                                   </div>
                                     {% if field.help_text %}
                                     <small style="color:gray:">{{ field.help_text}}</small>

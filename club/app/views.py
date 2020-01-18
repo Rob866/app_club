@@ -46,6 +46,7 @@ def profile(request):
           'edad': request.user.edad,
           'escuela': request.user.escuela,
           'domicilio': request.user.domicilio,
+          'numero': request.user.numero,
           'imagen': request.user.imagen,
           'nivel_academico': request.user.nivel_academico}
         )

@@ -34,16 +34,17 @@ class UserUpdateForm(forms.ModelForm):
     email= forms.EmailField(label="Email",widget=forms.EmailInput(attrs={'class': 'form-control'}))
     nombre = forms.CharField(label="Nombre",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
     apellido = forms.CharField(label="Apellido",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Apellido'}))
-    fecha_nacimiento = forms.DateField(label="Fecha de nacimiento",widget=forms.SelectDateWidget(years=YEARS),initial="1990-06-21")
+    fecha_nacimiento = forms.DateField(label="Fecha de nacimiento",widget=forms.SelectDateWidget(attrs={ 'class':'custom-select'},years=YEARS),initial="1990-06-21")
     edad = forms.IntegerField(label="Edad",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Edad'}))
     nivel_academico = forms.ChoiceField(choices=NIVEL_STATUS,widget=forms.Select(attrs={'class':'custom-select'}))
     escuela = forms.CharField(label="Escuela",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Escuela'}))
+    numero = forms.IntegerField(label="Número de Contacto",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Tel'}))
     domicilio= forms.CharField(label="Domicilio",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Domicilio'}))
     imagen = forms.ImageField()
 
     class Meta:
         model = get_user_model()
-        fields = ('username','email','nombre','apellido','fecha_nacimiento','edad','escuela','domicilio','imagen','nivel_academico')
+        fields = ('username','email','nombre','apellido','fecha_nacimiento','edad','escuela','domicilio','numero','imagen','nivel_academico')
 
     def clean_username(self):
         if self.is_valid():

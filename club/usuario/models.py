@@ -39,6 +39,7 @@ class Usuario(AbstractBaseUser):
     nombre       =  models.CharField(max_length=100)
     apellido     =  models.CharField(max_length=100)
     edad         =  models.IntegerField(blank=True, null=True)
+    numero       =  models.IntegerField(verbose_name="Número de contacto",blank=True,null=True)
     fecha_nacimiento = models.DateField(verbose_name="Fecha de nacimiento",blank=True, null=True)
     escuela      =  models.CharField(verbose_name="Nombre de la escuela",max_length=60,blank=True, null=True)
     domicilio    =  models.CharField(verbose_name="Domicilio",max_length=150,blank=True, null=True)
