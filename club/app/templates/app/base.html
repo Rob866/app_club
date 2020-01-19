@@ -40,13 +40,21 @@
 	          <li class="nav-item"><a href="{% url 'app:testimony' %}"  class="nav-link"><span>Testimonios</span></a></li>
 	          <li class="nav-item"><a href="{% url 'app:services' %}" class="nav-link"><span>Servicios</span></a></li>
             <li class="nav-item"><a href="{% url 'blog:blog' %}" class="nav-link"><span>Blog</span></a></li>
-            <li class="nav-item"><a href="{% url 'blog:contact' %}"  class="nav-link"><span>Contacto</span></a></li>
+
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if request.user.is_authenticated %}
-             <li class="nav-item"><a href="{% url 'app:profile' %}"  class="nav-link"><span>Profile</span></a></li>
-            <li class="nav-item"><a  href="{% url 'app:logout' %}"  class="nav-link"><span>Logout</span></a></li>
+            <div class="dropdown show" style="padding-top:5px;padding-right:5px">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Settings
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'app:profile' %}"><span>Perfil</span></a>
+                      <a class="dropdown-item" href="{% url 'app:paquetes' %}"><span>Paquetes</span></a>
+                      <a class="dropdown-item" href="{% url 'app:logout' %}"><span>Logout</span></a>
+                    </div>
+              </div>
               <li>
                 <div class="inset">
                   <img src="{{ request.user.imagen.url }}">
@@ -145,9 +153,9 @@
   <script src="{% static 'app/js/scrollax.min.js' %}"></script>
   <!-- <script src="{% static 'app/js/google-map.js' %}"></script> -->
   <script src="{% static 'app/js/main.js' %}"></script>
+
   <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>-->
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v5.0"></script>
-
 
   </body>
 </html>

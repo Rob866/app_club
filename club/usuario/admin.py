@@ -34,7 +34,7 @@ class UsuarioAdmin(UserAdmin):
     form = CustomUserChangeForm
 
     list_display = ('nombre','apellido','email','date_joined','is_admin','is_staff',)
-    search_fields=('username', 'email',)
+    search_fields=('nombre', 'username',)
     #ready_fields =('date_joined','last_login','imagen_image')
     inlines = [PaquetesInscritosInline]
 

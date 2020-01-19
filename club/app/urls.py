@@ -10,6 +10,6 @@ urlpatterns = [
     path('logout/',views.logout_view,name="logout"),
     path('login/',views.login_view,name="login"),
     #path('alumnos/', views.AlumnosListView.as_view(), name='alumnos'),
-    #path('alumnos/paquetes/<uuid:id>/',views.paquetes,name='paquetes'),
-    #path('alumnos/paquetes/<uuid:id>/<uuid:paquete_id>/',views.clases,name='clases'),
+    path('paquetes/',views.paquetes,name='paquetes'),
+    path('paquetes/<uuid:paquete_id>/',views.clases,name='clases'),
 ]

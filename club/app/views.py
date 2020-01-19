@@ -3,7 +3,7 @@ from .models import Paquete_Inscrito
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
-from  django.contrib.auth import (login,logout,authenticate)
+from  django.contrib.auth import (login,logout,authenticate,get_user_model)
 from django.views.generic import (
     ListView,
     DetailView,
@@ -15,6 +15,8 @@ from django.http import HttpResponseRedirect
 from .forms import (UserAuthentication, UserUpdateForm)
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+
+
 # Create your views here.
 def home(request):
     return render(request, 'app/home.html')
@@ -107,31 +109,32 @@ class AlumnosListView(ListView):
               'alumnos': None
             }
         return  render(request,self.template_name,context)
-
-def paquetes(request,id):
-    return_query = str(id)[0:5]
-    student = Alumno.objects.all().get(id=id)
-    paquetes = []
-    for paquete in student.paquete_inscrito_set.all():
-        paquetes.append(paquete)
+"""
+@login_required
+def paquetes(request):
+    #student = get_user_model().objects.all().get(pk=pk)
+    #student = request.user
+    #paquetes = []
+    #for paquete in request.user.paquetes_inscritos.all():
+    #    paquetes.append(paquete)
     context = {
-    'student' : student,
-    'paquetes': paquetes,
-    'return_query' : return_query
+    'student' : request.user,
+    'paquetes': request.user.paquetes_inscritos.all()
     }
     return render(request,'app/paquetes.html',context)
 
-def clases(request,id,paquete_id):
-    student = Alumno.objects.all().get(id=id)
-    paquete  = Paquete_Inscrito.objects.all().get(id=paquete_id)
-    clases = []
-    for clase in paquete.sesiones.all() :
-        clases.append(clase)
+@login_required
+def clases(request,paquete_id):
+    #student = get_user_model().objects.all().get(pk=pk)
+    paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
+    #paquete  = Paquete_Inscrito.objects.all().get(id=paquete_id)
+    #clases = []
+    #for clase in paquete.sesiones.all() :
+    #    clases.append(clase)
 
     context = {
-        'student':student,
-        'clases': clases,
+        'student':request.user,
+        'clases': paquete.sesiones.all(),
         'paquete':paquete
          }
     return render(request,'app/clases.html',context)
-"""

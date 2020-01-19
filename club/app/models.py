@@ -41,7 +41,7 @@ class Tipo_de_Paquete(models.Model):
 class Paquete_Inscrito(models.Model):
      id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id del Paquete")
      #related_name='_clases_concluidas'
-     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
+     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="paquetes_inscritos",on_delete=models.CASCADE,null=True)
      fecha_de_inscripcion = models.DateField(null=True,blank=True)
      horas_consumidas = models.DurationField(default=datetime.timedelta(days=0,hours=0,minutes=0))
      horas_restantes = models.DurationField(default=datetime.timedelta(days=0,hours=0,minutes=0))
