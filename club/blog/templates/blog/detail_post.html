@@ -25,11 +25,12 @@
                         <p class="article-content" style="text-align: justify">{{post.content}}</p>
 
                        {% if post.video %}
-                        {% video post.video as my_video %}
-                              <div style="position:relative; width: 100%; overflow: hidden ;padding-top: 56.25%;">
-                              {% video my_video %}
+                              <div style="position:relative; width: 100%; overflow: hidden ;padding-top: 10%;">
+                                <video  width="100%" controls>
+                                  <source src='{{ post.video.url }}' type='video/mp4'>
+                                      Your browser does not support the video tag.
+                                  </video>
                               </div>
-                          {% endvideo %}
                        {% endif %}
                     </div>
   </article>
