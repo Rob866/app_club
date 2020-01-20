@@ -41,9 +41,9 @@
 	          <li class="nav-item"><a href="{% url 'app:services' %}" class="nav-link"><span>Servicios</span></a></li>
             <li class="nav-item"><a href="{% url 'blog:blog' %}" class="nav-link"><span>Blog</span></a></li>
 
-
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item"><a href="{% url 'blog:contact' %}" class="nav-link"><span>Contacto</span></a></li>
             {% if request.user.is_authenticated %}
             <div class="dropdown show" style="padding-top:5px;padding-right:5px">
                     <a style="border-radius: 10px 10px 10px 10px !important;
@@ -67,6 +67,7 @@
               <li class="nav-item"><a href="{% url 'app:login' %}"  class="nav-link"><span>Login</span></a></li>
             </ul>
           {% endif %}
+
 	      </div>
 	    </div>
 	  </nav>
