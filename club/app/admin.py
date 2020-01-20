@@ -42,7 +42,8 @@ class Paquete_InscritoAdmin(ImportExportModelAdmin):
     search_fields = ('usuario__nombre','usuario__apellido',)
     inlines = [SesionesInline]
     list_per_page=15
-
+    #readonly_fields = ["horas_consumidas","horas_restantes"]
+    exclude = ('tiempo_consumido','tiempo_restante')
     def check_status(self,obj):
         if obj.status == True:
             return True
@@ -53,7 +54,6 @@ class Paquete_InscritoAdmin(ImportExportModelAdmin):
     def _horas_consumidas(self,obj):
         return self.calc_hours(obj)
 
-
     def calc_hours(self,obj):
         time_sesion = timedelta(days=0,hours=0,minutes=0,seconds=0)
         for sesion in obj.sesiones.all():
@@ -61,7 +61,11 @@ class Paquete_InscritoAdmin(ImportExportModelAdmin):
                 return None
             else:
                 time_sesion+= sesion.tiempo_de_sesion
-        obj.horas_consumidas = time_sesion
+        obj.tiempo_consumido = time_sesion
+        m, s = divmod(time_sesion.total_seconds(), 60)
+        h, m = divmod(m, 60)
+        obj.horas_consumidas = '{:d}:{:02d}:{:02d} Hrs'.format(int(h),int(m),int(s))
+
         obj.save()
         limite = obj.tipo_de_paquete.horas
         if time_sesion >= timedelta(days=0,hours=limite,minutes=0,seconds=0):
@@ -70,27 +74,31 @@ class Paquete_InscritoAdmin(ImportExportModelAdmin):
         else:
             obj.status = True
             obj.save()
-            #horas, remainder = divmod(time_sesion.total_seconds(), 3600)
-            #minutos, segundos = divmod(remainder, 60)
-        return f'{time_sesion} Horas'
+        return '{:d}:{:02d}:{:02d} Hrs'.format(int(h),int(m),int(s))
 
     def _horas_restantes(self,obj):
-        return self.calc_horas_restantes(obj)
+        return self.calc_tiempo_restante(obj)
 
-    def calc_horas_restantes(self,obj):
+    def calc_tiempo_restante(self,obj):
         time_0 = timedelta(days=0,hours=0,minutes=0,seconds=0)
         get_hours = obj.tipo_de_paquete.horas
         limite = timedelta(days=0,hours=get_hours,minutes=0,seconds=0)
-        horas_consumidas = obj.horas_consumidas
-        tiempo_restante = limite - horas_consumidas
+        tiempo_consumido = obj.tiempo_consumido
+        tiempo_restante = limite - tiempo_consumido
 
         if tiempo_restante >= time_0:
-            obj.horas_restantes = tiempo_restante
+            obj.tiempo_restante= tiempo_restante
+            m, s = divmod(tiempo_restante.total_seconds(), 60)
+            h, m = divmod(m, 60)
+            obj.horas_restantes = '{:d}:{:02d}:{:02d} Hrs'.format(int(h),int(m),int(s))
+
         else:
-            obj.horas_restantes= time_0
-            tiempo_restante= timedelta(days=0,hours=0,minutes=0,seconds=0)
+            obj.tiempo_restante= time_0
+            m, s = divmod(time_0.total_seconds(), 60)
+            h, m = divmod(m, 60)
+            obj.horas_restantes = '{:d}:{:02d}:{:02d}'.format(int(h),int(m),int(s))
         obj.save()
-        return f'{tiempo_restante} Horas'
+        return '{:d}:{:02d}:{:02d} Hrs'.format(int(h),int(m),int(s))
 
     def alumno_name(self,instance):
         return instance.usuario

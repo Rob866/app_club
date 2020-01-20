@@ -43,8 +43,11 @@ class Paquete_Inscrito(models.Model):
      #related_name='_clases_concluidas'
      usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="paquetes_inscritos",on_delete=models.CASCADE,null=True)
      fecha_de_inscripcion = models.DateField(null=True,blank=True)
-     horas_consumidas = models.DurationField(default=datetime.timedelta(days=0,hours=0,minutes=0))
-     horas_restantes = models.DurationField(default=datetime.timedelta(days=0,hours=0,minutes=0))
+     horas_consumidas =models.CharField(max_length=100,default="00:00:00 Hrs")
+     horas_restantes= models.CharField(max_length=100,default="00:00:00 Hrs")
+     tiempo_consumido = models.DurationField(default=datetime.timedelta(days=0,hours=0,minutes=0))
+     tiempo_restante= models.DurationField(default=datetime.timedelta(days=0,hours=0,minutes=0))
+
      ESTADO_STATUS =(
      (True,'Activo'),
      (False,'Finalizado')

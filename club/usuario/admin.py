@@ -12,6 +12,7 @@ class PaquetesInscritosInline(admin.TabularInline):
     model = Paquete_Inscrito
     extra=0
 
+
 class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
@@ -36,7 +37,7 @@ class UsuarioAdmin(UserAdmin):
     list_display = ('nombre','apellido','email','date_joined','is_admin','is_staff',)
     search_fields=('nombre', 'username',)
     #ready_fields =('date_joined','last_login','imagen_image')
-    inlines = [PaquetesInscritosInline]
+    #inlines = [PaquetesInscritosInline]
 
     filter_horizontal = ()
     list_filter = ('is_staff',)

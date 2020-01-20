@@ -46,7 +46,10 @@
           <ul class="nav navbar-nav navbar-right">
             {% if request.user.is_authenticated %}
             <div class="dropdown show" style="padding-top:5px;padding-right:5px">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a style="border-radius: 10px 10px 10px 10px !important;
+                             -moz-border-radius: 10px 10px 10px 10px;
+                             -webkit-border-radius: 10px 10px 10px 10px;"
+                      class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Settings
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

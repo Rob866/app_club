@@ -30,21 +30,33 @@ class UserAuthentication(forms.ModelForm):
 
 class UserUpdateForm(forms.ModelForm):
 
-    username= forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Username'}))
-    email= forms.EmailField(label="Email",widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    nombre = forms.CharField(label="Nombre",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
-    apellido = forms.CharField(label="Apellido",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Apellido'}))
+    username         =  forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Username'}))
+    email            = forms.EmailField(label="Email",widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    nombre           = forms.CharField(label="Nombre",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
+    apellido         = forms.CharField(label="Apellido",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Apellido'}))
     fecha_nacimiento = forms.DateField(label="Fecha de nacimiento",widget=forms.SelectDateWidget(attrs={ 'class':'custom-select'},years=YEARS),initial="1990-06-21")
-    edad = forms.IntegerField(label="Edad",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Edad'}))
-    nivel_academico = forms.ChoiceField(choices=NIVEL_STATUS,widget=forms.Select(attrs={'class':'custom-select'}))
-    escuela = forms.CharField(label="Escuela",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Escuela'}))
-    numero = forms.IntegerField(label="Número de Contacto",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Tel'}))
-    domicilio= forms.CharField(label="Domicilio",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Domicilio'}))
-    imagen = forms.ImageField()
+    edad             = forms.IntegerField(label="Edad",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Edad'}))
+    nivel_academico  = forms.ChoiceField(choices=NIVEL_STATUS,widget=forms.Select(attrs={'class':'custom-select'}))
+    escuela          = forms.CharField(label="Escuela",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Escuela'}))
+    domicilio        = forms.CharField(label="Domicilio",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Domicilio'}))
+    imagen           = forms.ImageField()
+    asistencia       = forms.CharField(label="Días de asistencia",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'dias de asistencia'}))
+    enfoque          = forms.CharField(label="Area en la que guste que se enfocará la atención",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Enfoque'}))
+    padecimientos    = forms.CharField(label="Alérgias o Padecimientos",widget=forms.Textarea(attrs={ 'class':'form-control','placeholder':'Alérgias o Padecimientos'}))
+    nombre_madre     = forms.CharField(label="Nombre de la Madre",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
+    edad_madre       = forms.IntegerField(label="Edad",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Edad'}))
+    ocupacion_madre  = forms.CharField(label="Ocupación",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Ocupación'}))
+    numero_madre     = forms.IntegerField(label="Número de Contacto",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Tel'}))
+    nombre_padre     = forms.CharField(label="Nombre del Padre",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
+    edad_padre       = forms.IntegerField(label="Edad",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Edad'}))
+    ocupacion_padre  = forms.CharField(label="Ocupación",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Ocupación'}))
+    numero_padre     = forms.IntegerField(label="Número de Contacto",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Tel'}))
 
     class Meta:
         model = get_user_model()
-        fields = ('username','email','nombre','apellido','fecha_nacimiento','edad','escuela','domicilio','numero','imagen','nivel_academico')
+        fields = ('username','email','nombre','apellido','fecha_nacimiento','edad','escuela','domicilio','imagen','nivel_academico','asistencia',
+                  'enfoque','padecimientos','nombre_madre','edad_madre','ocupacion_madre','numero_madre','nombre_padre','edad_padre','ocupacion_padre',
+                  'numero_padre')
 
     def clean_username(self):
         if self.is_valid():

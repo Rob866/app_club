@@ -48,9 +48,20 @@ def profile(request):
           'edad': request.user.edad,
           'escuela': request.user.escuela,
           'domicilio': request.user.domicilio,
-          'numero': request.user.numero,
           'imagen': request.user.imagen,
-          'nivel_academico': request.user.nivel_academico}
+          'nivel_academico': request.user.nivel_academico,
+          'padecimientos': request.user.padecimientos,
+          'asistencia': request.user.asistencia,
+          'enfoque': request.user.enfoque,
+          'nombre_madre': request.user.nombre_madre,
+          'edad_madre': request.user.edad_madre,
+          'ocupacion_madre': request.user.ocupacion_madre,
+          'numero_madre': request.user.numero_madre,
+          'nombre_padre': request.user.nombre_padre,
+          'edad_padre': request.user.edad_padre,
+          'ocupacion_padre': request.user.ocupacion_padre,
+          'numero_padre': request.user.numero_padre
+          }
         )
     context['profile_form'] = form
     return render(request,'app/profile.html',context)

@@ -17,17 +17,15 @@
 
 
 					{% for paquete in paquetes %}
-					<!-- Large modal -->
            <ul class="list-group ftco-animate">
-           <li class="list-group-item"><button type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg">Observaciones</button></li>
 					 {% if paquete.status %}
 					 <li class="list-group-item" style="background-color: #3cb371;color:white"> Tipo de paquete: {{ paquete.tipo_de_paquete }}</li>
 					 {%else%}
 					 <li class="list-group-item" style="background-color: #de2d29;color: white"> Tipo de paquete: {{ paquete.tipo_de_paquete }}</li>
 					 {% endif%}
            <li class="list-group-item"> Fecha de Inscripcion: {{ paquete.fecha_de_inscripcion }}</li>
-					 <li class="list-group-item"> Horas consumidas: {{ paquete.horas_consumidas }} Hrs</li>
-					 <li class="list-group-item"> Horas restantes: {{ paquete.horas_restantes }} Hrs</li>
+					 <li class="list-group-item"> Horas consumidas: {{ paquete.horas_consumidas	}} </li>
+					 <li class="list-group-item"> Tiempo restante: {{ paquete.horas_restantes }} </li>
 
 					 {% if paquete.status%}
 					 <li class="list-group-item">Status: Activo</li>
@@ -54,30 +52,8 @@
 					</a>
 				</div>
 				{% endcomment %}
-
-
 		</div>
-
 </section>
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-        <h5 class="modal-title">Observaciones de las clases</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-
-		</div>
-	</div>
 </div>
 
 {% endblock content     %}
