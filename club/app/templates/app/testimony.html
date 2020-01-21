@@ -6,82 +6,31 @@
   <div class="container">
     <div class="row justify-content-center pb-3">
       <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-        <h2 class="mb-4">Happy Clients</h2>
+        <h2 class="mb-4">Clientes Felices</h2>
       </div>
     </div>
     <div class="row ftco-animate justify-content-center">
       <div class="col-md-12">
         <div class="carousel-testimony owl-carousel ftco-owl">
-          <div class="item">
-            <div class="testimony-wrap text-center py-4 pb-5">
-              <div class="user-img" style="background-image: url({% static 'app/images/person_1.jpg'%})">
-                <span class="quote d-flex align-items-center justify-content-center">
-                  <i class="icon-quote-left"></i>
-                </span>
+          {% if testimonios %}
+            {% for testimonio in testimonios %}
+              <div class="item">
+                <div class="testimony-wrap text-center py-4 pb-5">
+                  <div class="user-img">
+                   <img  style="border-radius: 50%" src="{{ testimonio.imagen.url }}" alt="">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text px-4 pb-5">
+                    <p class="mb-4">{{ testimonio.mensaje }}</p>
+                    <p class="name">{{ testimonio.nombre }}</p>
+                    <span class="position">{{ testimonio.profesion }}</span>
+                  </div>
+                </div>
               </div>
-              <div class="text px-4 pb-5">
-                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="name">John Fox</p>
-                <span class="position">Businessman</span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimony-wrap text-center py-4 pb-5">
-              <div class="user-img" style="background-image: url({% static 'app/images/person_2.jpg'%})">
-                <span class="quote d-flex align-items-center justify-content-center">
-                  <i class="icon-quote-left"></i>
-                </span>
-              </div>
-              <div class="text px-4 pb-5">
-                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="name">John Fox</p>
-                <span class="position">Businessman</span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimony-wrap text-center py-4 pb-5">
-              <div class="user-img" style="background-image: url({% static 'app/images/person_3.jpg'%})">
-                <span class="quote d-flex align-items-center justify-content-center">
-                  <i class="icon-quote-left"></i>
-                </span>
-              </div>
-              <div class="text px-4 pb-5">
-                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="name">John Fox</p>
-                <span class="position">Businessman</span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimony-wrap text-center py-4 pb-5">
-              <div class="user-img" style="background-image: url({% static 'app/images/person_4.jpg'%})">
-                <span class="quote d-flex align-items-center justify-content-center">
-                  <i class="icon-quote-left"></i>
-                </span>
-              </div>
-              <div class="text px-4 pb-5">
-                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="name">John Fox</p>
-                <span class="position">Businessman</span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimony-wrap text-center py-4 pb-5">
-              <div class="user-img" style="background-image: url({% static 'app/images/person_3.jpg' %})">
-                <span class="quote d-flex align-items-center justify-content-center">
-                  <i class="icon-quote-left"></i>
-                </span>
-              </div>
-              <div class="text px-4 pb-5">
-                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="name">John Fox</p>
-                <span class="position">Businessman</span>
-              </div>
-            </div>
-          </div>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Paquete_Inscrito
+from .models import Paquete_Inscrito,Testimonio
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
@@ -28,7 +28,11 @@ def services(request):
     return render(request, 'app/services.html')
 
 def testimony(request):
-    return render(request, 'app/testimony.html')
+    testimonios = Testimonio.objects.all()
+    context = {
+    "testimonios" : testimonios
+    }
+    return render(request, 'app/testimony.html',context)
 
 @login_required
 def profile(request):

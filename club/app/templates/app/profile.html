@@ -71,12 +71,10 @@
                                     {% if field.help_text %}
                                     <small style="color:gray:">{{ field.help_text}}</small>
                                     {% endif%}
-                                  {% endfor %}
-                                  {% for field in profile_form %}
                                     {% for error in field.errors %}
-                                    <div class="alert alert-danger">
-                                      <strong>{{ error|escape }}</strong>
-                                    </div>
+                                       <div class="alert alert-danger">
+                                       <strong>{{ error|escape }}</strong>
+                                        </div>
                                     {% endfor %}
                                   {% endfor %}
                                   {% for error in profile_form.non_field_errors%}
