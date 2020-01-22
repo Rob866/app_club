@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Post,Comentario,Mensaje,Testimonio,Rotulo
+from .models import Post,Comentario,Mensaje,Testimonio,Rotulo,Profesor
 from .forms import CommentForm,MensajeForm
 import uuid
 from django.http import HttpResponseRedirect
@@ -77,3 +77,10 @@ def home(request):
     "rotulos" : rotulos
     }
     return render(request,'blog/home.html',context)
+
+def about(request):
+    profesores = Profesor.objects.all()
+    context = {
+    "profesores":profesores
+    }
+    return render(request, 'blog/about.html',context)

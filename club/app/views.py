@@ -16,11 +16,6 @@ from .forms import (UserAuthentication, UserUpdateForm)
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-
-# Create your views here.
-def about(request):
-    return render(request, 'app/about.html')
-
 def services(request):
     return render(request, 'app/services.html')
 
