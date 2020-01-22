@@ -16,8 +16,7 @@
             {% for testimonio in testimonios %}
               <div class="item">
                 <div class="testimony-wrap text-center py-4 pb-5">
-                  <div class="user-img">
-                   <img  style="border-radius: 50%" src="{{ testimonio.imagen.url }}" alt="">
+                  <div class="user-img" style="background-image: url({{ testimonio.imagen.url }})">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>

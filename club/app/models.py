@@ -4,22 +4,6 @@ import datetime
 from django.conf import settings
 #from django.contrib.auth.models import  User
 
-class Rotulo(models.Model):
-    subcabecera = models.CharField(max_length=100,default="Bienvenido al Club de Tareas")
-    cabecera = models.CharField(max_length=100)
-    contenido=models.TextField()
-    imagen =  models.ImageField(upload_to='rotulos_pics')
-
-    def __str__(self):
-        return f'{self.cabecera}'
-
-class Testimonio(models.Model):
-    imagen =  models.ImageField(default="default.jpg",upload_to='testimonios_pics')
-    nombre = models.CharField(max_length=100)
-    mensaje = models.TextField()
-    profesion = models.CharField(max_length=100)
-
-
 class Sesion(models.Model):
     paquete_inscrito = models.ForeignKey('Paquete_Inscrito',related_name="sesiones",on_delete=models.CASCADE,null=True)
     asignatura = models.CharField(max_length=100)

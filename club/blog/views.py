@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Post,Comentario,Mensaje
+from .models import Post,Comentario,Mensaje,Testimonio,Rotulo
 from .forms import CommentForm,MensajeForm
 import uuid
 from django.http import HttpResponseRedirect
@@ -63,3 +63,17 @@ def postDetail(request,id):
     'comment_form':comment_form
     }
     return render(request,'blog/detail_post.html',context)
+
+def testimony(request):
+    testimonios = Testimonio.objects.all()
+    context = {
+    "testimonios" : testimonios
+    }
+    return render(request,'blog/testimony.html',context)
+
+def home(request):
+    rotulos = Rotulo.objects.all()
+    context = {
+    "rotulos" : rotulos
+    }
+    return render(request,'blog/home.html',context)

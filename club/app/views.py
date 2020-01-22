@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Paquete_Inscrito,Testimonio
+from .models import Paquete_Inscrito
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
@@ -18,21 +18,11 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-def home(request):
-    return render(request, 'app/home.html')
-
 def about(request):
     return render(request, 'app/about.html')
 
 def services(request):
     return render(request, 'app/services.html')
-
-def testimony(request):
-    testimonios = Testimonio.objects.all()
-    context = {
-    "testimonios" : testimonios
-    }
-    return render(request, 'app/testimony.html',context)
 
 @login_required
 def profile(request):
@@ -73,14 +63,13 @@ def profile(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('app:home'))
+    return HttpResponseRedirect(reverse('blog:home'))
 
 def login_view(request):
     context= {}
     user  = request.user
     if user.is_authenticated:
-        return HttpResponseRedirect(reverse('app:home'))
-
+        return HttpResponseRedirect(reverse('blog:home'))
 
     if request.POST:
         form = UserAuthentication(request.POST)
@@ -91,7 +80,7 @@ def login_view(request):
 
             if user:
                 login(request,user)
-                return HttpResponseRedirect(reverse('app:home'))
+                return HttpResponseRedirect(reverse('blog:home'))
     else:
         form = UserAuthentication()
     context['login_form'] = form

@@ -58,3 +58,22 @@ class Mensaje(models.Model):
         ordering = ['created_on']
     def __str__(self):
         return self.nombre
+
+
+class Testimonio(models.Model):
+    imagen =  models.ImageField(default="default.jpg",upload_to='testimonios_pics')
+    nombre = models.CharField(max_length=100)
+    mensaje = models.TextField()
+    profesion = models.CharField(max_length=100)
+
+    def __str_(self):
+        return self.nombre
+
+class Rotulo(models.Model):
+    subcabecera = models.CharField(max_length=100,default="Bienvenido al Club de Tareas")
+    cabecera = models.CharField(max_length=100)
+    contenido = models.TextField()
+    imagen =  models.ImageField(upload_to='rotulos_pics')
+
+    def __str__(self):
+        return self.cabecera

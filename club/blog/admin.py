@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post,Comentario,Mensaje
+from .models import Post,Comentario,Mensaje,Testimonio,Rotulo
 # Register your models here.
 class PostAdmin(admin.ModelAdmin):
     list_display = ('titulo','status','create_on')
@@ -15,9 +15,17 @@ class ComentarioAdmin(admin.ModelAdmin):
         queryset.update(active=False)
 
 class MensajeAdmin(admin.ModelAdmin):
-    list_display =('asunto','nombre')
-    search_fields =('nombre',)
+    list_display = ('asunto','nombre')
+    search_fields = ('nombre',)
+    
+class TestimonioAdmin(admin.ModelAdmin):
+    list_display=('nombre',)
+
+class RotuloAdmin(admin.ModelAdmin):
+    list_display = ('cabecera',)
 
 admin.site.register(Post,PostAdmin)
 admin.site.register(Comentario,ComentarioAdmin)
 admin.site.register(Mensaje,MensajeAdmin)
+admin.site.register(Testimonio,TestimonioAdmin)
+admin.site.register(Rotulo,RotuloAdmin)
