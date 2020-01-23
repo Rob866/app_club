@@ -26,6 +26,8 @@ def profile(request):
         form = UserUpdateForm(request.POST,request.FILES,instance=request.user)
         if form.is_valid():
             form.save()
+            print(f"datos actualizados: {form.changed_data};usuario:{request.user.nombre}")
+            #print(f"datos actualizados:{ form.changed_data };user:{request.user.nombre}")
     else:
         form =UserUpdateForm(
         initial = {
@@ -42,14 +44,14 @@ def profile(request):
           'padecimientos': request.user.padecimientos,
           'asistencia': request.user.asistencia,
           'enfoque': request.user.enfoque,
-          'nombre_madre': request.user.nombre_madre,
-          'edad_madre': request.user.edad_madre,
-          'ocupacion_madre': request.user.ocupacion_madre,
-          'numero_madre': request.user.numero_madre,
-          'nombre_padre': request.user.nombre_padre,
-          'edad_padre': request.user.edad_padre,
-          'ocupacion_padre': request.user.ocupacion_padre,
-          'numero_padre': request.user.numero_padre
+          'nombre_de_la_madre': request.user.nombre_de_la_madre,
+          'edad_de_la_madre': request.user.edad_de_la_madre,
+          'ocupacion_de_la_madre': request.user.ocupacion_de_la_madre,
+          'numero_de_la_madre': request.user.numero_de_la_madre,
+          'nombre_del_padre': request.user.nombre_del_padre,
+          'edad_del_padre': request.user.edad_del_padre,
+          'ocupacion_del_padre': request.user.ocupacion_del_padre,
+          'numero_del_padre': request.user.numero_del_padre
           }
         )
     context['profile_form'] = form
