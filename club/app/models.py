@@ -36,6 +36,14 @@ class Tipo_de_Paquete(models.Model):
         return f'{self.horas} Horas'
 
 
+class EventUser(models.Model):
+      mensaje = models.CharField(max_length=200)
+      usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="historial",on_delete=models.CASCADE,null=True)
+      fecha = models.DateTimeField(auto_now_add=True,null=True)
+
+      class Meta:
+          #verbose_name = "Actividad de Usuarios"
+          verbose_name_plural= "Actividad de los Usuarios"
 
 class Paquete_Inscrito(models.Model):
      id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id del Paquete")

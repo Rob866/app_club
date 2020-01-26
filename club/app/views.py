@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Paquete_Inscrito
+from .models import Paquete_Inscrito,EventUser
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
@@ -26,8 +26,9 @@ def profile(request):
         form = UserUpdateForm(request.POST,request.FILES,instance=request.user)
         if form.is_valid():
             form.save()
-            print(f"datos actualizados: {form.changed_data};usuario:{request.user.nombre}")
-            #print(f"datos actualizados:{ form.changed_data };user:{request.user.nombre}")
+            if form.changed_data:
+                evento = EventUser(mensaje=f"datos actualizados del Perfil: {form.changed_data}",usuario=request.user)
+                evento.save()
     else:
         form =UserUpdateForm(
         initial = {
@@ -54,6 +55,7 @@ def profile(request):
           'numero_del_padre': request.user.numero_del_padre
           }
         )
+
     context['profile_form'] = form
     return render(request,'app/profile.html',context)
 
@@ -139,3 +141,11 @@ def clases(request,paquete_id):
         'paquete':paquete
          }
     return render(request,'app/clases.html',context)
+
+@login_required
+def historial(request):
+    notificaciones = request.user.historial.all().order_by('-fecha')
+    context = {
+    'notificaciones': notificaciones
+    }
+    return render(request,'app/historial.html',context)

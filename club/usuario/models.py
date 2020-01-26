@@ -84,7 +84,7 @@ class Usuario(AbstractBaseUser):
             img.save(self.imagen.path)
 
     def __str__(self):
-        return f'{self.username}'
+        return f'{self.nombre}'
 
     def has_perm(self,perm,obj=None):
         return self.is_admin

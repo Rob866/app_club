@@ -28,6 +28,12 @@ class Profesor(models.Model):
     nombre = models.CharField(max_length=100)
     profesion = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural= "Profesores"
+        
+    def __str__(self):
+        return self.nombre
+
 
 
 class Post(models.Model):

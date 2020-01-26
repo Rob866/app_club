@@ -3,7 +3,7 @@ from django.contrib.admin.models import LogEntry,DELETION
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.urls import reverse,NoReverseMatch
-from .models import Sesion,Paquete_Inscrito,Tipo_de_Paquete
+from .models import Sesion,Paquete_Inscrito,Tipo_de_Paquete,EventUser
 from datetime import timedelta
 from admin_auto_filters.filters import AutocompleteFilter
 from import_export.admin import ImportExportModelAdmin
@@ -15,7 +15,7 @@ import  import_export
 class SesionAdmin(admin.ModelAdmin):
     list_display =('paquete_inscrito_','tiempo_de_inicio','tiempo_de_salida','tiempo_de_sesion',)
     list_filter = [('paquete_inscrito',admin.RelatedFieldListFilter)]
-    search_fields=('paquete_inscrito__alumno__nombre','paquete_inscrito__alumno__apellido')
+    search_fields=('paquete_inscrito__usuario__nombre','paquete_inscrito__usuario__apellido')
     list_per_page=15
 
     def paquete_inscrito_(self,instance):
@@ -145,7 +145,17 @@ class LogEntryAdmin(admin.ModelAdmin):
             .prefetch_related('content_type')
 '''
 
+class EventUserAdmin(admin.ModelAdmin):
+    list_display =('usuario_','fecha',)
+    search_fields=('usuario__nombre',)
+    readonly_fields = ['mensaje','usuario']
+
+    def usuario_(self,instance):
+        return instance.usuario
+
+
 admin.site.register(Sesion,SesionAdmin)
 admin.site.register(Paquete_Inscrito,Paquete_InscritoAdmin)
 admin.site.register(Tipo_de_Paquete)
+admin.site.register(EventUser,EventUserAdmin)
 admin.site.register(LogEntry,LogEntryAdmin)
