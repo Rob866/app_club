@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{% static 'app/css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/fix.css' %}">
+    {% block css_tag %}{%endblock%}
   </head>
   <body  data-target=".site-navbar-target" data-offset="300">
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
@@ -45,7 +46,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-item"><a href="{% url 'blog:contact' %}" class="nav-link"><span>Contacto</span></a></li>
             {% if request.user.is_authenticated %}
-            <div class="dropdown show" style="padding-top:5px;padding-right:5px">
+            <div class="dropdown" style="padding-top:5px;padding-right:5px">
                     <a style="border-radius: 10px 10px 10px 10px !important;
                              -moz-border-radius: 10px 10px 10px 10px;
                              -webkit-border-radius: 10px 10px 10px 10px;"

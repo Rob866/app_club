@@ -14,8 +14,8 @@ class SearchForm(forms.Form):
 
 class UserAuthentication(forms.ModelForm):
 
-    username= forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Username'}))
-    password = forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Password'}))
+    username= forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'fadeIn second username_login','placeholder':'Username'}))
+    password = forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'fadeIn third password_login','placeholder':'Password'}))
 
     class Meta:
         model  = get_user_model()
