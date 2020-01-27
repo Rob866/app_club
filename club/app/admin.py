@@ -146,12 +146,12 @@ class LogEntryAdmin(admin.ModelAdmin):
 '''
 
 class EventUserAdmin(admin.ModelAdmin):
-    list_display =('usuario_','fecha',)
+    list_display =('usuario','fecha',)
     search_fields=('usuario__nombre',)
     readonly_fields = ['mensaje','usuario']
 
-    def usuario_(self,instance):
-        return instance.usuario
+#    def usuario_(self,instance):
+#        return instance.usuario
 
 
 admin.site.register(Sesion,SesionAdmin)
