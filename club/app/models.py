@@ -4,6 +4,16 @@ import datetime
 from django.conf import settings
 #from django.contrib.auth.models import  User
 
+class Notifiacion(models.Model):
+       titulo = models.CharField(max_length=100)
+       mensaje= models.TextField()
+       fecha_de_creacion = models.DateTimeField(auto_now_add=True)
+
+       class Meta:
+           verbose_name_plural = ("Notificaciones")
+       def __str__(self):
+           return  self.titulo
+
 class Sesion(models.Model):
     paquete_inscrito = models.ForeignKey('Paquete_Inscrito',related_name="sesiones",on_delete=models.CASCADE,null=True)
     asignatura = models.CharField(max_length=100)

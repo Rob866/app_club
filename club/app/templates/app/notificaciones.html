@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+<section>
+  <div class="container">
+    <div class="row"  style="margin-top:120px">
+        <div class="col-md-12 ftco-animate">
+          {% if notificaciones %}
+              {% for notifiacion in notificaciones %}
+              <ul class="list-group" style="padding-bottom: 10px">
+                    <li class="list-group-item active">{{ notifiacion.fecha_de_creacion }}</li>
+                    <li class="list-group-item">{{ notifiacion.mensaje}}</li>
+              </ul>
+              {% endfor %}
+          {% else %}
+          <ul class="list-group" style="padding-bottom: 50px">
+                <li class="list-group-item active">No hay notifiaciones que Mostrar</li>
+          </ul>
+          {% endif%}
+        </div>
+        </div>
+    </div>
+  </div>
+</section>
+{% endblock content%}

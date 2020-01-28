@@ -15,22 +15,14 @@
                     <div class="profile-usertitle-job">{{ request.user.apellido }} </div>
                 </div>
                 <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-info  btn-sm">Follow</button>
-                    <button type="button" class="btn btn-info  btn-sm">Message</button>
+                    <button type="button" class="btn btn-info  btn-sm"><a  style="color: white" href="{% url 'app:historial' %}">Historial</a></button>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">mensajes</button>
                 </div>
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li class="active">
+                <div class="profile-usermenu w-100">
+                    <ul class="nav" style="position: relative; width:100%; height: 20px">
+                        <li style="position:  absolute; left:50%; transform: translateX(-50%)">
                             <a href="#">
-                                <i class="icon-home"></i> Ticket List </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="icon-settings"></i> Support Staff </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="icon-info"></i> Configurations </a>
+                                <i class="icon-settings"></i> Mensaje al estaff</a>
                         </li>
                     </ul>
                 </div>
@@ -96,6 +88,33 @@
         </div>
     </div>
   </div>
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-lg">
+  		<div class="modal-content">
+  			<div class="modal-header">
+          <h5 class="modal-title">Notificaciones</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% if notificaciones %}
+          {% for notificacion in notificaciones %}
+              <p>{{ notificacion.fecha_de_creacion }}</p>
+              <p>{{ notificacion.mensaje }}</p>
+              <br>
+          {% endfor %}
+          {% else %}
+           <p>No hay notifiaciones que mostrar</p>
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+
+  		</div>
+  	</div>
 
 </section>
 {% endblock content     %}

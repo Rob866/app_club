@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Paquete_Inscrito,EventUser
+from .models import Paquete_Inscrito,EventUser,Notifiacion
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
@@ -16,6 +16,7 @@ from .forms import (UserAuthentication, UserUpdateForm)
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+
 def services(request):
     return render(request, 'app/services.html')
 
@@ -29,6 +30,7 @@ def profile(request):
             if form.changed_data:
                 evento = EventUser(mensaje=f"datos actualizados del Perfil: {form.changed_data}",usuario=request.user)
                 evento.save()
+                admin = get_user_model().objects.get(username="rob")
     else:
         form =UserUpdateForm(
         initial = {
@@ -57,6 +59,7 @@ def profile(request):
         )
 
     context['profile_form'] = form
+    context['notificaciones'] = Notifiacion.objects.all()
     return render(request,'app/profile.html',context)
 
 
@@ -149,3 +152,11 @@ def historial(request):
     'notificaciones': notificaciones
     }
     return render(request,'app/historial.html',context)
+
+@login_required
+def notificaciones(request):
+    notificaciones = Notifiacion.objects.all()
+    context = {
+      'notificaciones': notificaciones
+    }
+    return render(request,'app/notificaciones.html',context)
