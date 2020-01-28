@@ -59,6 +59,7 @@ def profile(request):
         )
 
     context['profile_form'] = form
+    context['historial'] = request.user.historial.all().order_by('-fecha')
     context['notificaciones'] = Notifiacion.objects.all()
     return render(request,'app/profile.html',context)
 

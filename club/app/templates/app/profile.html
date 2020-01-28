@@ -15,8 +15,8 @@
                     <div class="profile-usertitle-job">{{ request.user.apellido }} </div>
                 </div>
                 <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-info  btn-sm"><a  style="color: white" href="{% url 'app:historial' %}">Historial</a></button>
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">mensajes</button>
+                    <button type="button" class="btn btn-info  btn-sm" data-toggle="modal"  data-target=".historial_modal">Historial</button>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".notifiaciones_modal">Mensajes</button>
                 </div>
                 <div class="profile-usermenu w-100">
                     <ul class="nav" style="position: relative; width:100%; height: 20px">
@@ -88,9 +88,9 @@
         </div>
     </div>
   </div>
-  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal fade bd-example-modal-lg notifiaciones_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   	<div class="modal-dialog modal-lg">
-  		<div class="modal-content">
+  		<div class="modal-content" style="max-height:500px; overflow: scroll">
   			<div class="modal-header">
           <h5 class="modal-title">Notificaciones</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -115,6 +115,32 @@
 
   		</div>
   	</div>
+    <div class="modal fade bd-example-modal-lg historial_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" >
+        <div class="modal-content" style="max-height:500px; overflow: scroll">
+          <div class="modal-header">
+            <h5 class="modal-title">Historial de registros actualizados</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {% if historial %}
+            {% for instancia in  historial %}
+                <p>{{ instancia.fecha }}</p>
+                <p>{{ instancia.mensaje }}</p>
+                <br>
+            {% endfor %}
+            {% else %}
+             <p>No  registros actualizados</p>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
 
+        </div>
+      </div>
 </section>
 {% endblock content     %}
