@@ -69,6 +69,7 @@ class Usuario(AbstractBaseUser):
     is_active    =  models.BooleanField(verbose_name="¿Esta Acivo?",default=True)
     is_staff     =  models.BooleanField(verbose_name="¿Es parte del Staff?",default=False)
     is_superuser =  models.BooleanField(verbose_name="¿Es Super Usuario?",default=False)
+    status_paquetes = models.BooleanField(verbose_name="¿Tiene Paquetes Activos?",default=False)
 
     USERNAME_FIELD  = "username"
     REQUIRED_FIELDS = ["nombre","apellido"]

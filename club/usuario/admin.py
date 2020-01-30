@@ -34,16 +34,32 @@ class UsuarioAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
 
-    list_display = ('nombre','apellido','email','date_joined','is_admin','is_staff',)
+    list_display = ('nombre','apellido','email','date_joined','is_admin','check_status_paquetes')
+    list_filter = ('status_paquetes',)
+
     search_fields=('nombre', 'username',)
+
     #ready_fields =('date_joined','last_login','imagen_image')
     #inlines = [PaquetesInscritosInline]
 
-    filter_horizontal = ()
-    list_filter = ('is_staff',)
+    def check_status_paquetes(self,object):
+        if object.is_admin or object.is_staff or object.is_superuser:
+            object.status_paquetes = True
+            object.save()
+            return True
+        for paquete in object.paquetes_inscritos.all():
+            if paquete.status:
+                object.status_paquetes = True
+                object.save()
+                return True
+        object.status_paquetes = False
+        object.save()
+        return False
+    check_status_paquetes.boolean = True
 
+    filter_horizontal = ()
     fieldsets = ()
-    readonly_fields = ['preview','date_joined','last_login']
+    readonly_fields = ['preview','date_joined','last_login','status_paquetes']
 
     def preview(self, obj):
         return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(

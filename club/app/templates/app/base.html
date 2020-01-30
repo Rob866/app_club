@@ -46,6 +46,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-item"><a href="{% url 'blog:contact' %}" class="nav-link"><span>Contacto</span></a></li>
             {% if request.user.is_authenticated %}
+
             <div class="dropdown" style="padding-top:5px;padding-right:5px">
                     <a style="border-radius: 10px 10px 10px 10px !important;
                              -moz-border-radius: 10px 10px 10px 10px;
@@ -53,6 +54,7 @@
                       class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Settings
                     </a>
+
                     <div class="dropdown-menu ftco-animate" aria-labelledby="dropdownMenuLink">
                       <a class="dropdown-item" href="{% url 'app:profile' %}"><span>Perfil</span></a>
                       <a class="dropdown-item" href="{% url 'app:paquetes' %}"><span>Paquetes</span></a>
