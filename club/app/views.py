@@ -30,7 +30,7 @@ def profile(request):
             if form.changed_data:
                 evento = EventUser(mensaje=f"datos actualizados del Perfil: {form.changed_data}",usuario=request.user)
                 evento.save()
-                admin = get_user_model().objects.get(username="rob")
+                #admin = get_user_model().objects.get(username="rob")
     else:
         form =UserUpdateForm(
         initial = {
@@ -59,6 +59,7 @@ def profile(request):
         )
 
     context['profile_form'] = form
+    
     context['historial'] = request.user.historial.all().order_by('-fecha')
     context['notificaciones'] = Notifiacion.objects.all()
     return render(request,'app/profile.html',context)

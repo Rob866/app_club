@@ -9,6 +9,7 @@ class MyUsuarioManager(BaseUserManager):
         if not username:
             raise ValueError("Los usuarios  deben de tener un Username")
 
+
         user = self.model(
             email=self.normalize_email(email),
             username=username
@@ -34,12 +35,12 @@ class MyUsuarioManager(BaseUserManager):
 
 class Usuario(AbstractBaseUser):
     imagen       =  models.ImageField(default='default.jpg',upload_to='profile_pics')
-    email        =  models.EmailField(max_length=60,unique=True)
+    email        =  models.EmailField(max_length=60,unique=True,blank=True)
     username     =  models.CharField(max_length=30,unique=True)
     nombre       =  models.CharField(max_length=100)
     apellido     =  models.CharField(max_length=100)
     edad         =  models.IntegerField(blank=True, null=True)
-    padecimientos = models.TextField(verbose_name="Alergias o padecimientos",blank=True,null=True)
+    padecimientos = models.TextField(verbose_name="padecimientos",blank=True,null=True)
     asistencia = models.CharField(verbose_name="Días de asistencia",max_length=100,blank=True,null=True)
     enfoque = models.CharField(verbose_name="Area en la que guste que se enfocará la atención",max_length=100,blank=True, null=True)
     nombre_de_la_madre =  models.CharField(verbose_name="Nombre de la Madre",max_length=100,blank=True, null=True)

@@ -30,7 +30,7 @@ class Profesor(models.Model):
 
     class Meta:
         verbose_name_plural= "Profesores"
-        
+
     def __str__(self):
         return self.nombre
 
@@ -83,6 +83,8 @@ class Mensaje(models.Model):
     email = models.EmailField()
     body= models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+
+    REQUIRED_FIELDS = ["nombre","asunto","email","body"]
 
     class Meta:
         ordering = ['created_on']
