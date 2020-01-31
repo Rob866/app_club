@@ -3,7 +3,7 @@ from django.contrib.admin.models import LogEntry,DELETION
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.urls import reverse,NoReverseMatch
-from .models import Sesion,Paquete_Inscrito,Tipo_de_Paquete,EventUser,Notifiacion
+from .models import Sesion,Paquete_Inscrito,Tipo_de_Paquete,Historial_User,Notifiacion
 from datetime import timedelta
 from admin_auto_filters.filters import AutocompleteFilter
 from import_export.admin import ImportExportModelAdmin
@@ -145,13 +145,21 @@ class LogEntryAdmin(admin.ModelAdmin):
             .prefetch_related('content_type')
 '''
 
-class EventUserAdmin(admin.ModelAdmin):
+class Historial_UserAdmin(admin.ModelAdmin):
     list_display =('usuario','fecha',)
     search_fields=('usuario__nombre',)
     readonly_fields = ['mensaje','usuario']
 
+
 class NotifiacionAdmin(admin.ModelAdmin):
     list_display =('titulo','fecha_de_creacion')
+
+    #def save_model(self, request, obj, form, change):
+    #    obj.user = request.user
+    #    if form.changed_data:
+    #        print("datos actualizados!")
+    #    super(NotifiacionAdmin, self).save_model(request, obj, form, change)
+
 
 #    def usuario_(self,instance):
 #        return instance.usuario
@@ -160,6 +168,6 @@ class NotifiacionAdmin(admin.ModelAdmin):
 admin.site.register(Sesion,SesionAdmin)
 admin.site.register(Paquete_Inscrito,Paquete_InscritoAdmin)
 admin.site.register(Tipo_de_Paquete)
-admin.site.register(EventUser,EventUserAdmin)
+admin.site.register(Historial_User,Historial_UserAdmin)
 admin.site.register(LogEntry,LogEntryAdmin)
 admin.site.register(Notifiacion,NotifiacionAdmin)

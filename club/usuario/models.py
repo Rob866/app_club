@@ -85,6 +85,7 @@ class Usuario(AbstractBaseUser):
             img.thumbnail(outputsize)
             img.save(self.imagen.path)
 
+
     def __str__(self):
         return f'{self.nombre}'
 

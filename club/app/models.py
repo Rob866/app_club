@@ -46,7 +46,7 @@ class Tipo_de_Paquete(models.Model):
         return f'{self.horas} Horas'
 
 
-class EventUser(models.Model):
+class Historial_User(models.Model):
       mensaje = models.CharField(max_length=200)
       usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="historial",on_delete=models.CASCADE,null=True)
       fecha = models.DateTimeField(auto_now_add=True,null=True)

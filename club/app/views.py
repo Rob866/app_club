@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Paquete_Inscrito,EventUser,Notifiacion
+from .models import Paquete_Inscrito,Historial_User,Notifiacion
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
@@ -28,7 +28,7 @@ def profile(request):
         if form.is_valid():
             form.save()
             if form.changed_data:
-                evento = EventUser(mensaje=f"datos actualizados del Perfil: {form.changed_data}",usuario=request.user)
+                evento = Historial_User(mensaje=f"datos actualizados del Perfil: {form.changed_data}",usuario=request.user)
                 evento.save()
                 #admin = get_user_model().objects.get(username="rob")
     else:
@@ -59,7 +59,7 @@ def profile(request):
         )
 
     context['profile_form'] = form
-    
+
     context['historial'] = request.user.historial.all().order_by('-fecha')
     context['notificaciones'] = Notifiacion.objects.all()
     return render(request,'app/profile.html',context)
