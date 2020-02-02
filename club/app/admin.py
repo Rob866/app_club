@@ -3,12 +3,14 @@ from django.contrib.admin.models import LogEntry,DELETION
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.urls import reverse,NoReverseMatch
-from .models import Sesion,Paquete_Inscrito,Tipo_de_Paquete,Historial_User,Notifiacion
+from .models import Sesion,Paquete_Inscrito,Tipo_de_Paquete,Historial_User,Notificacion
 from datetime import timedelta
 from admin_auto_filters.filters import AutocompleteFilter
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 import  import_export
+from django.contrib.auth import get_user_model
+from  notifications.signals import notify
 
 # Register your models here
 
@@ -146,19 +148,23 @@ class LogEntryAdmin(admin.ModelAdmin):
 '''
 
 class Historial_UserAdmin(admin.ModelAdmin):
-    list_display =('usuario','fecha',)
+    list_display =('_nombre','fecha',)
     search_fields=('usuario__nombre',)
     readonly_fields = ['mensaje','usuario']
 
+    def _nombre(self,obj):
+        return obj.usuario.nombre + ' '+obj.usuario.apellido
 
-class NotifiacionAdmin(admin.ModelAdmin):
+
+class NotificacionAdmin(admin.ModelAdmin):
     list_display =('titulo','fecha_de_creacion')
 
-    #def save_model(self, request, obj, form, change):
-    #    obj.user = request.user
-    #    if form.changed_data:
-    #        print("datos actualizados!")
-    #    super(NotifiacionAdmin, self).save_model(request, obj, form, change)
+    def save_model(self, request, obj, form, change):
+        if form.changed_data:
+            usuarios = get_user_model().objects.filter(groups__name=obj.grupo)
+            for usuario  in usuarios:
+                notify.send(request.user,recipient=usuario,verb=obj.titulo,description=obj.mensaje,action_object=request.user)
+        super(NotificacionAdmin, self).save_model(request, obj, form, change)
 
 
 #    def usuario_(self,instance):
@@ -170,4 +176,4 @@ admin.site.register(Paquete_Inscrito,Paquete_InscritoAdmin)
 admin.site.register(Tipo_de_Paquete)
 admin.site.register(Historial_User,Historial_UserAdmin)
 admin.site.register(LogEntry,LogEntryAdmin)
-admin.site.register(Notifiacion,NotifiacionAdmin)
+admin.site.register(Notificacion,NotificacionAdmin)

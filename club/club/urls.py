@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+import notifications.urls
 
 admin.site.site_header = "Club de Tareas Admin"
 admin.site.site_title = "Club de Tereas Portal"
@@ -27,6 +28,7 @@ urlpatterns = [
     path('', include('app.urls')),
     path('',include('blog.urls')),
     path('admin/', admin.site.urls),
+    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]
 
 if settings.DEBUG:

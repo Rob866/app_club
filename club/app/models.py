@@ -2,16 +2,17 @@ from django.db import models
 import uuid
 import datetime
 from django.conf import settings
+from django.contrib.auth.models import Group
 #from django.contrib.auth.models import  User
 
-class Notifiacion(models.Model):
+class Notificacion(models.Model):
        titulo = models.CharField(max_length=100)
        mensaje= models.TextField()
        fecha_de_creacion = models.DateTimeField(auto_now_add=True)
-
+       grupo = models.ForeignKey(Group,on_delete=models.CASCADE,null=True)
 
        class Meta:
-           verbose_name_plural = ("Notificaciones")
+           verbose_name_plural = ("Envio de Notificaciones a grupos")
        def __str__(self):
            return  self.titulo
 

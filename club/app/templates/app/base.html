@@ -1,4 +1,6 @@
 {% load static %}
+{% load notifications_tags %}
+{% notifications_unread as unread_count %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,6 +29,7 @@
     {% block css_tag %}{%endblock%}
   </head>
   <body  data-target=".site-navbar-target" data-offset="300">
+
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.html">Club de <span>Tareas</span></a>
@@ -52,14 +55,30 @@
                              -moz-border-radius: 10px 10px 10px 10px;
                              -webkit-border-radius: 10px 10px 10px 10px;"
                       class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Settings
+                      {% if unread_count %}
+                          <svg viewBox="0 0 8 8"
+                               width="8px"
+                               height="8px">
+                              <circle cx="4"
+                                      cy="4"
+                                      r="4"
+                                      fill="#ff6b6b"
+                                      ></circle>
+                          </svg>
+                      {% endif %}
+                        {{ request.user.username }}
                     </a>
 
                     <div class="dropdown-menu ftco-animate" aria-labelledby="dropdownMenuLink">
                       <a class="dropdown-item" href="{% url 'app:profile' %}"><span>Perfil</span></a>
                       <a class="dropdown-item" href="{% url 'app:paquetes' %}"><span>Paquetes</span></a>
-                      <a class="dropdown-item" href="{% url 'app:notificaciones' %}"><span>Notificaciones</span></a>
                       <a class="dropdown-item" href="{% url 'app:historial' %}"><span>Historial</span></a>
+                      <a class="dropdown-item" href = "{% url 'app:list' %}" >
+                        <span>Notificaciones</span>
+                          {% if unread_count %}
+                          <span class="badge badge-danger">{{ unread_count }}</span>
+                          {% endif %}
+                      </a>
                       <a class="dropdown-item" href="{% url 'app:logout' %}"><span>Logout</span></a>
                     </div>
               </div>

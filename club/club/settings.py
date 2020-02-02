@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'admin_auto_filters',
     'import_export',
     'crispy_forms',
-    'embed_video'
+    'embed_video',
+    'notifications',
 ]
 SITE_ID = 1
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

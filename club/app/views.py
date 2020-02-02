@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Paquete_Inscrito,Historial_User,Notifiacion
+from .models import Paquete_Inscrito,Historial_User
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
@@ -63,7 +63,6 @@ def profile(request):
     context['profile_form'] = form
 
     context['historial'] = request.user.historial.all().order_by('-fecha')
-    context['notificaciones'] = Notifiacion.objects.all()
     return render(request,'app/profile.html',context)
 
 
@@ -157,10 +156,14 @@ def historial(request):
     }
     return render(request,'app/historial.html',context)
 
+
+
 @login_required
-def notificaciones(request):
-    notificaciones = Notifiacion.objects.all()
+def notificactionList(request):
+
+    request.user.notifications.mark_all_as_read()
+    notificaciones = request.user.notifications.read()
     context = {
-      'notificaciones': notificaciones
-    }
-    return render(request,'app/notificaciones.html',context)
+            'notificaciones': notificaciones
+        }
+    return render(request,'app/notifications_list.html',context)
