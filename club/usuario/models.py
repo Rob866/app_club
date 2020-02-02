@@ -1,13 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
 from PIL import Image
 
 class MyUsuarioManager(BaseUserManager):
     def create_user(self,email,username,password=None):
         if not email:
-            raise ValueError("Los usuarios  deben de tener un Email")
+            raise ValueError("Debes de tener un Email")
         if not username:
-            raise ValueError("Los usuarios  deben de tener un Username")
+            raise ValueError("Debes de tener un Username")
 
 
         user = self.model(
@@ -33,7 +33,8 @@ class MyUsuarioManager(BaseUserManager):
         return user
 
 
-class Usuario(AbstractBaseUser):
+class Usuario(AbstractBaseUser,PermissionsMixin):
+
     imagen       =  models.ImageField(default='default.jpg',upload_to='profile_pics')
     email        =  models.EmailField(max_length=60,unique=True,blank=True)
     username     =  models.CharField(max_length=30,unique=True)
@@ -54,6 +55,7 @@ class Usuario(AbstractBaseUser):
     fecha_nacimiento = models.DateField(verbose_name="Fecha de nacimiento",blank=True, null=True)
     escuela      =  models.CharField(verbose_name="Nombre de la escuela",max_length=60,blank=True, null=True)
     domicilio    =  models.CharField(verbose_name="Domicilio",max_length=150,blank=True, null=True)
+    status_paquetes = models.BooleanField(verbose_name="¿Tiene Paquetes Activos?",default=False)
 
     NIVEL_STATUS = (
          ('k','Kinder'),
@@ -70,7 +72,7 @@ class Usuario(AbstractBaseUser):
     is_active    =  models.BooleanField(verbose_name="¿Esta Acivo?",default=True)
     is_staff     =  models.BooleanField(verbose_name="¿Es parte del Staff?",default=False)
     is_superuser =  models.BooleanField(verbose_name="¿Es Super Usuario?",default=False)
-    status_paquetes = models.BooleanField(verbose_name="¿Tiene Paquetes Activos?",default=False)
+
 
     USERNAME_FIELD  = "username"
     REQUIRED_FIELDS = ["nombre","apellido"]

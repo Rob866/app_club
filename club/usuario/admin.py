@@ -35,7 +35,7 @@ class UsuarioAdmin(UserAdmin):
     form = CustomUserChangeForm
 
     list_display = ('nombre','apellido','email','date_joined','is_admin','check_status_paquetes')
-    list_filter = ('status_paquetes',)
+    list_filter = ('status_paquetes','is_admin')
 
     search_fields=('nombre', 'username',)
 
@@ -43,10 +43,10 @@ class UsuarioAdmin(UserAdmin):
     #inlines = [PaquetesInscritosInline]
 
     def check_status_paquetes(self,object):
-        if object.is_admin or object.is_staff or object.is_superuser:
-            object.status_paquetes = True
-            object.save()
-            return True
+        #if object.is_admin or object.is_staff or object.is_superuser:
+        #    object.status_paquetes = True
+        #    object.save()
+        #    return True
         for paquete in object.paquetes_inscritos.all():
             if paquete.status:
                 object.status_paquetes = True
