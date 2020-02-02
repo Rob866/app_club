@@ -3,6 +3,7 @@ from .models import Paquete_Inscrito,Historial_User,Notifiacion
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
+from django.contrib import  messages
 from  django.contrib.auth import (login,logout,authenticate,get_user_model)
 from django.views.generic import (
     ListView,
@@ -30,6 +31,7 @@ def profile(request):
             if form.changed_data:
                 evento = Historial_User(mensaje=f"datos actualizados del Perfil: {form.changed_data}",usuario=request.user)
                 evento.save()
+                messages.success( request,'Los datos del formulario han sido actualizados')
                 #admin = get_user_model().objects.get(username="rob")
     else:
         form =UserUpdateForm(

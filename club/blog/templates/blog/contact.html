@@ -3,7 +3,13 @@
 {% load static %}
 {% load crispy_forms_tags%}
 {% block content %}
-
+    {% if messages %}
+      {% for message in messages  %}
+          <div  style="postion: absolute; top: 80px; left:0" class="alert alert-{{ message.tags }}" id="msg" role="alert">
+            <p style="text-align: center; padding-top: 8px">{{ message }}</p>
+          </div>
+      {% endfor %}
+   {% endif %}
     <section class="ftco-section contact-section ftco-no-pb" id="contact-section">
       <div class="container">
       	<div class="row justify-content-center mb-5 pb-3">
@@ -55,18 +61,25 @@
           <div class=" col-12 col-md-6 order-md-last d-flex">
             <form method="POST" class="bg-light p-5 contact-form">
               {% csrf_token %}
-              <div class="form-group">
-                {{ mensaje_form.nombre}}
+              {% for field in mensaje_form %}
+                  <div class="form-group">
+                      {{ field }}
+                  </div>
+                  {% if field.help_text %}
+                      <small style="color:gray;">{{ field.help_text }}</small>
+                  {% endif %}
+                  {% for error in field.errors %}
+                     <div class="alert alert-danger">
+                     <strong>{{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}
+              {% endfor %}
+              {% for error in profile_form.non_field_errors%}
+              <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
               </div>
-              <div class="form-group">
-                {{mensaje_form.email}}
-              </div>
-              <div class="form-group">
-                {{ mensaje_form.asunto }}
-              </div>
-              <div class="form-group">
-                {{ mensaje_form.body }}
-              </div>
+              {% endfor %}
+
               <div class="form-group">
                 <input type="submit" value="Enviar Mensaje" class="btn btn-primary py-3 px-5">
               </div>

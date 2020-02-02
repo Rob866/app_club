@@ -3,6 +3,12 @@ body{
 }
 
 
+#msg{
+  height: 80px;
+  -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+  transition: width 2s;
+}
+
 /* ANIMATIONS */
 
 /* Simple CSS3 Fade-in-down Animation */

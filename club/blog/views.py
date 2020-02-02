@@ -6,6 +6,7 @@ import uuid
 from django.http import HttpResponseRedirect
 from django.views.generic import (ListView)
 from django.urls import reverse
+from django.contrib import  messages
 
 class blog(ListView):
     model= Post
@@ -19,20 +20,19 @@ class blog(ListView):
         #return Post.objects.filter(status=1).order_by('-create_on')
 
 def contact(request):
-
     if request.method == 'POST':
         mensaje_form = MensajeForm(data=request.POST)
         if mensaje_form.is_valid():
             mensaje = Mensaje(nombre=request.POST["nombre"],asunto=request.POST["asunto"],email=request.POST["email"],body=request.POST["body"])
             mensaje.save()
             mensaje_form.cleaned_data
-        return HttpResponseRedirect(reverse('blog:contact'))
-    else:
-        mensaje_form = MensajeForm()
-        context = {
+            messages.success( request,'Gracias por escribirnos. Nos pondremos en contacto con usted')
+        #return HttpResponseRedirect(reverse('blog:contact'))
+    mensaje_form = MensajeForm()
+    context = {
          'mensaje_form': mensaje_form
-        }
-        return render(request,'blog/contact.html',context)
+    }
+    return render(request,'blog/contact.html',context)
 
 
 def postDetail(request,id):

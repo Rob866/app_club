@@ -1,4 +1,9 @@
-
+setTimeout(
+  function(){
+    if($('#msg').length > 0){
+      $('#msg').remove()
+    }
+  },3000)
  AOS.init({
  	duration: 800,
  	easing: 'slide'

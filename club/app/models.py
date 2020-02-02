@@ -9,6 +9,7 @@ class Notifiacion(models.Model):
        mensaje= models.TextField()
        fecha_de_creacion = models.DateTimeField(auto_now_add=True)
 
+
        class Meta:
            verbose_name_plural = ("Notificaciones")
        def __str__(self):
