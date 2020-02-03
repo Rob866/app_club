@@ -78,8 +78,8 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
     REQUIRED_FIELDS = ["nombre","apellido"]
     objects = MyUsuarioManager()
 
-    def save(self,**kwargs):
-        super().save()
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
         img = Image.open(self.imagen.path)
 
         if img.height > 300 or img.width > 300:
