@@ -13,39 +13,52 @@
    {% endif %}
     <div class="row">
         <div class="col-md-4">
-            <div class="portlet light profile-sidebar-portlet bordered  justify-content-center ftco-animate">
-                <div class="profile-userpic" style="text-align:center">
-                    <img src="{{ request.user.imagen.url }}" class="img-responsive" alt="">
-                </div>
-                <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">{{ request.user.nombre }}</div>
-                    <div class="profile-usertitle-job">{{ request.user.apellido }} </div>
-                </div>
-                <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-info  btn-sm" data-toggle="modal"  data-target=".historial_modal">Historial</button>
-                </div>
-                <div class="profile-usermenu w-100">
-                    <ul class="nav" style="position: relative; width:100%; height: 20px">
-                        <li style="position:  absolute; left:50%; transform: translateX(-50%)">
-                            <a href="#">
-                                <i class="icon-settings"></i> Mensaje al estaff</a>
-                        </li>
-                    </ul>
-                </div>
-        </div>
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-         <div class="carousel-inner">
-           <div class="carousel-item active">
-             <img class="d-block w-100" src="{% static 'main/images/club1.jpg' %}" alt="First slide">
-           </div>
-           <div class="carousel-item">
-             <img class="d-block w-100" src="{% static 'main/images/club.jpeg'%}" alt="Second slide">
-           </div>
-           <div class="carousel-item">
-             <img class="d-block w-100" src="{% static 'main/images/club2.jpg'%}" alt="Third slide">
-           </div>
-         </div>
-    </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="portlet light profile-sidebar-portlet bordered  justify-content-center ftco-animate">
+                  <div class="profile-userpic" style="text-align:center">
+                      <img src="{{ request.user.imagen.url }}" class="img-responsive" alt="">
+                  </div>
+                  <div class="profile-usertitle">
+                      <div class="profile-usertitle-name">{{ request.user.nombre }}</div>
+                      <div class="profile-usertitle-job">{{ request.user.apellido }} </div>
+                  </div>
+                  <div class="profile-userbuttons">
+                      <button type="button" class="btn btn-info  btn-sm" data-toggle="modal"  data-target=".historial_modal">Historial</button>
+                  </div>
+                  <div class="profile-usermenu w-100">
+                      <ul class="nav" style="position: relative; width:100%; height: 20px">
+                          <li style="position:  absolute; left:50%; transform: translateX(-50%)">
+                              <a href="#">
+                                  <i class="icon-settings"></i> Mensaje al estaff</a>
+                          </li>
+                      </ul>
+                  </div>
+          </div>
+
+            </div>
+            <div class="col-12">
+              <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+               <div class="carousel-inner">
+                 <div class="carousel-item active">
+                   <img class="d-block w-100" src="{% static 'main/images/club1.jpg' %}" alt="First slide">
+                 </div>
+                 <div class="carousel-item">
+                   <img class="d-block w-100" src="{% static 'main/images/club.jpeg'%}" alt="Second slide">
+                 </div>
+                 <div class="carousel-item">
+                   <img class="d-block w-100" src="{% static 'main/images/club2.jpg'%}" alt="Third slide">
+                 </div>
+               </div>
+          </div>
+
+            </div>
+            <div class="col-12">
+              <div id="fb-container" style="width:100%; margin-top: 30px;margin-bottom: 30px;text-align: center">
+                <div class="fb-page" data-tabs="timeline" data-href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/">Clove Republic</a></blockquote></div>
+              </div>
+            </div>
+          </div>
       </div>
         <div class="col-md-8">
             <div class="portlet light bordered ftco-animate">
@@ -123,4 +136,20 @@
         </div>
       </div>
 </section>
-{% endblock content     %}
+{% endblock content %}
+
+{% block  script_tag %}
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+       $(window).bind("load resize", function(){
+       setTimeout(function() {
+       var container_width = $('#fb-container').width();
+         $('#fb-container').html('<div class="fb-page" ' +
+         'data-href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/"' +
+         ' data-width="' + container_width + '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="http://www.facebook.com/IniciativaAutoMat"><a href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/">Clove Republic</a></blockquote></div></div>');
+         FB.XFBML.parse( );
+       }, 100);
+     });
+     });
+</script>
+{% endblock%}

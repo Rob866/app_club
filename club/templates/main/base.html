@@ -38,16 +38,17 @@
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav nav ml-auto">
+	        <ul class="navbar-nav nav ml-auto" style="text-align:center">
 	          <li class="nav-item"><a href="{% url 'blog:home' %}" class="nav-link"><span>Home</span></a></li>
 	          <li class="nav-item"><a href="{% url 'blog:about' %}"  class="nav-link"><span>Acerca</span></a></li>
 	          <li class="nav-item"><a href="{% url 'blog:testimony' %}"  class="nav-link"><span>Testimonios</span></a></li>
 	          <li class="nav-item"><a href="{% url 'app:services' %}" class="nav-link"><span>Servicios</span></a></li>
             <li class="nav-item"><a href="{% url 'blog:blog' %}" class="nav-link"><span>Blog</span></a></li>
+            <li class="nav-item"><a href="{% url 'blog:contact' %}" class="nav-link"><span>Contacto</span></a></li>
 
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item"><a href="{% url 'blog:contact' %}" class="nav-link"><span>Contacto</span></a></li>
+          <ul class="nav navbar-nav navbar-right" style="text-align: right">
+
             {% if request.user.is_authenticated %}
 
             <div class="dropdown" style="padding-top:5px;padding-right:5px">
@@ -83,7 +84,7 @@
                     </div>
               </div>
               <li>
-                <div class="inset">
+                <div class="inset" style="margin-left: 5px">
                   <img src="{{ request.user.imagen.url }}">
                 </div>
               </li>

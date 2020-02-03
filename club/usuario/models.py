@@ -3,11 +3,15 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,Permissi
 from PIL import Image
 
 class MyUsuarioManager(BaseUserManager):
-    def create_user(self,email,username,password=None):
-        if not email:
-            raise ValueError("Debes de tener un Email")
+    def create_user(self,username,nombre,apellido,password=None):
+        #if not email:
+        #    raise ValueError("Debes de tener un Email")
         if not username:
             raise ValueError("Debes de tener un Username")
+        if not nombre:
+            raise ValueError("Debes de tener un Nombre")
+        if not apellido:
+            raise ValueError("Debes de tener un Apellido")
 
 
         user = self.model(
@@ -18,10 +22,12 @@ class MyUsuarioManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self,email,username,password="None"):
+    def create_superuser(self,username,nombre,apellido,password="None"):
         user = self.create_user(
-            email= self.normalize_email(email),
+            #email= self.normalize_email(email),
             username=username,
+            nombre = nombre,
+            apellido= apellido,
             password=password,
 
         )
@@ -36,7 +42,7 @@ class MyUsuarioManager(BaseUserManager):
 class Usuario(AbstractBaseUser,PermissionsMixin):
 
     imagen       =  models.ImageField(default='default.jpg',upload_to='profile_pics')
-    email        =  models.EmailField(max_length=60,unique=True,blank=True)
+    email        =  models.EmailField(max_length=60,unique=True,null=True, blank=True)
     username     =  models.CharField(max_length=30,unique=True)
     nombre       =  models.CharField(max_length=100)
     apellido     =  models.CharField(max_length=100)

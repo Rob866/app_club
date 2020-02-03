@@ -43,10 +43,7 @@ class UsuarioAdmin(UserAdmin):
     #inlines = [PaquetesInscritosInline]
 
     def check_status_paquetes(self,object):
-        #if object.is_admin or object.is_staff or object.is_superuser:
-        #    object.status_paquetes = True
-        #    object.save()
-        #    return True
+
         for paquete in object.paquetes_inscritos.all():
             if paquete.status:
                 object.status_paquetes = True
