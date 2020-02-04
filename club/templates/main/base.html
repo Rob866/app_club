@@ -51,10 +51,10 @@
 
             {% if request.user.is_authenticated %}
 
-            <div class="dropdown" style="padding-top:5px;padding-right:5px">
+            <div class="dropdown" style="padding-top:10px;padding-right:5px;">
                     <a style="border-radius: 10px 10px 10px 10px !important;
                              -moz-border-radius: 10px 10px 10px 10px;
-                             -webkit-border-radius: 10px 10px 10px 10px;"
+                             -webkit-border-radius: 10px 10px 10px 10px;padding-bottom:0; padding-top:0"
                       class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {% if unread_count %}
                           <svg viewBox="0 0 8 8"
@@ -67,7 +67,12 @@
                                       ></circle>
                           </svg>
                       {% endif %}
-                        {{ request.user.username }}
+                       <div style="display: inline-block;line-height: 2em">{{ request.user.username }}</div>
+
+                          <div class="inset" style="margin-left: 5px;display: inline-block;">
+                            <img src="{{ request.user.imagen.url }}">
+                          </div>
+
                     </a>
 
                     <div class="dropdown-menu ftco-animate" aria-labelledby="dropdownMenuLink">
@@ -83,11 +88,7 @@
                       <a class="dropdown-item" href="{% url 'app:logout' %}"><span>Logout</span></a>
                     </div>
               </div>
-              <li>
-                <div class="inset" style="margin-left: 5px">
-                  <img src="{{ request.user.imagen.url }}">
-                </div>
-              </li>
+
             {% else %}
               <li class="nav-item"><a href="{% url 'app:login' %}"  class="nav-link"><span>Login</span></a></li>
             </ul>
