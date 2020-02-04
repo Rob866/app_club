@@ -16,6 +16,7 @@ from django.http import HttpResponseRedirect
 from .forms import (UserAuthentication, UserUpdateForm)
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from  notifications.signals import notify
 
 
 def services(request):
@@ -32,6 +33,10 @@ def profile(request):
                 evento = Historial_User(mensaje=f"datos actualizados del Perfil: {form.changed_data}",usuario=request.user)
                 evento.save()
                 messages.success( request,'Los datos del formulario han sido actualizados')
+                usuarios = get_user_model().objects.all()
+                for usuario  in usuarios:
+                    if usuario.is_superuser:
+                        notify.send(request.user,recipient=usuario,verb="Update fields",description=f"datos actualizados del Perfil: {form.changed_data}",action_object=request.user)
                 #admin = get_user_model().objects.get(username="rob")
     else:
         form =UserUpdateForm(
@@ -150,9 +155,9 @@ def clases(request,paquete_id):
 
 @login_required
 def historial(request):
-    notificaciones = request.user.historial.all().order_by('-fecha')
+    historial = request.user.historial.all().order_by('-fecha')
     context = {
-    'notificaciones': notificaciones
+    'historial': historial
     }
     return render(request,'app/historial.html',context)
 
