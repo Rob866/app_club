@@ -5,6 +5,13 @@ from django.urls import reverse
 from embed_video.fields import EmbedVideoField
 # Create your models here.
 
+class Servicio(models.Model):
+    titulo = models.CharField(max_length=100)
+    contenido = models.TextField()
+
+    def __str_(self):
+        return self.titulo
+
 class Testimonio(models.Model):
     imagen =  models.ImageField(default="default.jpg",upload_to='testimonios_pics')
     nombre = models.CharField(max_length=100)

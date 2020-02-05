@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import Post,Comentario,Mensaje,Testimonio,Rotulo,Profesor
+from .models import Post,Comentario,Mensaje,Testimonio,Rotulo,Profesor,Servicio
+
 # Register your models here.
+class ServicioAdmin(admin.ModelAdmin):
+    list_display = ('titulo',)
+
 class PostAdmin(admin.ModelAdmin):
     list_display = ('titulo','status','create_on')
     search_fields =['titulo','contenido']
@@ -33,3 +37,4 @@ admin.site.register(Mensaje,MensajeAdmin)
 admin.site.register(Testimonio,TestimonioAdmin)
 admin.site.register(Rotulo,RotuloAdmin)
 admin.site.register(Profesor,ProfesorAdmin)
+admin.site.register(Servicio,ServicioAdmin)
