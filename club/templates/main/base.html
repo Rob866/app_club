@@ -51,7 +51,7 @@
 
             {% if request.user.is_authenticated %}
 
-            <div class="dropdown" style="padding-top:10px;padding-right:5px;">
+            <div class="dropdown" style="padding-right:5px;">
                     <a style="border-radius: 10px 10px 10px 10px !important;
                              -moz-border-radius: 10px 10px 10px 10px;
                              -webkit-border-radius: 10px 10px 10px 10px;padding-bottom:0; padding-top:0"
@@ -67,7 +67,7 @@
                                       ></circle>
                           </svg>
                       {% endif %}
-                       <div style="display: inline-block;line-height: 2em">{{ request.user.username }}</div>
+                       <div style="display: inline-block;line-height: 2.5em">{{ request.user.username }}</div>
 
                           <div class="inset" style="margin-left: 5px;display: inline-block;">
                             <img src="{{ request.user.imagen.url }}">
@@ -76,16 +76,17 @@
                     </a>
 
                     <div class="dropdown-menu ftco-animate" aria-labelledby="dropdownMenuLink">
-                      <a class="dropdown-item" href="{% url 'app:profile' %}"><span>Perfil</span></a>
-                      <a class="dropdown-item" href="{% url 'app:paquetes' %}"><span>Paquetes</span></a>
-                      <a class="dropdown-item" href="{% url 'app:historial' %}"><span>Historial</span></a>
+                      <a class="dropdown-item" href="{% url 'app:profile' %}"><span style="padding-right: 10px;"><i class="fa fa-id-card"></i></span><span>Perfil</span></a>
+                      <a class="dropdown-item" href="{% url 'app:paquetes' %}"><span style="padding-right: 10px;"><i class="fa fa-window-restore"></i></span><span>Paquetes</span></a>
+                      <a class="dropdown-item" href="{% url 'app:historial' %}"><span style="padding-right: 10px;"><i class="fa fa-file"></i></span><span>Historial</span></a>
                       <a class="dropdown-item" href = "{% url 'app:list' %}" >
-                        <span>Notificaciones</span>
+                        <span style="padding-right: 10px;"><i class="fa fa-comments"></i></span><span>Notificaciones</span>
                           {% if unread_count %}
                           <span class="badge badge-danger">{{ unread_count }}</span>
                           {% endif %}
                       </a>
-                      <a class="dropdown-item" href="{% url 'app:logout' %}"><span>Logout</span></a>
+                      <a class="dropdown-item" href="{% url 'app:logout' %}">
+                        <span style="padding-right: 10px;"><i class="fa fa-sign-out"></i></span><span>Logout</span></a>
                     </div>
               </div>
 
