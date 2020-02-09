@@ -3,6 +3,7 @@ body{
 }
 
 
+
 #msg{
   height: 80px;
   -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
@@ -283,8 +284,8 @@ body{
 }
 
 .inset {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background-color: transparent !important;
   z-index: 999;

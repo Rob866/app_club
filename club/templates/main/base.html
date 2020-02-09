@@ -47,28 +47,23 @@
             <li class="nav-item"><a href="{% url 'blog:contact' %}" class="nav-link"><span>Contacto</span></a></li>
 
           </ul>
+
           <ul class="nav navbar-nav navbar-right" style="text-align: right">
 
             {% if request.user.is_authenticated %}
 
             <div class="dropdown" style="padding-right:5px;">
+
                     <a style="border-radius: 10px 10px 10px 10px !important;
                              -moz-border-radius: 10px 10px 10px 10px;
                              -webkit-border-radius: 10px 10px 10px 10px;padding-bottom:0; padding-top:0"
                       class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {% if unread_count %}
-                          <svg viewBox="0 0 8 8"
-                               width="8px"
-                               height="8px">
-                              <circle cx="4"
-                                      cy="4"
-                                      r="4"
-                                      fill="#ff6b6b"
-                                      ></circle>
-                          </svg>
-                      {% endif %}
-                       <div style="display: inline-block;line-height: 2.5em">{{ request.user.username }}</div>
 
+                      <div style="display: inline-block;position: relative;margin-right:10px;">
+                        <i class="fa fa-bell-o" style="font-size: 20px;color: black;"></i>
+                        <span class="badge badge-danger" style="border-radius: 50%; position:absolute; top:10%; left:100%; transform: translate(-50%,-50%);">{{ unread_count }}</span>
+
+                      </div>
                           <div class="inset" style="margin-left: 5px;display: inline-block;">
                             <img src="{{ request.user.imagen.url }}">
                           </div>

@@ -3,22 +3,39 @@
 
 {% block content %}
 <div class="container ftco-animate" style="margin-top:120px">
-    <div class="row mt-4 ml-4">
+    <div class="row mt-4 ml-1">
         <a href="" class="btn btn-warning" role="button">Notificaciones</a>
     </div>
 
-    <div class="row mt-2 ml-4">
+    <div class="row mt-2"  style="padding:10px">
         <ul class="list-group" style="width: 100%">
+            {% if notificaciones %}
             {% for notificacion in notificaciones %}
-                <li class="list-group-item" id="notice_link" style="margin-bottom: 10px">
-                    <a>Subject: {{ notificacion.verb }}</a>
-                    <span style="color: #5897fb;">
-                      De: {{ notificacion.actor }}
-                    </span>
-                    <p>Mensaje: {{ notificacion.description }}</p>
-                    Fecha: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notificacion.timestamp|date:"Y/m/d H:i" }}
-                </li>
+             <div class="container" style="padding-bottom: 10px;">
+               <div style="background-color: white;border-radius: 5px;">
+                 <div class="inset">
+                   <img  style="width: 50px;height:50px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
+                 </div>
+                   <div  style="padding-left: 60px;">
+                     <a>Título: {{ notificacion.verb }}</a>
+                     <span style="color: #5897fb;">
+                       De: {{ notificacion.actor.nombre }}
+                     </span>
+                     <p>Mensaje: {{ notificacion.description }}</p>
+                     Fecha: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notificacion.timestamp|date:"Y/m/d H:i" }}
+
+                   </div>
+
+               </div>
+
+             </div>
+
             {% endfor %}
+            {% else %}
+            <ul class="list-group" style="padding-bottom: 20px">
+                  <li class="list-group-item">No hay Notificaciones</li>
+            </ul>
+            {% endif%}
         </ul>
     </div>
 </div>

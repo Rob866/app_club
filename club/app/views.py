@@ -34,10 +34,13 @@ def profile(request):
                 evento.save()
                 messages.success( request,'Los datos del formulario han sido actualizados')
                 usuarios = get_user_model().objects.all()
-                for usuario  in usuarios:
-                    if usuario.is_superuser:
-                        notify.send(request.user,recipient=usuario,verb="Update fields",description=f"datos actualizados del Perfil: {form.changed_data}",action_object=request.user)
-                #admin = get_user_model().objects.get(username="rob")
+                if not  request.user.is_superuser:
+                    for usuario  in usuarios:
+                        if usuario.is_superuser:
+                            notify.send(request.user,recipient=usuario,verb="Datos del Perfil Actualizados",description=f"datos actualizados del Perfil: {form.changed_data}",action_object=request.user)
+
+        else:
+            messages.warning(request,'Error al procesar el formulario')
     else:
         form =UserUpdateForm(
         initial = {

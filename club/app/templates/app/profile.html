@@ -12,6 +12,52 @@
       {% endfor %}
    {% endif %}
     <div class="row">
+
+        <div class="col-md-8">
+            <div class="portlet light bordered ftco-animate">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption caption-md">
+                        <i class="icon-globe theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase">Información de Usuario</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="home">
+                                <form method="POST" enctype="multipart/form-data">
+                                  {% csrf_token %}
+                                  {% for field in profile_form %}
+                                  <div class="form-group">
+                                      {{ field.label_tag }}
+                                      {{ field }}
+                                  </div>
+                                    {% if field.help_text %}
+                                    <small style="color:gray;">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    {% for error in field.errors %}
+                                       <div class="alert alert-danger">
+                                       <strong>{{ error|escape }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                  {% endfor %}
+                                  {% for error in profile_form.non_field_errors%}
+                                  <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                  </div>
+                                  {% endfor %}
+                                  <button type="submit" class="btn btn-info">Guardar Cambios</button>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="profile">Profile</div>
+                            <div role="tabpanel" class="tab-pane" id="messages">Messages</div>
+                            <div role="tabpanel" class="tab-pane" id="settings">Settings</div>
+                        </div>
+
+
+                </div>
+            </div>
+        </div>
         <div class="col-md-4">
           <div class="row">
             <div class="col-12">
@@ -60,51 +106,6 @@
             </div>
           </div>
       </div>
-        <div class="col-md-8">
-            <div class="portlet light bordered ftco-animate">
-                <div class="portlet-title tabbable-line">
-                    <div class="caption caption-md">
-                        <i class="icon-globe theme-font hide"></i>
-                        <span class="caption-subject font-blue-madison bold uppercase">Información de Usuario</span>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="home">
-                                <form method="POST" enctype="multipart/form-data">
-                                  {% csrf_token %}
-                                  {% for field in profile_form %}
-                                  <div class="form-group">
-                                      {{ field.label_tag }}
-                                      {{ field }}
-                                  </div>
-                                    {% if field.help_text %}
-                                    <small style="color:gray;">{{ field.help_text }}</small>
-                                    {% endif %}
-                                    {% for error in field.errors %}
-                                       <div class="alert alert-danger">
-                                       <strong>{{ error|escape }}</strong>
-                                        </div>
-                                    {% endfor %}
-                                  {% endfor %}
-                                  {% for error in profile_form.non_field_errors%}
-                                  <div class="alert alert-danger">
-                                    <strong>{{ error|escape }}</strong>
-                                  </div>
-                                  {% endfor %}
-                                  <button type="submit" class="btn btn-info">Guardar Cambios</button>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="profile">Profile</div>
-                            <div role="tabpanel" class="tab-pane" id="messages">Messages</div>
-                            <div role="tabpanel" class="tab-pane" id="settings">Settings</div>
-                        </div>
-
-
-                </div>
-            </div>
-        </div>
     </div>
   </div>
 

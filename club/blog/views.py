@@ -27,6 +27,8 @@ def contact(request):
             mensaje.save()
             mensaje_form.cleaned_data
             messages.success( request,'Gracias por escribirnos. Nos pondremos en contacto con usted')
+        else:
+            messages.warning(request,'Error al procesar el formulario')    
         #return HttpResponseRedirect(reverse('blog:contact'))
     mensaje_form = MensajeForm()
     context = {
