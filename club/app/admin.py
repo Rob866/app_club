@@ -98,7 +98,7 @@ class Paquete_InscritoAdmin(ImportExportModelAdmin):
             obj.tiempo_restante= time_0
             m, s = divmod(time_0.total_seconds(), 60)
             h, m = divmod(m, 60)
-            obj.horas_restantes = '{:d}:{:02d}:{:02d}'.format(int(h),int(m),int(s))
+            obj.horas_restantes = '{:d}:{:02d}:{:02d} Hrs'.format(int(h),int(m),int(s))
         obj.save()
         return '{:d}:{:02d}:{:02d} Hrs'.format(int(h),int(m),int(s))
 

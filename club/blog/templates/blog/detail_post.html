@@ -45,7 +45,7 @@
 
          <div class="col-12">
            <p>
-           <a class="navbar-brand" href="index.html"><span style="color: black">Club de </span><span>Tareas</span></a>
+           <a class="navbar-brand" href="#"><span style="color: black;">Club de </span><span>Tareas</span></a>
              <ul class="list-group">
                <li class="list-group-item list-group-item-light">Número de Artículos: {{ posts | length }} </li>
              </ul>
@@ -122,12 +122,16 @@
         <div class="fb-comments" data-href="https://192.168.0.7:8000/blog/{{post.id}}" data-width="500px" data-numposts="5"></div>
        <p> Comentarios directamente del Blog</p>
         <div class="row" style="padding:0; margin:0">
-          <div class="col-12">
+          <div class="col-12" style="padding:0">
               {% for comment in comentarios %}
               <div class="comment" style="margin-bottom: 20px">
                       <ul class="list-group">
-                      <li class="list-group-item" style="margin-bottom:1px"><p class="info">{{ comment.nombre }} | {{ comment.created_on }}
-                          {{ comment.mensaje|linebreaks }} </p></li>
+                      <li class="list-group-item" style="margin-bottom:1px">
+                        <p class="info"  style="margin:0;">
+                          {{ comment.nombre }} | {{ comment.created_on }}
+                          <hr>
+                          {{ comment.mensaje|linebreaks }}</p>
+                        </li>
                       </ul>
                </div>
 
@@ -135,8 +139,8 @@
               <h4>Aun no hay comentarios.</h4>
               {% endfor %}
           </div>
-            <div class="col-12">
-              <form method="POST" class="bg-light  contact-form">
+            <div class="col-12" style="padding:0">
+              <form method="POST" class="contact-form">
                 {% csrf_token %}
                 <div class="row form-group" >
                   <div class="col-2 col-md-1" style="padding-right:2px">
@@ -151,7 +155,7 @@
                   {{ comment_form.mensaje }}
                 </div>
                 <div class="form-group">
-                  <input type="submit" value="Enviar" class="btn btn-primary py-3 px-5">
+                  <input type="submit" value="Enviar" class="btn btn-primary py-2 px-5">
                 </div>
               </form>
             </div>
