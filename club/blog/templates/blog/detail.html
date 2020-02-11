@@ -1,0 +1,188 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load embed_video_tags %}
+{% load crispy_forms_tags %}
+{% block meta_tag %}
+    <meta property="og:image"   content="{{ post.imagen.url }}" />
+{% endblock %}
+{% block content %}
+
+<section class="hero-wrap hero-wrap-2 ftco-animate" style="background-image: url({%  static 'main/images/bg_1.jpeg' %});" data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-end justify-content-center">
+      <div class="col-md-9 ftco-animate pb-5 text-center">
+        <h1 class="mb-3 bread">Post</h1>
+        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="blog.html">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>{{ post.titulo }}<i  style="padding-left:2px;"class="ion-ios-arrow-forward"></i></span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section">
+     <div class="container">
+       <div class="row">
+         <div class="col-lg-8 ftco-animate">
+           <h2 class="mb-3" style="text-align: center;">{{ post.titulo }}</h2>
+
+             {% if post.imagen %}
+                        <p>
+                      <img src="{{ post.imagen.url }}" class="img-fluid" alt="">
+                      </p>
+             {% endif %}
+
+           <p style="text-align: justify;">{{ post.content }}</p>
+
+             {% if post.video %}
+                    <div style="position:relative; width: 100%; overflow: hidden ;padding-top: 10%;">
+                      <video  width="100%" controls>
+                        <source src='{{ post.video.url }}' type='video/mp4'>
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+             {% endif %}
+
+
+           <div class="tag-widget post-tag-container mb-5 mt-5">
+             <div class="tagcloud" style="position:relative; height: 50px;">
+               {% if post.get_next_by_create_on %}
+                <a style="position: absolute; top:0; right:0;" href="{{ post.get_next_by_create_on.get_absolute_url }}" class="tag-cloud-link">{{ post.get_next_by_create_on.titulo}}</a>
+               {% endif %}
+               {% if  post.get_previous_by_create_on %}
+               <a style="position: absolute; top:0; left:0;" href="{{ post.get_previous_by_create_on.get_absolute_url }}" class="tag-cloud-link">{{ post.get_previous_by_create_on.titulo}}</a>
+               {% endif %}
+             </div>
+             <div class="fb-like" data-href="https://192.168.0.7:8000/blog/{{post.id}}" data-layout="button_count" data-action="like" data-show-faces="true"  data-share="true">
+             </div>
+           </div>
+
+           <div class="about-author d-flex p-4 bg-light">
+             <div class="bio mr-5">
+               <img src="{% static 'main/images/person_2.jpg' %}" alt="Image placeholder" class="img-fluid mb-4">
+             </div>
+             <div class="desc">
+               <h3>George Washington</h3>
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus
+                  aut, sunt placeat nam vero culpa sapiente consectetur similique,
+                   inventore eos fugit cupiditate numquam!</p>
+             </div>
+           </div>
+          <div class="fb-comments" data-href="https://192.168.0.7:8000/blog/{{post.id}}" data-width="500px" data-numposts="5"></div>
+           <div class="pt-5 mt-5">
+             <h3 class="mb-5">{{ post.comentarios.all | length }} Comentarios</h3>
+             <ul class="comment-list">
+                   {% for comment in comentarios %}
+                       <li class="comment bg-light">
+                         <div class="vcard bio">
+                             <img height="50px" style="padding: 5px;" src="{% static 'main/images/user.jpg' %}" alt="">
+                         </div>
+                         <div class="comment-body">
+                           <h3> {{ comment.nombre }}</h3>
+                           <div class="meta">{{ comment.created_on }}</div>
+                           <p>  {{ comment.mensaje|linebreaks }}</p>
+                         </div>
+                       </li>
+               {% endfor%}
+             </ul>
+             <!-- END comment-list -->
+
+             <div class="comment-form-wrap pt-5">
+               <h3 class="mb-5">Deja un comentario</h3>
+               <form method="POST" class="contact-form">
+                 {% csrf_token %}
+                 <div class="row form-group" >
+                   <div class="col-2 col-md-1" style="padding-right:2px">
+                       <img  height="50px" class="d-block w-100" src="{% static 'main/images/user.jpg' %}" alt="">
+                   </div>
+                   <div class="col-10 col-md-11" style="padding-left:0">
+                   {{ comment_form.nombre}}
+                   </div>
+                 </div>
+
+                 <div class="form-group">
+                   {{ comment_form.mensaje }}
+                 </div>
+                 <div class="form-group">
+                   <input type="submit" value="Enviar" class="btn btn-primary py-2 px-5">
+                 </div>
+               </form>
+             </div>
+           </div>
+
+         </div> <!-- .col-md-8 -->
+         <div class="col-lg-4 sidebar ftco-animate">
+           <div class="sidebar-box">
+             <div class="sidebar-box ftco-animate">
+               <h3 class="heading-sidebar">Paragraph</h3>
+               <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+             </div>
+           </div>
+           <div class="sidebar-box ftco-animate">
+              <h3 class="heading-sidebar">Promociones</h3>
+             <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img class="d-block w-100" src="{% static 'main/images/club1.jpg' %}" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                  <img class="d-block w-100" src="{% static 'main/images/club.jpeg'%}" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                  <img class="d-block w-100" src="{% static 'main/images/club2.jpg'%}" alt="Third slide">
+                </div>
+              </div>
+            </div>
+           </div>
+
+           <div class="sidebar-box ftco-animate">
+             <h3 class="heading-sidebar">Posts mas Comentados</h3>
+              {% for post in order_post_by_comments %}
+             <div class="block-21 mb-4 d-flex">
+               <a  href="{% url 'blog:post_detail' id=post.id %}" class="blog-img mr-4" style="background-image: url('{{ post.imagen.url }}');"></a>
+               <div class="text">
+                 <h3 class="heading"><a href="{% url 'blog:post_detail' id=post.id %}">{{ post.titulo }}</a></h3>
+                 <div class="meta">
+                   <div><a href="#"><span class="icon-calendar"></span> {{ post.create_on }} </a></div>
+                   <div><a href="#"><span class="icon-person"></span>{{ post.autor }}</a></div>
+                   <div><a href="#"><span class="icon-chat"></span>{{post.comments | length}}</a></div>
+                 </div>
+               </div>
+             </div>
+             {% endfor %}
+
+           </div>
+
+           <div class="sidebar-box ftco-animate">
+             <div id="fb-container">
+               <div class="fb-page" data-tabs="timeline" data-href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/">Clove Republic</a></blockquote></div>
+             </div>
+           </div>
+
+           <div class="sidebar-box ftco-animate">
+             <h3 class="heading-sidebar">Paragraph</h3>
+             <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+           </div>
+         </div>
+
+       </div>
+     </div>
+  </section> <!-- .section -->
+
+   {%endblock content%}
+
+   {% block  script_tag %}
+   <script type="text/javascript">
+     jQuery(document).ready(function($) {
+          $(window).bind("load resize", function(){
+          setTimeout(function() {
+          var container_width = $('#fb-container').width();
+            $('#fb-container').html('<div class="fb-page" ' +
+            'data-href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/"' +
+            ' data-width="' + container_width + '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="http://www.facebook.com/IniciativaAutoMat"><a href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/">Clove Republic</a></blockquote></div></div>');
+            FB.XFBML.parse( );
+          }, 100);
+        });
+        });
+   </script>
+   {% endblock%}

@@ -28,7 +28,7 @@ def contact(request):
             mensaje_form.cleaned_data
             messages.success( request,'Gracias por escribirnos. Nos pondremos en contacto con usted')
         else:
-            messages.warning(request,'Error al procesar el formulario')    
+            messages.warning(request,'Error al procesar el formulario')
         #return HttpResponseRedirect(reverse('blog:contact'))
     mensaje_form = MensajeForm()
     context = {
@@ -64,7 +64,7 @@ def postDetail(request,id):
     'comentarios': comentarios,
     'comment_form':comment_form
     }
-    return render(request,'blog/detail_post.html',context)
+    return render(request,'blog/detail.html',context)
 
 def testimony(request):
     testimonios = Testimonio.objects.all()
