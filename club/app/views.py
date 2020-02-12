@@ -17,7 +17,8 @@ from .forms import (UserAuthentication, UserUpdateForm)
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from  notifications.signals import notify
-
+import online_users.models
+from datetime import timedelta
 
 def services(request):
     return render(request, 'app/services.html')
@@ -168,10 +169,14 @@ def historial(request):
 
 @login_required
 def notificactionList(request):
-
     request.user.notifications.mark_all_as_read()
     notificaciones = request.user.notifications.read()
+    user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
+    users = (user for user in  user_status)
+
     context = {
-            'notificaciones': notificaciones
+            'notificaciones': notificaciones,
+            'online_users': users
         }
+
     return render(request,'app/notifications_list.html',context)
