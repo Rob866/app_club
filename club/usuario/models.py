@@ -13,10 +13,11 @@ class MyUsuarioManager(BaseUserManager):
         if not apellido:
             raise ValueError("Debes de tener un Apellido")
 
-
         user = self.model(
-            email=self.normalize_email(email),
-            username=username
+            #email=self.normalize_email(email),
+            username=username,
+            nombre=nombre,
+            apellido=apellido,
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -27,7 +28,7 @@ class MyUsuarioManager(BaseUserManager):
             #email= self.normalize_email(email),
             username=username,
             nombre = nombre,
-            apellido= apellido,
+            apellido=apellido,
             password=password,
 
         )
