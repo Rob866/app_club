@@ -165,7 +165,17 @@ def historial(request):
     }
     return render(request,'app/historial.html',context)
 
+@login_required
+def eventos(request):
+    eventslist= []
+    for paquete  in request.user.paquetes_inscritos.all():
+        for clase in paquete.sesiones.all():
+            eventslist.append({ 'titulo' : clase.asignatura, 'fecha': str(clase.tiempo_de_salida.date()),'paquete_id':clase.paquete_inscrito.id })
 
+    context = {
+    'eventslist': eventslist
+    }
+    return render(request,'app/eventos.html',context)
 
 @login_required
 def notificactionList(request):

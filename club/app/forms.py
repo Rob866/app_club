@@ -30,8 +30,9 @@ class UserAuthentication(forms.ModelForm):
 
 class UserUpdateForm(forms.ModelForm):
 
+
     username         = forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Username'}))
-    email            = forms.EmailField(label="Email",required=False,widget=forms.EmailInput(attrs={'class': 'form-control','required':'false'}))
+    email            = forms.EmailField(label="Email",widget=forms.EmailInput(attrs={'class': 'form-control'}))
     nombre           = forms.CharField(label="Nombre",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
     apellido         = forms.CharField(label="Apellido",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Apellido'}))
     fecha_nacimiento = forms.DateField(label="Fecha de nacimiento",widget=forms.SelectDateWidget(attrs={ 'class':'custom-select'},years=YEARS),initial="1990-06-21")

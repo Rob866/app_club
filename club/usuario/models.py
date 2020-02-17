@@ -96,7 +96,7 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
 
 
     def __str__(self):
-        return f'{self.nombre}'
+        return f'{self.nombre}  {self.apellido}'
 
     def has_perm(self,perm,obj=None):
         return self.is_admin

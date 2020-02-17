@@ -14,6 +14,7 @@ from  notifications.signals import notify
 
 # Register your models here
 
+
 class SesionAdmin(admin.ModelAdmin):
     list_display =('paquete_inscrito_','tiempo_de_inicio','tiempo_de_salida','tiempo_de_sesion',)
     list_filter = [('paquete_inscrito',admin.RelatedFieldListFilter)]
@@ -42,7 +43,7 @@ class Paquete_InscritoAdmin(ImportExportModelAdmin):
     list_display = ('usuario','fecha_de_inscripcion','tipo_de_paquete_','_horas_consumidas','_horas_restantes','check_status',)
     list_filter=('status',)
     search_fields = ('usuario__nombre','usuario__apellido',)
-    inlines = [SesionesInline]
+    inlines = [SesionesInline,]
     list_per_page=15
     #readonly_fields = ["horas_consumidas","horas_restantes"]
     exclude = ('tiempo_consumido','tiempo_restante')

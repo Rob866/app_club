@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<section class="ftco-section" style="background:#31de79">
+  <div class="container" style="background:#31de79">
+    <div id='calendar'></div>
+  </div>
+
+</section>
+
+
+{%endblock%}
+
+{% block  script_tag %}
+<script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            events: [
+                {% for event in eventslist %}
+                    {
+                        title: '{{ event.titulo }}',
+                        start: '{{ event.fecha }}',
+                        url: '/paquetes/'+'{{ event.paquete_id }}'
+                    },
+                {% endfor %}
+            ],
+
+            eventClick: function(event) {
+                if (event.url){
+                    window.open(event.url, "_blank");
+                    return false;
+                }
+            },
+
+            height: 650,
+        });
+    });
+  </script>
+  {%endblock%}

@@ -12,4 +12,5 @@ urlpatterns = [
     path('paquetes/',views.paquetes,name='paquetes'),
     path('list/', views.notificactionList,name='list'),
     path('paquetes/<uuid:paquete_id>/',views.clases,name='clases'),
+    path('events/',views.eventos,name="events"),
 ]
