@@ -17,6 +17,7 @@ class Notificacion(models.Model):
            return  self.titulo
 
 class Sesion(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id de la sesion")
     paquete_inscrito = models.ForeignKey('Paquete_Inscrito',related_name="sesiones",on_delete=models.CASCADE,null=True)
     asignatura = models.CharField(max_length=100)
     tiempo_de_inicio = models.DateTimeField(null=True,blank=True)

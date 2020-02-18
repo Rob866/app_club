@@ -15,15 +15,20 @@
 <script>
     $(document).ready(function() {
         $('#calendar').fullCalendar({
+          monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+          monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+          dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+          dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
             events: [
                 {% for event in eventslist %}
                     {
                         title: '{{ event.titulo }}',
                         start: '{{ event.fecha }}',
-                        url: '/paquetes/'+'{{ event.paquete_id }}'
+                        url: '/paquetes/{{ event.paquete_id}}/'+'{{ event.clase_id }}'
                     },
                 {% endfor %}
             ],
+
 
             eventClick: function(event) {
                 if (event.url){

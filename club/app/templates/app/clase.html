@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="ftco-section ftco-project"  style="background:#31de79">
+  <div class="container px-md-5" style="padding-top: 50px;">
+   <table class="table table-hover table-sm table-bordered ftco-animate" style="background: white">
+   <!--Table head-->
+   <thead>
+     <tr>
+       <th scope="col">Asignatura</th>
+       <th scope="col">Tiempo de sesion</th>
+       <th scope="col">Fecha de clase</th>
+     </tr>
+   </thead>
+   <!--Table head-->
+   <!--Table body-->
+   <tbody>
+
+      <tr>
+        <!--<th scope="row"><i style="font-size: 25px" class="fa fa-user"></i></th>-->
+        <td>{{ sesion.asignatura }}</td>
+        <td>{{ sesion.tiempo_de_sesion }} Hrs</td>
+        <td>{{ sesion.tiempo_de_inicio}}</td>
+      </tr>
+
+   </tbody>
+   <!--Table body-->
+   </table>
+   <table class="table table-hover table-sm table-bordered ftco-animate" style="background: white">
+   <!--Table head-->
+   <thead>
+     <tr>
+       <th scope="col">observaciones</th>
+
+     </tr>
+   </thead>
+   <!--Table head-->
+   <!--Table body-->
+     <tbody>
+        <tr>
+          <td>{{ sesion.observaciones}}</td>
+        </tr>
+
+     </tbody>
+   <!--Table body-->
+   </table>
+
+
+   <div style="height: 40px; width: 100%; position:relative"class="mt-5">
+      <a href="{% url 'app:paquetes'%}" style="position: absolute; right:0">
+
+      <button type="button" class="btn btn-primary" style="font-size:15px;">
+            <i class="fa fa-chevron-left"></i> Ir Paquetes</button>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock content  %}

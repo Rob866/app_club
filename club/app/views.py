@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Paquete_Inscrito,Historial_User
+from .models import Paquete_Inscrito,Historial_User,Sesion
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
@@ -158,6 +158,15 @@ def clases(request,paquete_id):
     return render(request,'app/clases.html',context)
 
 @login_required
+def clase(request,paquete_id,clase_id):
+    sesion = Sesion.objects.all().get(id=clase_id)
+    context = {
+    'sesion': sesion
+    }
+    return render(request,'app/clase.html',context)
+
+
+@login_required
 def historial(request):
     historial = request.user.historial.all().order_by('-fecha')
     context = {
@@ -170,7 +179,7 @@ def eventos(request):
     eventslist= []
     for paquete  in request.user.paquetes_inscritos.all():
         for clase in paquete.sesiones.all():
-            eventslist.append({ 'titulo' : clase.asignatura, 'fecha': str(clase.tiempo_de_salida.date()),'paquete_id':clase.paquete_inscrito.id })
+            eventslist.append({ 'titulo' : clase.asignatura, 'fecha': str(clase.tiempo_de_salida.date()),'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id})
 
     context = {
     'eventslist': eventslist
