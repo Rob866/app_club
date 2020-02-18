@@ -43,7 +43,8 @@ class MyUsuarioManager(BaseUserManager):
 class Usuario(AbstractBaseUser,PermissionsMixin):
 
     imagen       =  models.ImageField(default='default.jpg',upload_to='profile_pics')
-    email        =  models.EmailField(max_length=60,unique=True,null=True, blank=True)
+    email        =  models.EmailField(max_length=60,null=True,blank=True)
+    facebook     =  models.CharField(max_length=100,null=True,blank=True)
     username     =  models.CharField(max_length=30,unique=True)
     nombre       =  models.CharField(max_length=100)
     apellido     =  models.CharField(max_length=100)
