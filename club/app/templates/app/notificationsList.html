@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
-<div class="container ftco-animate" style="margin-top:120px">
+  <section class="ftco-section">
+  <div class="container ftco-animate">
     <div class="row mt-4 ml-1">
         <a href="" class="btn btn-warning" role="button">Notificaciones</a>
     </div>
-
-    <div class="row mt-2"  style="padding:10px">
+    <div class="row mt-2"  style="padding:10px;">
         <ul class="list-group" style="width: 100%">
             {% if notificaciones %}
             {% for notificacion in notificaciones %}
@@ -23,13 +23,9 @@
                      </span>
                      <p>Mensaje: {{ notificacion.description }}</p>
                      Fecha: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notificacion.timestamp|date:"Y/m/d H:i" }}
-
                    </div>
-
                </div>
-
              </div>
-
             {% endfor %}
             {% else %}
             <ul class="list-group" style="padding-bottom: 20px">
@@ -37,8 +33,34 @@
             </ul>
             {% endif%}
         </ul>
+        {% if is_paginated %}
+
+                {% if page_obj.has_previous %}
+                  <a class="btn btn-outline-info mb-4" href="?page=1">Primera</a>
+                  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                  {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                  {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Ultima</a>
+                {% endif %}
+
+             {% endif %}
+
     </div>
 </div>
+
+  </section>
+
+<!--
 {% if  request.user.is_superuser %}
 <div class="container ftco-animate" style="margin-top:80px">
     <div class="row mt-4 ml-1">
@@ -66,6 +88,8 @@
 </div>
   {% endfor %}
 {% endif %}
+-->
+
 <style>
     #notice_link a:link {
         color: black;

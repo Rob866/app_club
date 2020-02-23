@@ -3,6 +3,10 @@
 {% block content %}
 <section class="ftco-section" style="background:#31de79">
   <div class="container" style="background:#31de79">
+    <select id="drop" style="margin-bottom: 20px;">
+            <option value="clases">Clases</option>
+            <option value="notificaciones">Notificaciones</option>
+      </select>
     <div id='calendar'></div>
   </div>
 
@@ -14,17 +18,26 @@
 {% block  script_tag %}
 <script>
     $(document).ready(function() {
+        var value_select = "clases"
+        $("#drop").change(
+                function () {
+                     this.value_select = $(this).val();
+
+                });
+
         $('#calendar').fullCalendar({
           monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
           monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
           dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
           dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
             events: [
+
                 {% for event in eventslist %}
                     {
                         title: '{{ event.titulo }}',
                         start: '{{ event.fecha }}',
-                        url: '/paquetes/{{ event.paquete_id}}/'+'{{ event.clase_id }}'
+                        url: '/paquetes/{{ event.paquete_id}}/'+'{{ event.clase_id }}',
+                        color: '{{ event.color }}'
                     },
                 {% endfor %}
             ],

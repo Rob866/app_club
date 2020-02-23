@@ -19,9 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 import notifications.urls
 
-admin.site.site_header = "Club de Tareas Admin"
+admin.site.site_header = "Club de Tareas"
 admin.site.site_title = "Club de Tereas Portal"
-admin.site.index_title = "Bienvenido al Club de tareas Admin"
+admin.site.index_title = "Bienvenido al Club de tareas"
 
 
 urlpatterns = [

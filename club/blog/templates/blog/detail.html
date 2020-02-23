@@ -23,25 +23,29 @@
      <div class="container">
        <div class="row">
          <div class="col-lg-8 ftco-animate">
-           <h2 class="mb-3" style="text-align: center;">{{ post.titulo }}</h2>
+           <article class="media content-section">
+                             <div class="media-body">
+                                 <div class="article-metadata">
+                                     Creado por: <a class="mr-2" href="#">{{ post.autor}}</a>
+                                     <small class="text-muted">{{ post.create_on }} Hrs</small>
+                                 </div>
+                                 <h3>{{ post.titulo }}</h3>
+                                 {% if post.imagen %}
+                                          <img src="{{ post.imagen.url }}" class="img-fluid" alt="Responsive image"
+                                             style="margin-bottom : 10px">
+                                 {% endif %}
+                                 <p class="article-content" style="text-align: justify">{{post.content}}</p>
 
-             {% if post.imagen %}
-                        <p>
-                      <img src="{{ post.imagen.url }}" class="img-fluid" alt="">
-                      </p>
-             {% endif %}
-
-           <p style="text-align: justify;">{{ post.content }}</p>
-
-             {% if post.video %}
-                    <div style="position:relative; width: 100%; overflow: hidden ;padding-top: 10%;">
-                      <video  width="100%" controls>
-                        <source src='{{ post.video.url }}' type='video/mp4'>
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-             {% endif %}
-
+                                {% if post.video %}
+                                       <div style="position:relative; width: 100%; overflow: hidden ;padding-top: 10%;">
+                                         <video  width="100%" controls>
+                                           <source src='{{ post.video.url }}' type='video/mp4'>
+                                               Your browser does not support the video tag.
+                                           </video>
+                                       </div>
+                                {% endif %}
+                             </div>
+           </article>
 
            <div class="tag-widget post-tag-container mb-5 mt-5">
              <div class="tagcloud" style="position:relative; height: 50px;">

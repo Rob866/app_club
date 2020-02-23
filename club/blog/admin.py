@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post,Comentario,Mensaje,Testimonio,Rotulo,Profesor,Servicio
+from .models import Post,Comentario,Mensaje,Testimonio,Rotulo,Profesor,Servicio,Publicidad
 
 # Register your models here.
 class ServicioAdmin(admin.ModelAdmin):
@@ -38,3 +38,4 @@ admin.site.register(Testimonio,TestimonioAdmin)
 admin.site.register(Rotulo,RotuloAdmin)
 admin.site.register(Profesor,ProfesorAdmin)
 admin.site.register(Servicio,ServicioAdmin)
+admin.site.register(Publicidad)

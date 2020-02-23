@@ -15,7 +15,6 @@ class blog(ListView):
     paginate_by= 3
 
     def get_queryset(self):
-        print(self.model.objects.filter(status=1).order_by('-create_on'))
         return self.model.objects.filter(status=1).order_by('-create_on')
         #return Post.objects.filter(status=1).order_by('-create_on')
 

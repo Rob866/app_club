@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Paquete_Inscrito,Historial_User,Sesion
+from .models import Paquete_Inscrito,Historial_User,Sesion,Notificacion
 from django.db.models import Q
 from django.templatetags.static import static
 from django.conf import settings
@@ -19,6 +19,7 @@ from django.contrib.auth.decorators import login_required
 from  notifications.signals import notify
 import online_users.models
 from datetime import timedelta
+
 
 def services(request):
     return render(request, 'app/services.html')
@@ -70,7 +71,9 @@ def profile(request):
         )
 
     context['profile_form'] = form
+    user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
 
+    context['online_users'] = (user for user in  user_status)
     context['historial'] = request.user.historial.all().order_by('-fecha')
     return render(request,'app/profile.html',context)
 
@@ -179,13 +182,17 @@ def eventos(request):
     eventslist= []
     for paquete  in request.user.paquetes_inscritos.all():
         for clase in paquete.sesiones.all():
-            eventslist.append({ 'titulo' : clase.asignatura, 'fecha': str(clase.tiempo_de_salida.date()),'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id})
+            eventslist.append({ 'titulo' : clase.asignatura, 'fecha': str(clase.tiempo_de_salida.date()),'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
+    eventslist2 = []
+    for notificacion in request.user.notifications.all():
+        eventslist2.append({'titulo': notificacion.verb, 'fecha': notificacion.timestamp })
 
     context = {
-    'eventslist': eventslist
+    'eventslist': eventslist,
+    'eventslist2': eventslist2
     }
     return render(request,'app/eventos.html',context)
-
+"""
 @login_required
 def notificactionList(request):
     request.user.notifications.mark_all_as_read()
@@ -199,3 +206,28 @@ def notificactionList(request):
         }
 
     return render(request,'app/notifications_list.html',context)
+
+"""
+#@login_required
+class notificationsList(ListView):
+    template_name ='app/notificationsList.html'
+    paginate_by= 4
+    context_object_name='notificaciones'
+
+    def get_queryset(self):
+        self.request.user.notifications.mark_all_as_read()
+        #user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
+        return self.request.user.notifications.read()
+"""
+    def get(self,request,*args,**kwargs):
+        request.user.notifications.mark_all_as_read()
+        notificaciones = request.user.notifications.read()
+        user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
+        users = (user for user in  user_status)
+        context =  {
+                'notificaciones': notificaciones,
+                'online_users': users
+            }
+
+        return  render(request,self.template_name,context)
+"""

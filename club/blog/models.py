@@ -30,6 +30,11 @@ class Rotulo(models.Model):
     def __str__(self):
         return self.cabecera
 
+class Publicidad(models.Model):
+    imagen =  models.ImageField(upload_to='publicidad_pics')
+    class Meta:
+        verbose_name_plural ="Carteles de Publicidad"
+
 class Profesor(models.Model):
     imagen = models.ImageField(default="default.jpg",upload_to="profesores_pics")
     nombre = models.CharField(max_length=100)
@@ -78,6 +83,7 @@ class Comentario(models.Model):
     active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name_plural = "Comentarios de Posts"
         ordering = ['created_on']
 
     def __str__(self):
@@ -94,6 +100,7 @@ class Mensaje(models.Model):
     REQUIRED_FIELDS = ["nombre","asunto","email","body"]
 
     class Meta:
+        verbose_name_plural="Mensajes(Formulario de Contacto)"
         ordering = ['created_on']
     def __str__(self):
         return self.nombre
