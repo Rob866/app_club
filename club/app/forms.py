@@ -30,7 +30,6 @@ class UserAuthentication(forms.ModelForm):
 
 class UserUpdateForm(forms.ModelForm):
 
-
     username         = forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Username'}))
     email            = forms.EmailField(label="Email de contacto",required=False,widget=forms.EmailInput(attrs={'class': 'form-control'}))
     facebook          = forms.CharField(label="Facebook de contacto",required=False,widget=forms.EmailInput(attrs={'class': 'form-control'}))

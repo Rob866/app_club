@@ -3,10 +3,14 @@
 {% block content %}
 <section class="ftco-section" style="background:#31de79">
   <div class="container" style="background:#31de79">
-    <select id="drop" style="margin-bottom: 20px;">
-            <option value="clases">Clases</option>
-            <option value="notificaciones">Notificaciones</option>
-      </select>
+
+    <form action="{% url 'app:events' %}" method="get">
+        <select  name="seleccion" id="drop" style="margin-bottom: 20px;">
+                <option  {% if seleccion == 'clases' %} selected="selected" {% endif %} value="clases">Clases</option>
+                <option {% if seleccion == 'notificaciones' %} selected="selected" {% endif %} value="notificaciones">Notificaciones</option>
+        </select>
+        <button type="submit" name="button">Buscar</button>
+     </form>
     <div id='calendar'></div>
   </div>
 
@@ -18,12 +22,7 @@
 {% block  script_tag %}
 <script>
     $(document).ready(function() {
-        var value_select = "clases"
-        $("#drop").change(
-                function () {
-                     this.value_select = $(this).val();
 
-                });
 
         $('#calendar').fullCalendar({
           monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
@@ -35,8 +34,12 @@
                 {% for event in eventslist %}
                     {
                         title: '{{ event.titulo }}',
-                        start: '{{ event.fecha }}',
-                        url: '/paquetes/{{ event.paquete_id}}/'+'{{ event.clase_id }}',
+                        start : '{{ event.fecha|date:"Y-m-d" }}',
+                        {% if seleccion == "clases" %}
+                        url: '/paquetes/{{ event.paquete_id }}/{{ event.clase_id }}',
+                        {% else %}
+                          url: '/notificactionsList/{{ event.id }}',
+                        {%endif%}
                         color: '{{ event.color }}'
                     },
                 {% endfor %}

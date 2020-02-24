@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from  notifications.signals import notify
 import online_users.models
 from datetime import timedelta
-
+from datetime import datetime
 
 def services(request):
     return render(request, 'app/services.html')
@@ -177,21 +177,35 @@ def historial(request):
     }
     return render(request,'app/historial.html',context)
 
-@login_required
-def eventos(request):
-    eventslist= []
-    for paquete  in request.user.paquetes_inscritos.all():
-        for clase in paquete.sesiones.all():
-            eventslist.append({ 'titulo' : clase.asignatura, 'fecha': str(clase.tiempo_de_salida.date()),'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
-    eventslist2 = []
-    for notificacion in request.user.notifications.all():
-        eventslist2.append({'titulo': notificacion.verb, 'fecha': notificacion.timestamp })
 
-    context = {
-    'eventslist': eventslist,
-    'eventslist2': eventslist2
-    }
-    return render(request,'app/eventos.html',context)
+class Eventos(ListView):
+    template_name= "app/aventos.html"
+
+    seleccion=""
+    eventslist=[]
+    def get(self,request,*args,**kwargs):
+        if 'seleccion' in self.request.GET:
+            self.seleccion = self.request.GET.get('seleccion')
+            self.eventslist= []
+            if self.seleccion == "clases":
+                for paquete  in self.request.user.paquetes_inscritos.all():
+                    for clase in paquete.sesiones.all():
+                        self.eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
+            else:
+                self.eventslist= []
+                for notificacion in self.request.user.notifications.all():
+                    self.eventslist.append({'titulo': notificacion.verb, 'fecha': notificacion.timestamp,'id':notificacion.id,'color':'blue' })
+        else:
+            self.seleccion = "clases"
+            self.eventslist=[]
+            for paquete in self.request.user.paquetes_inscritos.all():
+                for clase in paquete.sesiones.all():
+                    self.eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
+        context = {
+            'eventslist': self.eventslist,
+            'seleccion': self.seleccion
+            }
+        return render(request,'app/eventos.html',context)
 """
 @login_required
 def notificactionList(request):
@@ -208,6 +222,15 @@ def notificactionList(request):
     return render(request,'app/notifications_list.html',context)
 
 """
+@login_required
+def notificacion(request,id):
+    notificacion = request.user.notifications.all().get(id=id)
+    notificacion.mark_as_read()
+    context ={
+    "notificacion": notificacion
+    }
+    return render(request,'app/notificacion.html',context)
+
 #@login_required
 class notificationsList(ListView):
     template_name ='app/notificationsList.html'
@@ -215,9 +238,10 @@ class notificationsList(ListView):
     context_object_name='notificaciones'
 
     def get_queryset(self):
-        self.request.user.notifications.mark_all_as_read()
+        #self.request.user.notifications.mark_all_as_read()
         #user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
-        return self.request.user.notifications.read()
+        #self.request.user.notifications.read()
+        return self.request.user.notifications.all()
 """
     def get(self,request,*args,**kwargs):
         request.user.notifications.mark_all_as_read()

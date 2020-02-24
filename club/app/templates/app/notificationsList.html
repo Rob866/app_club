@@ -11,21 +11,36 @@
         <ul class="list-group" style="width: 100%">
             {% if notificaciones %}
             {% for notificacion in notificaciones %}
+            <a href="{% url 'app:notificacion' id=notificacion.id%}">
              <div class="container" style="padding-bottom: 10px;">
-               <div style="background-color: white;border-radius: 5px;">
+               <div style="background-color: white;border-radius: 5px; position: relative ">
                  <div class="inset">
                    <img  style="width: 50px;height:50px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
                  </div>
+                 {% if not notificacion.unread %}
+                     <span class="badge badge-danger" style="border-radius: 50%; position:absolute; top:10%; left:0; transform: translate(-50%,-50%);">
+                     <i class="fa fa-comments"></i>
+                 {%endif%}
+                 {% if  notificacion.unread %}
+                     <span class="badge badge-success" style="border-radius: 50%; position:absolute; top:10%; left:0; transform: translate(-50%,-50%);">
+                     <i class="fa fa-comments"></i>
+                 {%endif%}
+
+               </span>
+
                    <div  style="padding-left: 60px;">
-                     <a>Título: {{ notificacion.verb }}</a>
                      <span style="color: #5897fb;">
-                       De: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
+                       Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
                      </span>
-                     <p>Mensaje: {{ notificacion.description }}</p>
-                     Fecha: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notificacion.timestamp|date:"Y/m/d H:i" }}
+                    <br>
+                     <span>
+                               Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
+                     </span>
+
                    </div>
                </div>
              </div>
+             </a>
             {% endfor %}
             {% else %}
             <ul class="list-group" style="padding-bottom: 20px">

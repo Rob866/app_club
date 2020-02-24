@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="ftco-section ftco-project"  style="background:#31de79">
+  <div class="container px-md-5" style="padding-top: 50px;">
+
+    <div class="container" style="padding-bottom: 10px;">
+      <div style="background-color: white;border-radius: 5px;">
+        <div class="inset">
+          <img  style="width: 50px;height:50px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
+        </div>
+          <div  style="padding-left: 60px;">
+            <span style="color: #5897fb;">
+              De parte de : {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
+            </span>
+            <br>
+              <a>Asunto: {{ notificacion.verb }}</a>
+            <br>
+            <p>Mensaje: {{ notificacion.description }}</p>
+            Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
+          </div>
+      </div>
+    </div>
+
+   </div>
+</section>
+
+{% endblock content  %}
