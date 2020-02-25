@@ -164,7 +164,8 @@ def clases(request,paquete_id):
 def clase(request,paquete_id,clase_id):
     sesion = Sesion.objects.all().get(id=clase_id)
     context = {
-    'sesion': sesion
+    'sesion': sesion,
+    'paquete_id': paquete_id
     }
     return render(request,'app/clase.html',context)
 

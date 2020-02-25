@@ -15,5 +15,5 @@ urlpatterns = [
     path('notificactionsList/<int:id>/',views.notificacion,name='notificacion'),
     path('paquetes/<uuid:paquete_id>/',views.clases,name='clases'),
     path('paquetes/<uuid:paquete_id>/<uuid:clase_id>',views.clase,name='clase'),
-    path('events/',views.Eventos.as_view(),name="events"),
+    path('events/',login_required(views.Eventos.as_view()),name="events"),
 ]
