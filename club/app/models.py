@@ -5,8 +5,9 @@ from django.conf import settings
 from django.contrib.auth.models import Group
 #from django.contrib.auth.models import  User
 
+
 class Notificacion(models.Model):
-       titulo = models.CharField(max_length=100)
+       asunto = models.CharField(max_length=100,default="Notifiación del Staff")
        mensaje= models.TextField()
        fecha_de_creacion = models.DateTimeField(auto_now_add=True)
        grupo = models.ForeignKey(Group,on_delete=models.CASCADE,null=True)
@@ -14,7 +15,7 @@ class Notificacion(models.Model):
        class Meta:
            verbose_name_plural = ("Envio de Notificaciones a grupos")
        def __str__(self):
-           return  self.titulo
+           return  self.asunto
 
 class Sesion(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id de la sesion")

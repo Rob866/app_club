@@ -97,7 +97,7 @@ class Mensaje(models.Model):
     body= models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
 
-    REQUIRED_FIELDS = ["nombre","asunto","email","body"]
+
 
     class Meta:
         verbose_name_plural="Mensajes(Formulario de Contacto)"

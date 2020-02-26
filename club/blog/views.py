@@ -20,16 +20,18 @@ class blog(ListView):
 
 def contact(request):
     if request.method == 'POST':
-        mensaje_form = MensajeForm(data=request.POST)
+        mensaje_form = MensajeForm(request.POST)
         if mensaje_form.is_valid():
-            mensaje = Mensaje(nombre=request.POST["nombre"],asunto=request.POST["asunto"],email=request.POST["email"],body=request.POST["body"])
-            mensaje.save()
+            #mensaje = Mensaje(nombre=request.POST["nombre"],asunto=request.POST["asunto"],email=request.POST["email"],body=request.POST["body"])
+            mensaje_form.save()
             mensaje_form.cleaned_data
             messages.success( request,'Gracias por escribirnos. Nos pondremos en contacto con usted')
+            return HttpResponseRedirect(reverse('blog:contact'))
         else:
             messages.warning(request,'Error al procesar el formulario')
-        #return HttpResponseRedirect(reverse('blog:contact'))
-    mensaje_form = MensajeForm()
+
+    else:
+        mensaje_form = MensajeForm()
     context = {
          'mensaje_form': mensaje_form
     }

@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags%}
+{% load static %}
+{% block content %}
+<section>
+  <div class="container ftco-animate"  style="margin-top:120px; margin-bottom: 10px;">
+
+    <div class="row">
+        <div class="col-md-8">
+
+                <div class="portlet-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="home">
+                                <form method="POST">
+                                  {% csrf_token %}
+                                  {% for field in notification_form %}
+                                  <div class="form-group">
+                                      {{ field.label_tag }}
+                                      {{ field }}
+                                  </div>
+                                    {% if field.help_text %}
+                                    <small style="color:gray;">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    {% for error in field.errors %}
+                                       <div class="alert alert-danger">
+                                       <strong>{{ error|escape }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                  {% endfor %}
+                                  {% for error in notification_form.non_field_errors%}
+                                  <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                  </div>
+                                  {% endfor %}
+                                  <button type="submit" class="btn btn-info">Enviar</button>
+                                </form>
+                            </div>
+
+                        </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</section>
+{% endblock content %}

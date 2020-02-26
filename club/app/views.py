@@ -13,13 +13,33 @@ from django.views.generic import (
     DeleteView
 )
 from django.http import HttpResponseRedirect
-from .forms import (UserAuthentication, UserUpdateForm)
+from .forms import (UserAuthentication, UserUpdateForm,NotificationForm)
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from  notifications.signals import notify
 import online_users.models
 from datetime import timedelta
 from datetime import datetime
+
+
+@login_required
+def notificacionPage(request):
+    context = {}
+    if request.POST:
+        form = NotificationForm(request.POST)
+        if form.is_valid():
+            mensaje = request.POST['description']
+            form.cleaned_data
+            usuarios = get_user_model().objects.all()
+            for usuario in usuarios:
+                if usuario.is_superuser:
+                    notify.send(request.user,recipient=usuario,verb="Notificación de mansaje de Alumno/Profesor",description=mensaje,action_object=request.user)
+            return HttpResponseRedirect(reverse('app:form_notification'))
+
+    else:
+        form = NotificationForm()
+    context["notification_form"] = form
+    return render(request,'app/form_notification.html',context)
 
 def services(request):
     return render(request, 'app/services.html')
@@ -39,7 +59,7 @@ def profile(request):
                 if not  request.user.is_superuser:
                     for usuario  in usuarios:
                         if usuario.is_superuser:
-                            notify.send(request.user,recipient=usuario,verb="Datos del Perfil Actualizados",description=f"datos actualizados del Perfil: {form.changed_data}",action_object=request.user)
+                            notify.send(request.user,recipient=usuario,verb="Datos de Perfil Actualizado",description=f"datos actualizados del Perfil: {form.changed_data}",action_object=request.user)
 
         else:
             messages.warning(request,'Error al procesar el formulario')
@@ -48,6 +68,7 @@ def profile(request):
         initial = {
           'username' :request.user.username,
           'email': request.user.email,
+          'facebook': request.user.facebook,
           'nombre': request.user.nombre,
           'apellido': request.user.apellido,
           'fecha_nacimiento': request.user.fecha_nacimiento,
