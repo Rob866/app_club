@@ -36,15 +36,10 @@
                                     <small style="color:gray;">{{ field.help_text }}</small>
                                     {% endif %}
                                     {% for error in field.errors %}
-                                       <div class="alert alert-danger">
+                                       <div class="alert alert-danger boom">
                                        <strong>{{ error|escape }}</strong>
                                         </div>
                                     {% endfor %}
-                                  {% endfor %}
-                                  {% for error in profile_form.non_field_errors%}
-                                  <div class="alert alert-danger">
-                                    <strong>{{ error|escape }}</strong>
-                                  </div>
                                   {% endfor %}
                                   <button type="submit" class="btn btn-info">Guardar Cambios</button>
                                 </form>

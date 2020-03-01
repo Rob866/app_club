@@ -34,6 +34,7 @@ def notificacionPage(request):
             for usuario in usuarios:
                 if usuario.is_superuser:
                     notify.send(request.user,recipient=usuario,verb="Notificación de mansaje de Alumno/Profesor",description=mensaje,action_object=request.user)
+                    messages.success( request,'Tu mensaje a sido enviado con éxito al Staff')
             return HttpResponseRedirect(reverse('app:form_notification'))
 
     else:
@@ -101,7 +102,8 @@ def profile(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('blog:home'))
+    messages.success( request,'Has salido de sesión con éxito')
+    return HttpResponseRedirect(reverse('app:login'))
 
 def login_view(request):
     context= {}
@@ -226,7 +228,7 @@ class Eventos(ListView):
         context = {
             'eventslist': self.eventslist,
             'seleccion': self.seleccion
-            }
+            }    
         return render(request,'app/eventos.html',context)
 """
 @login_required

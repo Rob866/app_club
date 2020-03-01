@@ -20,7 +20,7 @@ class NotificationForm(forms.Form):
     def clean(self):
         description = self.cleaned_data['description']
         if not description:
-            raise forms.ValidationError("Campo de Mensaje vavio")
+            raise forms.ValidationError("Campo de Mensaje vacío")
 
 
 class UserAuthentication(forms.ModelForm):
@@ -71,23 +71,27 @@ class UserUpdateForm(forms.ModelForm):
                   'numero_del_padre')
 
     def clean_nombre(self):
-        nombre= self.cleaned_data['nombre']
-        if not nombre:
-            raise forms.ValidationError('El campo nombre no puede estar vacio')
-        return nombre
+
+        if self.is_valid():
+            nombre= self.cleaned_data['nombre']
+            if not nombre:
+                raise forms.ValidationError('El campo nombre no puede estar vacio')
+            return nombre
 
     def clean_apellido(self):
-        apellido=self.cleaned_data['apellido']
-        if not apellido:
-            raise forms.ValidationError('El campo apellido no puede estar vacio')
-        return apellido
+
+        if self.is_valid():
+            apellido=self.cleaned_data['apellido']
+            if not apellido:
+                raise forms.ValidationError('El campo apellido no puede estar vacio')
+            return apellido
 
     def clean_username(self):
-        if not self.cleaned_data['username']:
-            raise forms.ValidationError('El campo username no puede estar vacio')
 
         if self.is_valid():
             username = self.cleaned_data['username']
+            if not username:
+                raise forms.ValidationError('El campo username no puede estar vacio')
             try:
                 account = get_user_model().objects.exclude(pk=self.instance.pk).get(username=username)
             except get_user_model().DoesNotExist:

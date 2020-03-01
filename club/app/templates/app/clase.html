@@ -39,9 +39,12 @@
    <!--Table body-->
      <tbody>
         <tr>
-          <td>{{ sesion.observaciones}}</td>
+          {% if sesion.observaciones %}
+          <td>{{ sesion.observaciones }}</td>
+          {% else %}
+          <td>Sin observaciones</td>
+          {% endif %}
         </tr>
-
      </tbody>
    <!--Table body-->
    </table>

@@ -40,16 +40,17 @@ def contact(request):
 
 def postDetail(request,id):
     post_object = get_object_or_404(Post,id=id)
+    comment_form= None
     comentarios = post_object.comentarios.filter(active=True)
     if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
+        comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             new_comment = Comentario(post=post_object,nombre=request.POST["nombre"],mensaje=request.POST["mensaje"])
-            new_comment.save();
-            comment_form.cleaned_data
-        return HttpResponseRedirect(post_object.get_absolute_url())
+            new_comment.save()
+            return HttpResponseRedirect(post_object.get_absolute_url())
     else:
         comment_form= CommentForm()
+    #print(comment_form.errors)
     #obtengo todos los posts activos
     posts = Post.objects.filter(status=1)
     # los ordeno segun el numero de comentarios activos (mayor a menor)
@@ -57,7 +58,6 @@ def postDetail(request,id):
     # me  aseguro que las lista de los post mas comentados sea como máximo 5 posts
     if len(order_post_by_comments) > 5 :
         order_post_by_comments = order_post_by_comments[:6]
-
     context = {
     'order_post_by_comments': order_post_by_comments,
     'posts': posts,
@@ -65,6 +65,7 @@ def postDetail(request,id):
     'comentarios': comentarios,
     'comment_form':comment_form
     }
+
     return render(request,'blog/detail.html',context)
 
 def testimony(request):

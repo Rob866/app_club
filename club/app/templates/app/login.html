@@ -146,9 +146,17 @@
 {% endblock %}
 
 <div class="wrapper fadeInDown" style="padding-top: 80px">
+
         <div id="formContent">
         <!-- Tabs Titles -->
+        {% if messages %}
+            {% for message in messages  %}
+                <div class="alert alert-{{ message.tags }}" id="msg" role="alert" style="margin:10px 10px 0 10px;">
+                  <p style="text-align: center; padding-top: 8px">{{ message }}</p>
+                </div>
+            {% endfor %}
 
+        {% endif %}
         <!-- Icon -->
         <div class="fadeIn first">
           <span><i class="fa fa-user-circle" style="font-size: 60px;padding-top:20px; padding-bottom:20px;"></i></span>

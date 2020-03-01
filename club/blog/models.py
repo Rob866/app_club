@@ -76,7 +76,7 @@ class Post(models.Model):
 
 class Comentario(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id del comentario")
-    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comentarios')
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comentarios',null=True)
     nombre = models.CharField(max_length=80)
     mensaje = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

@@ -4,11 +4,11 @@
 <section class="ftco-section" style="background:#31de79">
   <div class="container" style="background:#31de79">
     <form action="{% url 'app:events' %}" method="get">
-        <select class ="form-control" name="seleccion" id="drop" style="margin-bottom: 20px;">
+        <select name="seleccion" id="drop" style="margin-bottom: 20px;">
                 <option  {% if seleccion == 'clases' %} selected="selected" {% endif %} value="clases">Clases</option>
                 <option {% if seleccion == 'notificaciones' %} selected="selected" {% endif %} value="notificaciones">Notificaciones</option>
         </select>
-        <button type="submit"  class="btn btn-primary" style="box-shadow: 0 0 0 2px white;">Buscar</button>
+        <button type="submit">Buscar</button>
      </form>
 
     <div id='calendar'   class=ftco-animate></div>
@@ -22,7 +22,6 @@
 {% block  script_tag %}
 <script>
     $(document).ready(function() {
-
 
         $('#calendar').fullCalendar({
           monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
