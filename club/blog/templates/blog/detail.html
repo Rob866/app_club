@@ -149,8 +149,8 @@
            </div>
 
            <div class="sidebar-box ftco-animate">
-             <h3 class="heading-sidebar">Posts mas Comentados</h3>
-              {% for post in order_post_by_comments %}
+             <h3 class="heading-sidebar">Posts recientes</h3>
+              {% for post in order_post_by_date %}
              <div class="block-21 mb-4 d-flex">
                <a  href="{% url 'blog:post_detail' id=post.id %}" class="blog-img mr-4" style="background-image: url('{{ post.imagen.url }}');"></a>
                <div class="text">
@@ -158,7 +158,7 @@
                  <div class="meta">
                    <div><a href="#"><span class="icon-calendar"></span> {{ post.create_on }} </a></div>
                    <div><a href="#"><span class="icon-person"></span>{{ post.autor }}</a></div>
-                   <div><a href="#"><span class="icon-chat"></span>{{post.comments | length}}</a></div>
+                   <div><a href="#"><span class="icon-chat"></span>{{ post.comentarios.all | length }}</a></div>
                  </div>
                </div>
              </div>

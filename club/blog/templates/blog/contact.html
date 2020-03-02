@@ -74,7 +74,12 @@
                       </div>
                   {% endfor %}
               {% endfor %}
-              
+              {% for error in mensaje_form.non_field_errors%}
+              <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+              </div>
+              {% endfor %}
+
               <div class="form-group">
                 <input type="submit" value="Enviar Mensaje" class="btn btn-primary py-3 px-5">
               </div>

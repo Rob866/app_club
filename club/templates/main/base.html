@@ -2,7 +2,7 @@
 {% load notifications_tags %}
 {% notifications_unread as unread_count %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <title>Club de tareas</title>
     <meta charset="utf-8">
@@ -77,7 +77,7 @@
                       <a class="dropdown-item" href="{% url 'app:historial' %}"><span style="padding-right: 10px;"><i class="fa fa-file"></i></span><span>Historial</span></a>
                       <a class="dropdown-item" href = "{% url 'app:notificactionsList' %}" >
                         <span style="padding-right: 10px;"><i class="fa fa-comments"></i></span><span>Notificaciones</span>
-                  
+
                           <span class="badge badge-danger">{{ unread_count }}</span>
 
                       </a>

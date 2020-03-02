@@ -72,9 +72,9 @@
                 </ul>
              </p>
             {% endif%}
-             <p class="text-muted">Post mas comentados :
+             <p class="text-muted">Posts resientes :
               <ul class="list-group">
-                   {% for post in order_post_by_comments %}
+                   {% for post in order_post_by_date %}
                    <li class="list-group-item list-group-item-light">
                        <a href="{{ post.get_absolute_url }}">{{ post.titulo}}</a>
                    </li>

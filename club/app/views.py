@@ -122,8 +122,9 @@ def login_view(request):
                 login(request,user)
                 return HttpResponseRedirect(reverse('blog:home'))
     else:
-        form = UserAuthentication()
+        form = UserAuthentication()   
     context['login_form'] = form
+
     return render(request,'app/login.html',context)
 
 
@@ -228,7 +229,7 @@ class Eventos(ListView):
         context = {
             'eventslist': self.eventslist,
             'seleccion': self.seleccion
-            }    
+            }
         return render(request,'app/eventos.html',context)
 """
 @login_required

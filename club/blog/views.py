@@ -52,14 +52,18 @@ def postDetail(request,id):
         comment_form= CommentForm()
     #print(comment_form.errors)
     #obtengo todos los posts activos
-    posts = Post.objects.filter(status=1)
+    posts = Post.objects.filter(status=1).exclude(id=id)
     # los ordeno segun el numero de comentarios activos (mayor a menor)
-    order_post_by_comments = sorted(posts,key= lambda post: len(post.comentarios.filter(active=True)),reverse=True)
+    #order_post_by_comments = sorted(posts,key= lambda post: len(post.comentarios.filter(active=True)),reverse=True)
     # me  aseguro que las lista de los post mas comentados sea como máximo 5 posts
-    if len(order_post_by_comments) > 5 :
-        order_post_by_comments = order_post_by_comments[:6]
+    order_post_by_date = sorted(posts,key=lambda post: post.create_on,reverse=True)
+
+    if len(order_post_by_date) > 5 :
+        order_post_by_date = order_post_by_date[:6]
+
+
     context = {
-    'order_post_by_comments': order_post_by_comments,
+    'order_post_by_date': order_post_by_date,
     'posts': posts,
     'post': post_object,
     'comentarios': comentarios,
