@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Post,Comentario,Mensaje,Testimonio,Rotulo,Profesor
+from .models import Post,Comentario,Mensaje,Testimonio,Rotulo,Profesor,Servicio
 from .forms import CommentForm,MensajeForm
 import uuid
 from django.http import HttpResponseRedirect
@@ -17,6 +17,16 @@ class blog(ListView):
     def get_queryset(self):
         return self.model.objects.filter(status=1).order_by('-create_on')
         #return Post.objects.filter(status=1).order_by('-create_on')
+
+def services(request):
+    servicios = Servicio.objects.all()
+    id_activate = servicios[0].id
+    context= {
+    'servicios': servicios,
+    'id_activate': id_activate
+    }
+
+    return render(request, 'blog/services.html',context)
 
 def contact(request):
     if request.method == 'POST':

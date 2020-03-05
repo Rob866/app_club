@@ -42,8 +42,6 @@ def notificacionPage(request):
     context["notification_form"] = form
     return render(request,'app/form_notification.html',context)
 
-def services(request):
-    return render(request, 'app/services.html')
 
 @login_required
 def profile(request):
@@ -122,7 +120,7 @@ def login_view(request):
                 login(request,user)
                 return HttpResponseRedirect(reverse('blog:home'))
     else:
-        form = UserAuthentication()   
+        form = UserAuthentication()
     context['login_form'] = form
 
     return render(request,'app/login.html',context)

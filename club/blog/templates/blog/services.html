@@ -1,0 +1,100 @@
+
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<section class="ftco-section fix_mobile ftco-no-pb ftco-no-pt ftco-services" style="margin-top:120px">
+  <div class="container px-md-5">
+    <div class="row no-gutters">
+
+      <div class="col-md-4 ftco-animate py-5 nav-link-wrap">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          {% if  servicios %}
+          {% for servicio in servicios  %}
+            {% if servicio.id == id_activate %}
+                <a class="nav-link px-4 active" id="v-pills-{{servicio.id}}-tab" data-toggle="pill" href="#v-pills-{{servicio.id}}" role="tab" aria-controls="v-pills-{{servicio.id}}" aria-selected="true">{{servicio.titulo}}</a>
+             {% else %}
+                <a class="nav-link px-4" id="v-pills-{{servicio.id}}-tab" data-toggle="pill" href="#v-pills-{{servicio.id}}" role="tab" aria-controls="v-pills-{{servicio.id}}" aria-selected="true">{{servicio.titulo}}</a>
+            {% endif %}
+          {% endfor %}
+          {% endif %}
+
+
+        </div>
+      </div>
+      <div class="col-md-8 ftco-animate p-4 p-md-5 d-flex align-items-center">
+
+        <div class="tab-content pl-md-5" id="v-pills-tabContent">
+          {%if servicios %}
+            {% for servicio in servicios %}
+               {% if servicio.id  == id_activate %}
+               <div class="tab-pane fade show py-5 active" id="v-pills-{{servicio.id}}" role="tabpanel" aria-labelledby="v-pills-{{servicio.id}}-tab">
+                 <h2 class="mb-4  ftco-animate">{{servicio.titulo }}</h2>
+                 <p class="ftco-animate" style="text-align: justify">{{ servicio.contenido }}</p>
+               </div>
+               {% else %}
+               <div class="tab-pane fade show py-5" id="v-pills-{{servicio.id}}" role="tabpanel" aria-labelledby="v-pills-{{servicio.id}}-tab">
+                 <h2 class="mb-4  ftco-animate">{{servicio.titulo }}</h2>
+                 <p class="ftco-animate" style="text-align: justify;">{{ servicio.contenido }}</p>
+               </div>
+               {% endif %}
+
+
+            {%endfor%}
+          {% endif%}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section-2 img" style="background-image: url({% static 'main/images/bg_3.jpg)'%}">
+  <div class="container">
+    <div class="row d-md-flex justify-content-end">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <a href="#" class="services-wrap ftco-animate">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="ion-ios-arrow-back"></span>
+                <span class="ion-ios-arrow-forward"></span>
+              </div>
+              <h2>Market Research</h2>
+              <p>Even the all-powerful Pointing has no control about the blind.</p>
+              
+            </a>
+            <a href="#" class="services-wrap ftco-animate">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="ion-ios-arrow-back"></span>
+                <span class="ion-ios-arrow-forward"></span>
+              </div>
+              <h2>Financial Services</h2>
+              <p>Even the all-powerful Pointing has no control about the blind.</p>
+            </a>
+            <a href="#" class="services-wrap ftco-animate">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="ion-ios-arrow-back"></span>
+                <span class="ion-ios-arrow-forward"></span>
+              </div>
+              <h2>Online Marketing</h2>
+              <p>Even the all-powerful Pointing has no control about the blind.</p>
+            </a>
+            <a href="#" class="services-wrap ftco-animate">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="ion-ios-arrow-back"></span>
+                <span class="ion-ios-arrow-forward"></span>
+              </div>
+              <h2>24/7 Help &amp; Support</h2>
+              <p>Even the all-powerful Pointing has no control about the blind.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock content     %}
