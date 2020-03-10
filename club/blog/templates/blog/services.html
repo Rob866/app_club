@@ -13,9 +13,14 @@
           {% if  servicios %}
           {% for servicio in servicios  %}
             {% if servicio.id == id_activate %}
-                <a class="nav-link px-4 active" id="v-pills-{{servicio.id}}-tab" data-toggle="pill" href="#v-pills-{{servicio.id}}" role="tab" aria-controls="v-pills-{{servicio.id}}" aria-selected="true">{{servicio.titulo}}</a>
+
+                <a class="nav-link px-4 active" id="v-pills-{{servicio.id}}-tab" data-toggle="pill" href="#v-pills-{{servicio.id}}" role="tab" aria-controls="v-pills-{{servicio.id}}" aria-selected="true">
+                <span class="fa fa-{{servicio.icono}} mr-2"></span>
+                  {{servicio.titulo}}</a>
              {% else %}
-                <a class="nav-link px-4" id="v-pills-{{servicio.id}}-tab" data-toggle="pill" href="#v-pills-{{servicio.id}}" role="tab" aria-controls="v-pills-{{servicio.id}}" aria-selected="true">{{servicio.titulo}}</a>
+                <a class="nav-link px-4" id="v-pills-{{servicio.id}}-tab" data-toggle="pill" href="#v-pills-{{servicio.id}}" role="tab" aria-controls="v-pills-{{servicio.id}}" aria-selected="true">
+                <span class="fa fa-{{servicio.icono}} mr-2"></span>
+                  {{servicio.titulo}}</a>
             {% endif %}
           {% endfor %}
           {% endif %}
@@ -29,12 +34,15 @@
           {%if servicios %}
             {% for servicio in servicios %}
                {% if servicio.id  == id_activate %}
+
                <div class="tab-pane fade show py-5 active" id="v-pills-{{servicio.id}}" role="tabpanel" aria-labelledby="v-pills-{{servicio.id}}-tab">
+                 <span class="fa fa-{{ servicio.icono }} ftco-animate" style="font-size: 40px;"></span>
                  <h2 class="mb-4  ftco-animate">{{servicio.titulo }}</h2>
                  <p class="ftco-animate" style="text-align: justify">{{ servicio.contenido }}</p>
                </div>
                {% else %}
                <div class="tab-pane fade show py-5" id="v-pills-{{servicio.id}}" role="tabpanel" aria-labelledby="v-pills-{{servicio.id}}-tab">
+                  <span class="fa fa-{{ servicio.icono}} ftco-animate" style="font-size: 40px;"></span>
                  <h2 class="mb-4  ftco-animate">{{servicio.titulo }}</h2>
                  <p class="ftco-animate" style="text-align: justify;">{{ servicio.contenido }}</p>
                </div>
@@ -48,6 +56,42 @@
       </div>
     </div>
   </div>
+</section>
+<section class="fix_mobile ftco-counter img ftco-section ftco-no-pt ftco-no-pb">
+<div class="container">
+  <div class="row d-flex">
+    <div class="col-md-6 col-lg-5 d-flex">
+      <div class="img d-flex align-self-stretch align-items-center" style="background-image:url({% static 'main/images/about.jpg'%})">
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-7 pl-lg-5 py-5">
+      <div class="py-md-5">
+        <div class="row justify-content-start pb-3">
+          <div class="col-md-12 heading-section ftco-animate">
+            <span class="subheading">Club de tareas</span>
+            <h2 class="mb-4" style="font-size: 34px; text-transform: capitalize;">Mision</h2>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="py-md-5">
+        <div class="row justify-content-start pb-3">
+          <div class="col-md-12 heading-section ftco-animate">
+            <span class="subheading">Club de Tareas</span>
+            <h2 class="mb-4" style="font-size: 34px; text-transform: capitalize;">Vision</h2>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="ftco-section-2 img" style="background-image: url({% static 'main/images/bg_3.jpg)'%}">
@@ -63,7 +107,7 @@
               </div>
               <h2>Market Research</h2>
               <p>Even the all-powerful Pointing has no control about the blind.</p>
-              
+
             </a>
             <a href="#" class="services-wrap ftco-animate">
               <div class="icon d-flex justify-content-center align-items-center">

@@ -6,8 +6,23 @@ from embed_video.fields import EmbedVideoField
 # Create your models here.
 
 class Servicio(models.Model):
+    ESTADO_STATUS =(
+    ('commenting','Comentario'),
+    ('book','Libro'),
+    ('th','Cuadricula'),
+    ('file-text','Archivo'),
+    ('cogs','Engranes'),
+    ('spinner','Spinner'),
+    ('gg','gg'),
+    ('sort-alpha-desc','sort-alpha-desc'),
+    ('sort-numeric-asc','sort-numeric-asc'),
+    ('snowflake-o','snowflake-o'),
+    ('share-alt','share-alt'),
+    )
+
     titulo = models.CharField(max_length=100)
     contenido = models.TextField()
+    icono = models.CharField(max_length=20,choices=ESTADO_STATUS,blank=True)
 
     def __str_(self):
         return self.titulo

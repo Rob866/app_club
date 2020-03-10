@@ -20,7 +20,10 @@ class blog(ListView):
 
 def services(request):
     servicios = Servicio.objects.all()
-    id_activate = servicios[0].id
+    id_activate = 0
+    if servicios:
+        id_activate = servicios[0].id
+
     context= {
     'servicios': servicios,
     'id_activate': id_activate
