@@ -4,18 +4,17 @@
 
 <section class="ftco-section ftco-project"  style="background:#31de79">
   <div class="container px-md-5">
-   <p class="info-alumno ftco-animate"  style="text-transform: uppercase; color: #7c795d; font-family: 'Trocchi', serif; font-size: 25px; font-weight: normal; line-height: 48px; margin: 0;padding:10px;text-align:center;">
+   <p class="info-alumno ftco-animate titulo_paquetes"  style="text-transform: uppercase; color: #7c795d; font-family: 'Trocchi', serif; font-size: 25px; font-weight: normal; line-height: 48px; margin: 0;padding:10px;text-align:center;">
      Alumno:  {{ student.nombre }} {{ student.apellido }}(Paquete {{ paquete.tipo_de_paquete }})
    </p>
-   <p class="info-alumno ftco-animate"style="font-size:20px">Horas consumidas: <span style="font-weight: bold">{{ paquete.horas_consumidas}}</span></p>
-   <p  class="info-alumno ftco-animate" style="font-size:20px">Horas restantes: <span style="font-weight: bold">{{ paquete.horas_restantes}}</span></p>
+   <p class="info-alumno ftco-animate titulo_paquetes"style="font-size:25px">Horas consumidas: <span style="font-weight: bold">{{ paquete.horas_consumidas}}</span></p>
+   <p  class="info-alumno ftco-animate titulo_paquetes" style="font-size:25px">Horas restantes: <span style="font-weight: bold">{{ paquete.horas_restantes}}</span></p>
    <button type="button" style="margin-bottom: 10px;"class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg">Observaciones</button>
-   <table class="table table-hover table-sm table-bordered ftco-animate" style="background: white">
+   <table class="table table-hover table-sm table-bordered ftco-animate" style="background: white;">
    <!--Table head-->
    <thead>
      <tr>
        <th scope="col">Asignatura</th>
-       <th scope="col">Tiempo de sesion</th>
        <th scope="col">Fecha de clase</th>
        <th scope="col">Detalles</th>
      </tr>
@@ -27,7 +26,6 @@
       <tr>
         <!--<th scope="row"><i style="font-size: 25px" class="fa fa-user"></i></th>-->
         <td>{{ clase.asignatura }}</td>
-        <td>{{ clase.tiempo_de_sesion }} Hrs</td>
         <td>{{ clase.tiempo_de_inicio}}</td>
         <td>	<a href="{% url 'app:clase' paquete_id=paquete.id clase_id=clase.id %}"><button type="button" class="btn btn-primary">Mostrar</button></a></td>
       </tr>

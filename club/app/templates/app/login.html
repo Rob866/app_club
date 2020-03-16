@@ -14,6 +14,7 @@
    flex-direction: column;
    justify-content: center;
    width: 100%;
+   height: 100vh;
    min-height: 100%;
    padding: 20px;
  }
@@ -145,7 +146,7 @@
  </style>
 {% endblock %}
 
-<div class="wrapper fadeInDown" style="padding-top: 80px">
+<div class="wrapper fadeInDown" style="padding-top: 100px">
 
         <div id="formContent">
         <!-- Tabs Titles -->
@@ -159,7 +160,7 @@
         {% endif %}
         <!-- Icon -->
         <div class="fadeIn first">
-          <span><i class="fa fa-user-circle" style="font-size: 60px;padding-top:20px; padding-bottom:20px;"></i></span>
+          <h1>Login</h1>
         </div>
 
         <!-- Login Form -->
@@ -175,7 +176,7 @@
               {% endif%}
             </p>
           {% endfor %}
-            <input type="submit" value="Iniciar Sesión" class="fadeIn fourth">
+            <input type="submit" value="Iniciar" class="fadeIn fourth">
             {% for field in login_form %}
                 {% for error in field.errors %}
                     <div class="alert alert-danger" style="padding: 0 1.5em 0 1.5em">

@@ -13,7 +13,7 @@
     <meta property="og:description"   content="Centro de Tutorias para alumnos" />
     {% block meta_tag %}{% endblock%}
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'main/css/fonts.css'%}">
     <link rel="stylesheet" href="{% static 'main/css/open-iconic-bootstrap.min.css'%}">
     <link rel="stylesheet" href="{% static 'main/css/animate.css'%}">
     <link rel="stylesheet" href="{% static 'main/css/search.css'%}">
@@ -108,7 +108,7 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">About DigiLab</h2>
+              <h2 class="ftco-heading-2">Club de Tareas</h2>
               <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -121,17 +121,17 @@
             <div class="ftco-footer-widget mb-4 ml-md-4">
               <h2 class="ftco-heading-2">Links</h2>
               <ul class="list-unstyled">
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>About</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Services</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Projects</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
+                <li><a href="{% url 'blog:home' %}" ><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
+                <li><a href="{% url 'blog:about' %}"><span class="icon-long-arrow-right mr-2"></span>Acerca</a></li>
+                <li><a href="{% url 'blog:services' %}"><span class="icon-long-arrow-right mr-2"></span>Servicios</a></li>
+                <li><a href="{% url 'blog:blog' %}"><span class="icon-long-arrow-right mr-2"></span>Blog</a></li>
+                <li><a href="{% url 'blog:contact' %}"><span class="icon-long-arrow-right mr-2"></span>Contacto</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Services</h2>
+              <h2 class="ftco-heading-2">Servicios</h2>
               <ul class="list-unstyled">
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Design</a></li>
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Development</a></li>

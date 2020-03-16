@@ -87,6 +87,7 @@ def postDetail(request,id):
 
 def testimony(request):
     testimonios = Testimonio.objects.all()
+
     context = {
     "testimonios" : testimonios
     }

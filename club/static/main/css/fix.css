@@ -2740,4 +2740,7 @@ p.info-alumno{
     padding-right: 0 !important
   }
 
+  .titulo_paquetes{
+    font-size: 15px !important;
+  }
 }
