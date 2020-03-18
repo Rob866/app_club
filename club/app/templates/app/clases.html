@@ -15,7 +15,7 @@
    <thead>
      <tr>
        <th scope="col">Asignatura</th>
-       <th scope="col">Fecha de clase</th>
+       <th scope="col">Tiempo de Sesión</th>
        <th scope="col">Detalles</th>
      </tr>
    </thead>
@@ -26,8 +26,8 @@
       <tr>
         <!--<th scope="row"><i style="font-size: 25px" class="fa fa-user"></i></th>-->
         <td>{{ clase.asignatura }}</td>
-        <td>{{ clase.tiempo_de_inicio}}</td>
-        <td>	<a href="{% url 'app:clase' paquete_id=paquete.id clase_id=clase.id %}"><button type="button" class="btn btn-primary">Mostrar</button></a></td>
+        <td>{{ clase.tiempo_de_sesion }} Hrs</td>
+        <td><a href="{% url 'app:clase' paquete_id=paquete.id clase_id=clase.id %}"><button type="button" class="btn btn-primary">Mostrar</button></a></td>
       </tr>
 
      {% endfor %}

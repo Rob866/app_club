@@ -12,8 +12,8 @@
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-        <h1 class="mb-3 bread">Post</h1>
-        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="blog.html">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>{{ post.titulo }}<i  style="padding-left:2px;"class="ion-ios-arrow-forward"></i></span></p>
+        <h1 class="mb-3 bread">{{ post.titulo}}</h1>
+        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="blog.html">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>{{ post.titulo }}<i style="padding-left:2px;" class="ion-ios-arrow-forward"></i></span></p>
       </div>
     </div>
   </div>
@@ -50,27 +50,33 @@
            <div class="tag-widget post-tag-container mb-5 mt-5">
              <div class="tagcloud" style="position:relative; height: 50px;">
                {% if post.get_next_by_create_on %}
-                <a style="position: absolute; top:0; right:0;" href="{{ post.get_next_by_create_on.get_absolute_url }}" class="tag-cloud-link">{{ post.get_next_by_create_on.titulo}}</a>
+                <a style="position: absolute; top:0; right:0;" href="{{ post.get_next_by_create_on.get_absolute_url }}" class="tag-cloud-link">{{ post.get_next_by_create_on.titulo}}
+                <i  class="ion-ios-arrow-forward pl-2"></i></a>
                {% endif %}
                {% if  post.get_previous_by_create_on %}
-               <a style="position: absolute; top:0; left:0;" href="{{ post.get_previous_by_create_on.get_absolute_url }}" class="tag-cloud-link">{{ post.get_previous_by_create_on.titulo}}</a>
+               <a style="position: absolute; top:0; left:0;" href="{{ post.get_previous_by_create_on.get_absolute_url }}" class="tag-cloud-link">
+                <i  class="ion-ios-arrow-back pr-2"></i>{{ post.get_previous_by_create_on.titulo}}</a>
                {% endif %}
              </div>
              <div class="fb-like" data-href="https://192.168.0.7:8000/blog/{{post.id}}" data-layout="button_count" data-action="like" data-show-faces="true"  data-share="true">
              </div>
            </div>
 
-           <div class="about-author d-flex p-4 bg-light">
-             <div class="bio mr-5">
-               <img src="{% static 'main/images/judith.jpg' %}" alt="Image placeholder" class="img-fluid mb-4">
+           <div class="about-author p-4 bg-light">
+             <div class="row">
+               <div class="col-md-4">
+                 <img src="{% static 'main/images/judith.jpg' %}"  style="width:100%;" alt="Image placeholder">
+               </div>
+               <div class="col-md-8">
+                 <h3>George Washington</h3>
+                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus
+                    aut, sunt placeat nam vero culpa sapiente consectetur similique,
+                     inventore eos fugit cupiditate numquam!</p>
+               </div>
+
              </div>
-             <div class="desc">
-               <h3>George Washington</h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus
-                  aut, sunt placeat nam vero culpa sapiente consectetur similique,
-                   inventore eos fugit cupiditate numquam!</p>
-             </div>
+
            </div>
           <div class="fb-comments" data-href="https://192.168.0.7:8000/blog/{{post.id}}" data-width="500px" data-numposts="5"></div>
            <div class="pt-5 mt-5">
@@ -125,12 +131,6 @@
 
          </div> <!-- .col-md-8 -->
          <div class="col-lg-4 sidebar ftco-animate">
-           <div class="sidebar-box">
-             <div class="sidebar-box ftco-animate">
-               <h3 class="heading-sidebar">Paragraph</h3>
-               <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
-             </div>
-           </div>
            <div class="sidebar-box ftco-animate">
               <h3 class="heading-sidebar">Promociones</h3>
              <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -171,7 +171,6 @@
                <div class="fb-page" data-tabs="timeline" data-href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/">Clove Republic</a></blockquote></div>
              </div>
            </div>
-
            <div class="sidebar-box ftco-animate">
              <h3 class="heading-sidebar">Paragraph</h3>
              <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>

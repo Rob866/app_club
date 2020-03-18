@@ -33,7 +33,7 @@ def notificacionPage(request):
             usuarios = get_user_model().objects.all()
             for usuario in usuarios:
                 if usuario.is_superuser:
-                    notify.send(request.user,recipient=usuario,verb="Notificación de mansaje de Alumno/Profesor",description=mensaje,action_object=request.user)
+                    notify.send(request.user,recipient=usuario,verb="Mensaje de Alumno-Profesor",description=mensaje,action_object=request.user)
                     messages.success( request,'Tu mensaje a sido enviado con éxito al Staff')
             return HttpResponseRedirect(reverse('app:form_notification'))
 
@@ -126,33 +126,6 @@ def login_view(request):
     return render(request,'app/login.html',context)
 
 
-
-""""
-class AlumnosListView(ListView):
-    model = Alumno
-    template_name= 'app/alumnos.html'
-    #context_object_name = 'alumnos'
-
-    def get_queryset(self,query):
-        if not query.strip():
-            return None
-        if len(query) == 5:
-            return self.model.objects.filter(id__startswith=query)
-            #return Alumno.objects.filter(Q(apellido__icontains=query) | Q(nombre__icontains=query)).order_by('apellido')
-        return  None
-
-    def get(self,request,*args,**kwargs):
-        if 'busqueda' in self.request.GET:
-            query = request.GET.get('busqueda')
-            context = {
-            'alumnos': self.get_queryset(query)
-            }
-        else:
-            context = {
-              'alumnos': None
-            }
-        return  render(request,self.template_name,context)
-"""
 @login_required
 def paquetes(request):
     #student = get_user_model().objects.all().get(pk=pk)
@@ -168,13 +141,7 @@ def paquetes(request):
 
 @login_required
 def clases(request,paquete_id):
-    #student = get_user_model().objects.all().get(pk=pk)
     paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
-    #paquete  = Paquete_Inscrito.objects.all().get(id=paquete_id)
-    #clases = []
-    #for clase in paquete.sesiones.all() :
-    #    clases.append(clase)
-
     context = {
         'student':request.user,
         'clases': paquete.sesiones.all(),
@@ -229,22 +196,7 @@ class Eventos(ListView):
             'seleccion': self.seleccion
             }
         return render(request,'app/eventos.html',context)
-"""
-@login_required
-def notificactionList(request):
-    request.user.notifications.mark_all_as_read()
-    notificaciones = request.user.notifications.read()
-    user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
-    users = (user for user in  user_status)
 
-    context = {
-            'notificaciones': notificaciones,
-            'online_users': users
-        }
-
-    return render(request,'app/notifications_list.html',context)
-
-"""
 @login_required
 def notificacion(request,id):
     notificacion = request.user.notifications.all().get(id=id)
@@ -265,16 +217,3 @@ class notificationsList(ListView):
         #user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
         #self.request.user.notifications.read()
         return self.request.user.notifications.all()
-"""
-    def get(self,request,*args,**kwargs):
-        request.user.notifications.mark_all_as_read()
-        notificaciones = request.user.notifications.read()
-        user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
-        users = (user for user in  user_status)
-        context =  {
-                'notificaciones': notificaciones,
-                'online_users': users
-            }
-
-        return  render(request,self.template_name,context)
-"""
