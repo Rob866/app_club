@@ -25,8 +25,8 @@ class NotificationForm(forms.Form):
 
 class UserAuthentication(forms.ModelForm):
 
-    username= forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'fadeIn second username_login','placeholder':'Username'}))
-    password = forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'fadeIn third password_login','placeholder':'Password'}))
+    username= forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'placeholder':'Username'}))
+    password = forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
 
     class Meta:
         model  = get_user_model()

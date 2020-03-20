@@ -1,197 +1,339 @@
 
-{% extends 'main/base.html' %}
 {% load static %}
 {% load crispy_forms_tags%}
-{% block content %}
-{% block css_tag %}
- <style>
 
- /* STRUCTURE */
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Form</title>
 
- .wrapper {
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+  <style>
+
+  * {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+ }
+
+ #msg{
+   height: 80px;
+   -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+   transition: width 2s;
+ }
+
+ body{
+     font-family: 'Poppins', sans-serif;
+     overflow: hidden;
+ }
+
+ .wave{
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   height: 100%;
+   z-index: -1;
+ }
+
+ .container{
+     width: 100vw;
+     height: 100vh;
+     display: grid;
+     grid-template-columns: repeat(2, 1fr);
+     grid-gap :7rem;
+     padding: 0 2rem;
+ }
+
+ .img{
    display: flex;
+   justify-content: flex-end;
    align-items: center;
-   flex-direction: column;
-   justify-content: center;
-   width: 100%;
-   height: 100vh;
-   min-height: 100%;
-   padding: 20px;
  }
 
- #formContent {
-   -webkit-border-radius: 10px 10px 10px 10px;
-   border-radius: 10px 10px 10px 10px;
-   background: #fff;
-   padding: 30px;
-   width: 90%;
-   max-width: 450px;
-   position: relative;
-   padding: 0px;
-   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+ .login-content{
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
    text-align: center;
  }
 
-
-
-
-
- #formFooter {
-   background-color: #f6f6f6;
-   border-top: 1px solid #dce8f1;
-   padding: 25px;
-   text-align: center;
-   -webkit-border-radius: 0 0 10px 10px;
-   border-radius: 0 0 10px 10px;
+ .img img{
+   width: 500px;
  }
 
- /* FORM TYPOGRAPHY*/
+ form{
+   width: 360px;
+ }
 
- input[type=button], input[type=submit], input[type=reset]  {
-   background-color: #56baed;
-   border: none;
-   color: white;
-   padding: 15px 80px;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
+ .login-content img{
+     height: 100px;
+ }
+
+ .login-content h2{
+   margin: 15px 0;
+   color: #333;
    text-transform: uppercase;
-   font-size: 13px;
-   -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-   box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-   -webkit-border-radius: 5px 5px 5px 5px;
-   border-radius: 5px 5px 5px 5px;
-   margin: 5px 20px 40px 20px;
-   -webkit-transition: all 0.3s ease-in-out;
-   -moz-transition: all 0.3s ease-in-out;
-   -ms-transition: all 0.3s ease-in-out;
-   -o-transition: all 0.3s ease-in-out;
-   transition: all 0.3s ease-in-out;
+   font-size: 2.9rem;
  }
 
- input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
-   background-color: #39ace7;
+ .login-content .input-div{
+   position: relative;
+     display: grid;
+     grid-template-columns: 7% 93%;
+     margin: 25px 0;
+     padding: 5px 0;
+     border-bottom: 2px solid #d9d9d9;
  }
 
- input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
-   -moz-transform: scale(0.95);
-   -webkit-transform: scale(0.95);
-   -o-transform: scale(0.95);
-   -ms-transform: scale(0.95);
-   transform: scale(0.95);
+ .login-content .input-div.one{
+   margin-top: 0;
  }
 
- input[type=text] {
-   background-color: #f6f6f6;
+ .i{
+   color: #d9d9d9;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .i i{
+   transition: .3s;
+ }
+
+ .input-div > div{
+     position: relative;
+   height: 45px;
+ }
+
+ .input-div > div > h5{
+   position: absolute;
+   left: 10px;
+   top: 50%;
+   transform: translateY(-50%);
+   color: #999;
+   font-size: 18px;
+   transition: .3s;
+ }
+
+ .input-div:before, .input-div:after{
+   content: '';
+   position: absolute;
+   bottom: -2px;
+   width: 0%;
+   height: 2px;
+   background-color: #38d39f;
+   transition: .4s;
+ }
+
+ .input-div:before{
+   right: 50%;
+ }
+
+ .input-div:after{
+   left: 50%;
+ }
+
+ .input-div.focus:before, .input-div.focus:after{
+   width: 50%;
+ }
+
+ .input-div.focus > div > h5{
+   top: -5px;
+   font-size: 15px;
+ }
+
+ .input-div.focus > .i > i{
+   color: #38d39f;
+ }
+
+ .input-div > div > input{
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
    border: none;
-   color: #0d0d0d;
-   padding: 15px 32px;
-   text-align: center;
+   outline: none;
+   background: none;
+   padding: 0.5rem 0.7rem;
+   font-size: 1.2rem;
+   color: #555;
+   font-family: 'poppins', sans-serif;
+ }
+
+ .input-div.pass{
+   margin-bottom: 4px;
+ }
+
+ a{
+   display: block;
+   text-align: right;
    text-decoration: none;
-   display: inline-block;
-   font-size: 16px;
-     margin: 5px;
-   width: 85%;
-   border: 2px solid #f6f6f6;
-   -webkit-transition: all 0.5s ease-in-out;
-   -moz-transition: all 0.5s ease-in-out;
-   -ms-transition: all 0.5s ease-in-out;
-   -o-transition: all 0.5s ease-in-out;
-   transition: all 0.5s ease-in-out;
-   -webkit-border-radius: 5px 5px 5px 5px;
-   border-radius: 5px 5px 5px 5px;
+   color: #999;
+   font-size: 0.9rem;
+   transition: .3s;
  }
 
- input[type=text]:focus {
-   background-color: #fff;
-   border-bottom: 2px solid #5fbae9;
+ a:hover{
+   color: #38d39f;
  }
 
- input[type=text]:placeholder {
-   color: #cccccc;
- }
-
- input[type=password] {
-   background-color: #f6f6f6;
+ .btn{
+   display: block;
+   width: 100%;
+   height: 50px;
+   border-radius: 25px;
+   outline: none;
    border: none;
-   color: #0d0d0d;
-   padding: 15px 32px;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
-   font-size: 16px;
-     margin: 5px;
-   width: 85%;
-   border: 2px solid #f6f6f6;
-   -webkit-transition: all 0.5s ease-in-out;
-   -moz-transition: all 0.5s ease-in-out;
-   -ms-transition: all 0.5s ease-in-out;
-   -o-transition: all 0.5s ease-in-out;
-   transition: all 0.5s ease-in-out;
-   -webkit-border-radius: 5px 5px 5px 5px;
-   border-radius: 5px 5px 5px 5px;
+   background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+   background-size: 200%;
+   font-size: 1.2rem;
+   color: #fff;
+   font-family: 'Poppins', sans-serif;
+   text-transform: uppercase;
+   margin: 1rem 0;
+   cursor: pointer;
+   transition: .5s;
  }
-
- input[type=password]:focus {
-   background-color: #fff;
-   border-bottom: 2px solid #5fbae9;
- }
-
- input[type=password]:placeholder {
-   color: #cccccc;
+ .btn:hover{
+   background-position: right;
  }
 
 
- </style>
-{% endblock %}
+ @media screen and (max-width: 1050px){
+   .container{
+     grid-gap: 5rem;
+   }
+ }
 
-<div class="wrapper fadeInDown" style="padding-top: 100px">
+ @media screen and (max-width: 1000px){
+   form{
+     width: 290px;
+   }
 
-        <div id="formContent">
-        <!-- Tabs Titles -->
-        {% if messages %}
-            {% for message in messages  %}
-                <div class="alert alert-{{ message.tags }}" id="msg" role="alert" style="margin:10px 10px 0 10px;">
-                  <p style="text-align: center; padding-top: 8px">{{ message }}</p>
-                </div>
-            {% endfor %}
+   .login-content h2{
+         font-size: 2.4rem;
+         margin: 8px 0;
+   }
 
-        {% endif %}
-        <!-- Icon -->
-        <div class="fadeIn first">
-          <h1>Login</h1>
-        </div>
+   .img img{
+     width: 400px;
+   }
+ }
 
-        <!-- Login Form -->
-        <form method="POST">
-          {% csrf_token %}
-          {% for field in login_form %}
-            <p>
-              {{ field.label_tag }}
-              {{ field }}
+ @media screen and (max-width: 900px){
+   .container{
+     grid-template-columns: 1fr;
+   }
 
-              {% if field.help_text %}
-              <small style="color:gray:">{{ field.help_text}}</small>
-              {% endif%}
-            </p>
-          {% endfor %}
-            <input type="submit" value="Iniciar" class="fadeIn fourth">
-            {% for field in login_form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-danger" style="padding: 0 1.5em 0 1.5em">
-                      <strong>{{ error|escape }}</strong>
-                    </div>
-                {% endfor %}
-            {% endfor %}
+   .img{
+     display: none;
+   }
 
-            {% for error in login_form.non_field_errors%}
-            <div class="alert alert-danger" style="margin: 0 2em 0 2em">
-              <strong>{{ error|escape }}</strong>
+   .wave{
+     display: none;
+   }
+
+   .login-content{
+     justify-content: center;
+   }
+ }
+
+  </style>
+</head>
+<body>
+  <div class="section" style="width: 80px;position:absolute;top:0;right:5%;">
+      <button class="btn" style="height: 35px;"><a href="{% url 'blog:home' %}" style="text-align:center;">Home</a></button>
+  </div>
+
+
+    {% if messages %}
+        {% for message in messages  %}
+            <div  id="msg" role="alert" style="position:absolute; top:0; left: 50%; transform: translateX(-50%);">
+              <p style="text-align: center; padding-top: 8px">{{ message }}</p>
             </div>
-            {% endfor%}
-        </form>
-        </div>
-</div>
+        {% endfor %}
 
-{% endblock content     %}
+    {% endif %}
+    <img class="wave" src="{% static 'main/images/wave.png' %}">
+    <div class="container">
+    <div class="img">
+      <img src="{% static 'main/images/bg.svg' %}">
+    </div>
+    <div class="login-content">
+      <form method="POST">
+        {% csrf_token %}
+        <img src="{% static 'main/images/avatar.svg' %}">
+        <h2 class="title">Bienvenido</h2>
+              <div class="input-div one">
+                 <div class="i">
+                    <i class="fas fa-user"></i>
+                 </div>
+                 <div class="div">
+                    {{ login_form.username }}
+                 </div>
+              </div>
+              <div class="input-div pass">
+                 <div class="i">
+                    <i class="fas fa-lock"></i>
+                 </div>
+                 <div class="div">
+                    {{ login_form.password }}
+                 </div>
+              </div>
+              <a href="#">Forgot Password?</a>
+              <input type="submit" class="btn" value="Login">
+              {% for field in login_form %}
+                  {% for error in field.errors %}
+                      <div class="alert alert-danger" style="padding: 0 1.5em 1em 1.5em">
+                        <strong>{{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}
+              {% endfor %}
+
+              {% for error in login_form.non_field_errors%}
+              <div class="alert alert-danger" style="margin: 0 2em 1em 2em">
+                <strong>{{ error|escape }}</strong>
+              </div>
+              {% endfor%}
+            </form>
+        </div>
+    </div>
+  <script src="{% static 'main/js/jquery.min.js' %}"></script>
+<script>
+
+setTimeout(
+    function(){
+      console.log("app test");
+      if($('#msg').length > 0){
+        $('#msg').remove()
+      }
+    },3000)
+
+  const inputs = document.querySelectorAll(".input");
+
+
+function addcl(){
+	let parent = this.parentNode.parentNode;
+	parent.classList.add("focus");
+}
+
+function remcl(){
+	let parent = this.parentNode.parentNode;
+	if(this.value == ""){
+		parent.classList.remove("focus");
+	}
+}
+
+
+inputs.forEach(input => {
+	input.addEventListener("focus", addcl);
+	input.addEventListener("blur", remcl);
+});
+
+</script>
+
+</body>
+</html>

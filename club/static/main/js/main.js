@@ -1,3 +1,4 @@
+
 setTimeout(
   function(){
     if($('#msg').length > 0){

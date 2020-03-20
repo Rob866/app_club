@@ -115,14 +115,13 @@ def login_view(request):
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(username=username,password=password)
-
+            
             if user:
                 login(request,user)
                 return HttpResponseRedirect(reverse('blog:home'))
     else:
         form = UserAuthentication()
     context['login_form'] = form
-
     return render(request,'app/login.html',context)
 
 
