@@ -3,6 +3,8 @@
 {% load embed_video_tags %}
 {% load crispy_forms_tags %}
 {% block meta_tag %}
+    <meta property="og:url"     content="https://rob92.pythonanywhere.com/blog/{{post.id}}" />
+     <meta property="og:description"   content="{{ post.titulo }}" />
     <meta property="og:image"   content="{{ post.imagen.url }}" />
 {% endblock %}
 {% block content %}
@@ -10,9 +12,9 @@
 <section class="hero-wrap hero-wrap-2 ftco-animate" style="background-image: url({%  static 'main/images/bg_1.jpeg' %});" data-stellar-background-ratio="0.5">
   <div class="overlay"></div>
   <div class="container">
-    <div class="row no-gutters slider-text align-items-end justify-content-center">
+    <div class="row no-gutters post_titulo slider-text align-items-end justify-content-center">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-        <h1 class="mb-3 bread">Post</h1>
+        <h1 class="mb-3 bread">{{ post.titulo}}</h1>
         <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="blog.html">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>{{ post.titulo }}<i  style="padding-left:2px;"class="ion-ios-arrow-forward"></i></span></p>
       </div>
     </div>
@@ -56,23 +58,27 @@
                <a style="position: absolute; top:0; left:0;" href="{{ post.get_previous_by_create_on.get_absolute_url }}" class="tag-cloud-link">{{ post.get_previous_by_create_on.titulo}}</a>
                {% endif %}
              </div>
-             <div class="fb-like" data-href="https://192.168.0.7:8000/blog/{{post.id}}" data-layout="button_count" data-action="like" data-show-faces="true"  data-share="true">
+             <div class="fb-like" data-href="https://rob92.pythonanywhere.com/blog/{{post.id}}" data-layout="button_count" data-action="like" data-show-faces="true"  data-share="true">
              </div>
            </div>
 
-           <div class="about-author d-flex p-4 bg-light">
-             <div class="bio mr-5">
-               <img src="{% static 'main/images/judith.jpg' %}" alt="Image placeholder" class="img-fluid mb-4">
-             </div>
-             <div class="desc">
-               <h3>George Washington</h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus
-                  aut, sunt placeat nam vero culpa sapiente consectetur similique,
-                   inventore eos fugit cupiditate numquam!</p>
-             </div>
+            <div class="about-author p-4 bg-light">
+                 <div class="row">
+                   <div class="col-md-4">
+                     <img src="{% static 'main/images/judith.jpg' %}"  style="width:100%;" alt="Image placeholder">
+                   </div>
+                   <div class="col-md-8">
+                     <h3>George Washington</h3>
+                     <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus
+                        aut, sunt placeat nam vero culpa sapiente consectetur similique,
+                         inventore eos fugit cupiditate numquam!</p>
+                   </div>
+
+                 </div>
            </div>
-          <div class="fb-comments" data-href="https://192.168.0.7:8000/blog/{{post.id}}" data-width="500px" data-numposts="5"></div>
+
+          <div class="fb-comments" data-href="https://rob92.pythonanywhere.com/blog/{{post.id}}" data-width="500px" data-numposts="5"></div>
            <div class="pt-5 mt-5">
              <h3 class="mb-5">{{ post.comentarios.all | length }} Comentarios</h3>
              <ul class="comment-list">
@@ -135,15 +141,19 @@
               <h3 class="heading-sidebar">Promociones</h3>
              <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="{% static 'main/images/club1.jpg' %}" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'main/images/club.jpeg'%}" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'main/images/club2.jpg'%}" alt="Third slide">
-                </div>
+                    {% if publicidad %}
+                        {% for cartel in publicidad %}
+                            {% if cartel.id == id_item_activate %}
+                            <div class="carousel-item active">
+                              <img class="d-block w-100" src="{{cartel.imagen.url}}">
+                            </div>
+                            {%else%}
+                            <div class="carousel-item">
+                              <img class="d-block w-100" src="{{cartel.imagen.url}}">
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {%endif%}
               </div>
             </div>
            </div>
@@ -166,9 +176,9 @@
 
            </div>
 
-           <div class="sidebar-box ftco-animate">
-             <div id="fb-container">
-               <div class="fb-page" data-tabs="timeline" data-href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/">Clove Republic</a></blockquote></div>
+           <div class="sidebar-box">
+             <div id="fb-container" style="width:100%; margin-top: 30px;margin-bottom: 30px;text-align: center">
+               <div class="fb-page" data-tabs="timeline" data-href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/El-Club-De-Tareas-114777256733226/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/">Club de Tareas</a></blockquote></div>
              </div>
            </div>
 
@@ -183,19 +193,3 @@
   </section> <!-- .section -->
 
    {%endblock content%}
-
-   {% block  script_tag %}
-   <script type="text/javascript">
-     jQuery(document).ready(function($) {
-          $(window).bind("load resize", function(){
-          setTimeout(function() {
-          var container_width = $('#fb-container').width();
-            $('#fb-container').html('<div class="fb-page" ' +
-            'data-href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/"' +
-            ' data-width="' + container_width + '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="http://www.facebook.com/IniciativaAutoMat"><a href="https://www.facebook.com/El-Club-De-Tareas-114777256733226/">Clove Republic</a></blockquote></div></div>');
-            FB.XFBML.parse( );
-          }, 100);
-        });
-        });
-   </script>
-   {% endblock%}

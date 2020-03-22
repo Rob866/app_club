@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Post,Comentario,Mensaje,Testimonio,Rotulo,Profesor,Servicio
+from .models import Post,Comentario,Mensaje,Testimonio,Rotulo,Profesor,Servicio,Publicidad
 from .forms import CommentForm,MensajeForm
 import uuid
 from django.http import HttpResponseRedirect
@@ -74,13 +74,20 @@ def postDetail(request,id):
     if len(order_post_by_date) > 5 :
         order_post_by_date = order_post_by_date[:6]
 
+    publicidad = Publicidad.objects.all()
+    id_item_activate = 0
+
+    if publicidad:
+        id_item_activate = publicidad[0].id
 
     context = {
     'order_post_by_date': order_post_by_date,
     'posts': posts,
     'post': post_object,
     'comentarios': comentarios,
-    'comment_form':comment_form
+    'comment_form':comment_form,
+    'publicidad': publicidad,
+    'id_item_activate': id_item_activate
     }
 
     return render(request,'blog/detail.html',context)

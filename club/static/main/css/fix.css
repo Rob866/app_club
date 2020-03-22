@@ -1,4 +1,4 @@
-
+class="col-md-9 ftco-animate pb-6 text-center fadeInUp ftco-animated"
 
 
 body{
@@ -2739,8 +2739,12 @@ p.info-alumno{
     padding-left: 0 !important;
     padding-right: 0 !important
   }
-
-  .titulo_paquetes{
-    font-size: 15px !important;
+  .post_titulo{
+      padding-bottom : 80px;
   }
+
+  p.text_data {
+      font-size: 18px !important;
+  }
+
 }

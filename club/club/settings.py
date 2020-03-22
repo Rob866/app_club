@@ -25,7 +25,7 @@ SECRET_KEY = '7vow$b=$!f^097uwh(9wk#e9m5d_ni&ub2xs(oqe-$$!cf+^&c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['rob92.pythonanywhere.com' ]
 
 
 # Application definition
@@ -88,19 +88,16 @@ WSGI_APPLICATION = 'club.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'club_tareas',
-        'USER': 'root',
-        'PASSWORD': "",
-        'HOST': "127.0.0.1",
+        'NAME': 'rob92$club',
+        'USER': 'rob92',
+        'PASSWORD': "63151lydov",
+        'HOST': "rob92.mysql.pythonanywhere-services.com",
         'PORT': "3306",
         'OPTIONS': {
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-}
-}
-    #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #    }
+},
+
+        }
 }
 
 
