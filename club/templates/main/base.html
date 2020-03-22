@@ -32,7 +32,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="{% url 'blog:home' %}" >Club de <span>Tareas</span></a>
+	      <a class="navbar-brand" href="{% url 'blog:home' %}">Club de <span>Tareas</span></a>
 	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -45,9 +45,7 @@
 	          <li class="nav-item"><a href="{% url 'blog:services' %}" class="nav-link"><span>Servicios</span></a></li>
             <li class="nav-item"><a href="{% url 'blog:blog' %}" class="nav-link"><span>Blog</span></a></li>
             <li class="nav-item"><a href="{% url 'blog:contact' %}" class="nav-link"><span>Contacto</span></a></li>
-
           </ul>
-
           <ul class="nav navbar-nav navbar-right" style="text-align: right">
 
             {% if request.user.is_authenticated %}
@@ -75,13 +73,13 @@
                       <a class="dropdown-item" href="{% url 'app:paquetes' %}"><span style="padding-right: 10px;"><i class="fa fa-window-restore"></i></span><span>Paquetes</span></a>
                       <a class="dropdown-item" href="{% url 'app:historial' %}"><span style="padding-right: 10px;"><i class="fa fa-file"></i></span><span>Historial</span></a>
                       <a class="dropdown-item" href = "{% url 'app:notificactionsList' %}" >
-                        <span style="padding-right: 10px;"><i class="fa fa-comments"></i></span><span>Notificaciones</span>
+                        <span style="padding-right: 10px;"><i class="fa fa-comments"></i></span><span>Mensajes</span>
 
                           <span class="badge badge-danger">{{ unread_count }}</span>
 
                       </a>
                       {% if request.user.is_superuser %}
-                            <a class="dropdown-item" href="{% url 'admin:index' %}"><span style="padding-right: 10px;"><i class="fa fa-users"></i></span><span>Administración</span></a>
+                            <a class="dropdown-item" href="{% url 'admin:index' %}"><span style="padding-right: 10px;"><i class="fa fa-users"></i></span><span>Admin</span></a>
                       {%endif%}
                       <a class="dropdown-item" href="{% url 'app:events' %}">
                         <span style="padding-right: 10px;"><i class="fa fa-calendar"></i></i></span><span>Calendario</span></a>
