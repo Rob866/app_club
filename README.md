@@ -1,1 +1,2 @@
-# base del proyecto para el club de tareas
+#Proyecto para el club de tareas
+#
