@@ -68,7 +68,6 @@ class Paquete_InscritoAdmin(ImportExportModelAdmin):
         m, s = divmod(time_sesion.total_seconds(), 60)
         h, m = divmod(m, 60)
         obj.horas_consumidas = '{:d}:{:02d}:{:02d} Hrs'.format(int(h),int(m),int(s))
-
         obj.save()
         limite = obj.tipo_de_paquete.horas
         if time_sesion >= timedelta(days=0,hours=limite,minutes=0,seconds=0):
