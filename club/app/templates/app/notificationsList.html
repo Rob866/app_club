@@ -49,8 +49,9 @@
             </ul>
             {% endif%}
         </ul>
-        {% if is_paginated %}
 
+        {% if is_paginated %}
+          <div padding-top:20px;>
                 {% if page_obj.has_previous %}
                   <a class="btn btn-outline-info mb-4" href="?page=1">Primera</a>
                   <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
@@ -68,9 +69,8 @@
                   <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
                   <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Ultima</a>
                 {% endif %}
-
+            </div>
              {% endif %}
-
     </div>
 </div>
 
