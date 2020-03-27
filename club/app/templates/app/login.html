@@ -200,9 +200,9 @@
      }
      .fade {
        transform: translateX(-100%);
-       transition: all 0.3s ease-out;
+       transition: all 1s ease-out;
        -webkit-transition: all 0.3s ease-out;  /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
-        transition: all 0.3s ease-out;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+        transition: all 1s ease-out;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
      }
 
 
@@ -248,7 +248,7 @@
   </style>
 </head>
 <body>
-  <div class="section" style="width: 80px;position:absolute;top:0;right:5%;">
+  <div class="section" style="width: 80px;position:absolute;top:0;right:5%;index:1000;">
       <button class="btn" style="height: 35px;"><a href="{% url 'blog:home' %}" style="text-align:center;">Home</a></button>
   </div>
 
