@@ -198,6 +198,12 @@
      .btn:hover{
        background-position: right;
      }
+     .fade {
+       transform: translateX(-100%);
+       transition: all 0.3s ease-out;
+       -webkit-transition: all 0.3s ease-out;  /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+        transition: all 0.3s ease-out;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+     }
 
 
      @media screen and (max-width: 1050px){
@@ -256,7 +262,7 @@
 
     {% endif %}
     <img class="wave" src="{% static 'main/images/wave.png' %}">
-    <div class="container">
+    <div class="container" id="fade" class="fade">
     <div class="img">
       <img src="{% static 'main/images/bg.svg' %}">
     </div>
@@ -302,6 +308,11 @@
   <script src="{% static 'main/js/jquery.min.js' %}"></script>
 <script>
 
+window.onload = function() {
+  var data = document.getElementById('fade')
+  data.style.transform = "translateX(0)";
+};
+
 setTimeout(
     function(){
       if($('#msg').length > 0){
@@ -334,4 +345,3 @@ inputs.forEach(input => {
 
 </body>
 </html>
-
