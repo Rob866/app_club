@@ -27,7 +27,7 @@ urlpatterns = [
     path('', include('app.urls')),
     path('',include('blog.urls')),
     path('admin/', admin.site.urls),
-    path('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]
 
 if settings.DEBUG:
