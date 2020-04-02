@@ -20,6 +20,7 @@ from  notifications.signals import notify
 import online_users.models
 from datetime import timedelta
 from datetime import datetime
+from blog.models import Publicidad
 
 
 @login_required
@@ -95,6 +96,15 @@ def profile(request):
 
     context['online_users'] = (user for user in  user_status)
     context['historial'] = request.user.historial.all().order_by('-fecha')
+
+    publicidad = Publicidad.objects.all()
+    id_item_activate = 0
+
+    if publicidad:
+        id_item_activate = publicidad[0].id
+    context["publicidad"] = publicidad
+    context["id_item_activate"] = id_item_activate
+
     return render(request,'app/profile.html',context)
 
 
