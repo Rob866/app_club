@@ -213,7 +213,6 @@ def historial(request):
 
 class Eventos(ListView):
     template_name= "app/aventos.html"
-
     seleccion=""
     eventslist=[]
     def get(self,request,*args,**kwargs):
@@ -267,14 +266,11 @@ def notificacion(request,id):
 #@login_required
 class notificationsList(ListView):
     template_name ='app/notificationsList.html'
-    paginate_by= 4
+    paginate_by= 8
     context_object_name='notificaciones'
 
     def get_queryset(self):
         return self.request.user.notifications.all()
-
-    def get(self,request,*args,**kwargs):
-        return self.get_queryset()
 
 
 """
