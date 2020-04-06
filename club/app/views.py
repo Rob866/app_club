@@ -276,7 +276,7 @@ class notificationsList(ListView):
     def get(self,request,*args,**kwargs):
         context = {}
         context["notificaciones"] = self.get_queryset()
-        render(request,self.template_name,context)
+        return render(request,self.template_name,context)
 
 """
     def get(self,request,*args,**kwargs):
