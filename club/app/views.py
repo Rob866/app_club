@@ -268,13 +268,16 @@ def notificacion(request,id):
 class notificationsList(ListView):
     template_name ='app/notificationsList.html'
     paginate_by= 4
-    context_object_name='notificaciones'
+    #context_object_name='notificaciones'
 
     def get_queryset(self):
-        #self.request.user.notifications.mark_all_as_read()
-        #user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
-        #self.request.user.notifications.read()
         return self.request.user.notifications.all()
+
+    def get(self,request,*args,**kwargs):
+        context = {}
+        context["notificaciones"] = self.get_queryset()
+        render(request,self.template_name,context)
+
 """
     def get(self,request,*args,**kwargs):
         request.user.notifications.mark_all_as_read()
