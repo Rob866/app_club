@@ -268,15 +268,14 @@ def notificacion(request,id):
 class notificationsList(ListView):
     template_name ='app/notificationsList.html'
     paginate_by= 4
-    #context_object_name='notificaciones'
+    context_object_name='notificaciones'
 
     def get_queryset(self):
         return self.request.user.notifications.all()
 
     def get(self,request,*args,**kwargs):
-        context = {}
-        context["notificaciones"] = self.get_queryset()
-        return render(request,self.template_name,context)
+        return self.get_queryset()
+
 
 """
     def get(self,request,*args,**kwargs):
