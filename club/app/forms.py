@@ -8,7 +8,6 @@ NIVEL_STATUS = (
          ('s','Secundaria'),
          ('b','bachillerato'),
          ('u','universidad'))
-from django import forms
 
 class SearchForm(forms.Form):
     busqueda =  forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Busqueda'}))
