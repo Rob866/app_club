@@ -14,13 +14,14 @@ class SearchForm(forms.Form):
     busqueda =  forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Busqueda'}))
 
 
-class NotificationForm(forms.ModelForm):
+class NotificationForm(forms.Form):
     description = forms.CharField(label="Mensaje al staff",required=True,widget=forms.Textarea(attrs={ 'class':'form-control','placeholder':'Mensaje al Staff'}))
 
-    def clean(self):
+    def clean_description(self):
         description = self.cleaned_data['description']
         if not description:
             raise forms.ValidationError("Campo de Mensaje vacío")
+        return description
 
 
 class UserAuthentication(forms.ModelForm):
