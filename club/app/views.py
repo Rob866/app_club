@@ -165,11 +165,6 @@ class AlumnosListView(ListView):
 """
 @login_required
 def paquetes(request):
-    #student = get_user_model().objects.all().get(pk=pk)
-    #student = request.user
-    #paquetes = []
-    #for paquete in request.user.paquetes_inscritos.all():
-    #    paquetes.append(paquete)
     context = {
     'student' : request.user,
     'paquetes': request.user.paquetes_inscritos.all()
@@ -178,13 +173,7 @@ def paquetes(request):
 
 @login_required
 def clases(request,paquete_id):
-    #student = get_user_model().objects.all().get(pk=pk)
     paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
-    #paquete  = Paquete_Inscrito.objects.all().get(id=paquete_id)
-    #clases = []
-    #for clase in paquete.sesiones.all() :
-    #    clases.append(clase)
-
     context = {
         'student':request.user,
         'clases': paquete.sesiones.all(),

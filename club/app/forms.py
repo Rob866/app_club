@@ -14,7 +14,7 @@ class SearchForm(forms.Form):
     busqueda =  forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Busqueda'}))
 
 
-class NotificationForm(forms.Form):
+class NotificationForm(forms.ModelForm):
     description = forms.CharField(label="Mensaje al staff",required=True,widget=forms.Textarea(attrs={ 'class':'form-control','placeholder':'Mensaje al Staff'}))
 
     def clean(self):
