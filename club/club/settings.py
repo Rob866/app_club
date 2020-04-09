@@ -137,7 +137,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-LOGIN_REDIRECT_URL='/home/'
+LOGIN_REDIRECT_URL='/profile/'
 #if the user try to see the profile page but he is no login
 #we put a decorator in our profile  request function
 LOGIN_URL= '/login/'
