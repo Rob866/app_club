@@ -128,7 +128,7 @@ def login_view(request):
 
             if user:
                 login(request,user)
-                return HttpResponseRedirect(reverse('blog:home'))
+                return HttpResponseRedirect(reverse('app:profile'))
     else:
         form = UserAuthentication()
     context['login_form'] = form
