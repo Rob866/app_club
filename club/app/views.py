@@ -117,7 +117,7 @@ def login_view(request):
     context= {}
     user  = request.user
     if user.is_authenticated:
-        return HttpResponseRedirect(reverse('blog:home'))
+        return HttpResponseRedirect(reverse('app:profile'))
 
     if request.POST:
         form = UserAuthentication(request.POST)
