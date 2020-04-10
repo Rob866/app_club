@@ -31,19 +31,47 @@ def notificacionPage(request):
         if form.is_valid():
             mensaje = request.POST['description']
             form.cleaned_data
-            usuarios = get_user_model().objects.all()
-            for usuario in usuarios:
-                if usuario.is_superuser:
-                    notify.send(request.user,recipient=usuario,verb="Notificación de mansaje de Alumno/Profesor",description=mensaje,action_object=request.user)
-                    messages.success( request,'Tu mensaje a sido enviado con éxito al Staff')
+            #usuarios = get_user_model().objects.all()
+            admin_users = get_user_model().objects.filter(is_superuser=True)
+            notify.send(request.user,recipient=admin_users,verb="Notifiación de Alumno/Profesor",
+            description=mensaje,action_object= request.user)
+            messages.success(request,'Tu mensaje a sido enviado con éxito al Staff,te responderemos a la brevedad')
+            #for usuario in usuarios:
+            #    if usuario.is_superuser:
+            #        notify.send(request.user,recipient=usuario,verb="Notificación de mansaje de Alumno/Profesor",description=mensaje,action_object=request.user)
+            #        messages.success( request,'Tu mensaje a sido enviado con éxito al Staff')
             return HttpResponseRedirect(reverse('app:form_notification'))
-
     else:
         form = NotificationForm()
     context["notification_form"] = form
     return render(request,'app/form_notification.html',context)
+'''
+@login_required
+def notificationPageAdmin(request):
+    current_user = request.user
+    if  current_user.is_authenticated:
+        if request.user.is_superuser:
+            context ={}
+            if request.POST:
+                form = NotificationForm(request.POST)
+                if form.is_valid():
+                    mensaje = request.POST["description"]
+                    form.cleaned_data
+                    #mando mi mensaje a todos los estudiantes
+                    #después  recargo de nuevo la página
+                    #la direccion url a un no a sido implementada
+                    return HttpResponseRedirect(reverse("app:form_notificacion_admin"))
+            else:
+                form = NotificationForm()
+            context["notification_form"] = form
+            return render(request,'app/form_notification_to_students.html')
 
+        else:
+            return HttpResponseRedirect(reverse("app:form_notification"))
+    else:
+        return HttpResponseRedirect(reverse("app:home"))
 
+'''
 @login_required
 def profile(request):
     context = {}
