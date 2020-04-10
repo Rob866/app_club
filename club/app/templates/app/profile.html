@@ -76,7 +76,7 @@
                       <ul class="nav">
                           <li style="position:relative; width:100%; height:50px;">
                               <a  style="text-align: center;position:absolute; top:0; left: 50%; transform: translateX(-50%);" href="{% url 'app:form_notification'%}">
-                                  {% if  request.is_superuser %}
+                                  {% if  request.user.is_superuser %}
                                       <i class="icon-settings"></i>Mensaje a estudiantes</a>
                                   {% else %}
                                       <i class="icon-settings"></i>Mensaje al estaff</a>
