@@ -30,16 +30,19 @@ def notificacionPage(request):
         form = NotificationForm(request.POST)
         if form.is_valid():
             mensaje = request.POST['description']
+            verb=""
             form.cleaned_data
-            #usuarios = get_user_model().objects.all()
-            admin_users = get_user_model().objects.filter(is_superuser=True)
-            notify.send(request.user,recipient=admin_users,verb="Notifiación de Alumno/Profesor",
+            if request.user.is_superuser:
+                #obtengo a todos los usuarios que no son del staff
+                users = get_user_model().objects.filter(is_superuser=False)
+                verb="Mensaje del Staff"
+            else:
+                #obtengo todos los usuarios que son del staff
+                users = get_user_model().objects.filter(is_superuser=True)
+                verb="Mensaje de usuario"
+            notify.send(request.user,recipient=admin_users,verb=verb,
             description=mensaje,action_object= request.user)
-            messages.success(request,'Tu mensaje a sido enviado con éxito al Staff,te responderemos a la brevedad')
-            #for usuario in usuarios:
-            #    if usuario.is_superuser:
-            #        notify.send(request.user,recipient=usuario,verb="Notificación de mansaje de Alumno/Profesor",description=mensaje,action_object=request.user)
-            #        messages.success( request,'Tu mensaje a sido enviado con éxito al Staff')
+            messages.success(request,'Tu mensaje a sido enviado con éxito')
             return HttpResponseRedirect(reverse('app:form_notification'))
     else:
         form = NotificationForm()
