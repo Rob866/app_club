@@ -27,7 +27,7 @@
                           </span>
                      {%endif%}
 
-                       <div  style="padding-left: 60px;">
+                       <div  style="padding-left: 60px;position:relative;">
                          <h5> Asunto: {{ notificacion.verb}}</h5>
                          <span style="color: #5897fb;">
                            Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
@@ -36,9 +36,10 @@
                          <span>
                                    Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
                          </span>
-
-                             <a href="#" class="btn btn-danger" role="button">Eliminar notificación</a>
-
+                            <div style="position:absolute; bottom:0; right:0">
+                               <a href="#" class="btn btn-info">Ver</a>
+                              <a href="#" class="btn btn-danger" role="button">Eliminar</a>
+                            </div>
                        </div>
 
                    </div>
