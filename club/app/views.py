@@ -58,7 +58,7 @@ def deleteNotification(request,id):
         return HttpResponseRedirect(reverse('app:notificationsList'))
     context  =   {"notificacion": notificacion}
 
-    return render(request,'app/delete_notification.html')
+    return render(request,'app/delete_notification.html',context)
 
 '''
 @login_required
