@@ -77,7 +77,7 @@ class UserUpdateForm(forms.ModelForm):
             if not nombre:
                 raise forms.ValidationError('El campo nombre no puede estar vacio')
             return nombre
-
+'''
     def clean_apellido(self):
 
         if self.is_valid():
@@ -85,7 +85,7 @@ class UserUpdateForm(forms.ModelForm):
             if not apellido:
                 raise forms.ValidationError('El campo apellido no puede estar vacio')
             return apellido
-
+'''
     def clean_username(self):
 
         if self.is_valid():
