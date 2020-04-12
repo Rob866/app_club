@@ -12,7 +12,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,Http404
 from .forms import (UserAuthentication, UserUpdateForm,NotificationForm)
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -52,9 +52,12 @@ def notificacionPage(request):
 @login_required
 def deleteNotification(request,id):
     notificacion = request.user.notifications.all().get(id=id)
-    if request.POST:
+    if notificacion:
+        if request.POST:
         notificacion.delete()
         return HttpResponseRedirect(reverse('app:notificationsList'))
+    else:
+        raise Http404()    
     context  =   {"notificacion": notificacion}
 
     return render(request,'app/delete_notification.html',context)
