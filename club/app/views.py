@@ -62,36 +62,11 @@ def deleteNotification(request,id):
     context  =   {"notificacion": notificacion }
 
     return render(request,'app/delete_notification.html',context)
-'''
-@login_required
-def notificationPageAdmin(request):
-    current_user = request.user
-    if  current_user.is_authenticated:
-        if request.user.is_superuser:
-            context ={}
-            if request.POST:
-                form = NotificationForm(request.POST)
-                if form.is_valid():
-                    mensaje = request.POST["description"]
-                    form.cleaned_data
-                    #mando mi mensaje a todos los estudiantes
-                    #después  recargo de nuevo la página
-                    #la direccion url a un no a sido implementada
-                    return HttpResponseRedirect(reverse("app:form_notificacion_admin"))
-            else:
-                form = NotificationForm()
-            context["notification_form"] = form
-            return render(request,'app/form_notification_to_students.html')
 
-        else:
-            return HttpResponseRedirect(reverse("app:form_notification"))
-    else:
-        return HttpResponseRedirect(reverse("app:home"))
-
-'''
 @login_required
 def profile(request):
     context = {}
+    form =None
     if request.POST:
         form = UserUpdateForm(request.POST,request.FILES,instance=request.user)
         if form.is_valid():
@@ -100,12 +75,9 @@ def profile(request):
                 evento = Historial_User(mensaje=f"datos actualizados del Perfil: {form.changed_data}",usuario=request.user)
                 evento.save()
                 messages.success( request,'Los datos del formulario han sido actualizados')
-                usuarios = get_user_model().objects.all()
-                if not  request.user.is_superuser:
-                    for usuario  in usuarios:
-                        if usuario.is_superuser:
-                            notify.send(request.user,recipient=usuario,verb="Datos de Perfil Actualizado",description=f"datos actualizados del Perfil: {form.changed_data}",action_object=request.user)
-
+                if not request.user.is_superuser:
+                    usuarios = get_user_model().objects.filter(is_superuser=True)
+                    notify.send(request.user,recipient=usuarios,verb="Datos de Perfil Actualizado",description=f"datos actualizados del Perfil: {form.changed_data}",action_object=request.user)
         else:
             messages.warning(request,'Error al procesar el formulario')
     else:
@@ -180,34 +152,6 @@ def login_view(request):
 
     return render(request,'app/login.html',context)
 
-
-
-""""
-class AlumnosListView(ListView):
-    model = Alumno
-    template_name= 'app/alumnos.html'
-    #context_object_name = 'alumnos'
-
-    def get_queryset(self,query):
-        if not query.strip():
-            return None
-        if len(query) == 5:
-            return self.model.objects.filter(id__startswith=query)
-            #return Alumno.objects.filter(Q(apellido__icontains=query) | Q(nombre__icontains=query)).order_by('apellido')
-        return  None
-
-    def get(self,request,*args,**kwargs):
-        if 'busqueda' in self.request.GET:
-            query = request.GET.get('busqueda')
-            context = {
-            'alumnos': self.get_queryset(query)
-            }
-        else:
-            context = {
-              'alumnos': None
-            }
-        return  render(request,self.template_name,context)
-"""
 @login_required
 def paquetes(request):
     context = {
@@ -272,22 +216,7 @@ class Eventos(ListView):
             'seleccion': self.seleccion
             }
         return render(request,'app/eventos.html',context)
-"""
-@login_required
-def notificactionList(request):
-    request.user.notifications.mark_all_as_read()
-    notificaciones = request.user.notifications.read()
-    user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
-    users = (user for user in  user_status)
 
-    context = {
-            'notificaciones': notificaciones,
-            'online_users': users
-        }
-
-    return render(request,'app/notifications_list.html',context)
-
-"""
 @login_required
 def notificacion(request,id):
     notificacion = request.user.notifications.all().get(id=id)
@@ -305,18 +234,3 @@ class notificationsList(ListView):
 
     def get_queryset(self):
         return self.request.user.notifications.all()
-
-
-"""
-    def get(self,request,*args,**kwargs):
-        request.user.notifications.mark_all_as_read()
-        notificaciones = request.user.notifications.read()
-        user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
-        users = (user for user in  user_status)
-        context =  {
-                'notificaciones': notificaciones,
-                'online_users': users
-            }
-
-        return  render(request,self.template_name,context)
-"""
