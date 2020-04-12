@@ -66,7 +66,6 @@ def deleteNotification(request,id):
 @login_required
 def profile(request):
     context = {}
-    form =None
     if request.POST:
         form = UserUpdateForm(request.POST,request.FILES,instance=request.user)
         if form.is_valid():
