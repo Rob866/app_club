@@ -45,7 +45,7 @@ class UserUpdateForm(forms.ModelForm):
     email            = forms.EmailField(label="Email de contacto",required=False,widget=forms.EmailInput(attrs={'class': 'form-control'}))
     facebook         = forms.CharField(label="Facebook de contacto",required=False,widget=forms.TextInput(attrs={'class': 'form-control'}))
     nombre           = forms.CharField(label="Nombre del Alumno",required=False,widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
-    apellido         = forms.CharField(label="Apellido del Alumno",required=True,widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Apellido'}))
+    apellido         = forms.CharField(label="Apellido del Alumno",required=False,widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Apellido'}))
     fecha_nacimiento = forms.DateField(label="Fecha de nacimiento del Alumno",widget=forms.SelectDateWidget(attrs={ 'class':'custom-select'},years=YEARS),initial="1990-06-21")
     edad             = forms.IntegerField(label="Edad del Alumno",required=False,widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Edad'}))
     nivel_academico  = forms.ChoiceField(choices=NIVEL_STATUS,widget=forms.Select(attrs={'class':'custom-select'}))
