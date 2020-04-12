@@ -51,7 +51,7 @@ def notificacionPage(request):
 
 @login_required
 def deleteNotification(request,id):
-    notifiacion = request.user.notifications.all().get(id=id)
+    notificacion = request.user.notifications.all().get(id=id)
     if request.POST:
         notifiacion.delete()
         messages.success(request,'Notifiacion eliminada con éxito')
