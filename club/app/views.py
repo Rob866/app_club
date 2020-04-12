@@ -51,14 +51,15 @@ def notificacionPage(request):
 
 @login_required
 def deleteNotification(request,id):
+    #no sirve de nada raise Http404
     notificacion = request.user.notifications.all().get(id=id)
     if notificacion:
         if request.POST:
             notificacion.delete()
             return HttpResponseRedirect(reverse('app:notificationsList'))
     else:
-        raise Http404()
-    context  =   {"notificacion": notificacion}
+        raise Http404("La notificación  que buscas no existe")
+    context  =   {"notificacion": notificacion }
 
     return render(request,'app/delete_notification.html',context)
 
