@@ -55,7 +55,7 @@ def deleteNotification(request,id):
     if request.POST:
         notifiacion.delete()
         messages.success(request,'Notifiacion eliminada con éxito')
-        return HttpResponseRedirect(reverse('app:notificaciones-list'))
+        return HttpResponseRedirect(reverse('app:notificactionsList'))
     context  =   {"notificacion": notificacion}
 
     return render(request,'app/delete_notification.html')
