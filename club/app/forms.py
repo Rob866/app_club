@@ -71,13 +71,23 @@ class UserUpdateForm(forms.ModelForm):
                   'numero_del_padre')
 
     def clean_nombre(self):
+
         if self.is_valid():
             nombre= self.cleaned_data['nombre']
             if not nombre:
                 raise forms.ValidationError('El campo nombre no puede estar vacio')
             return nombre
 
+    def clean_apellido(self):
+
+        if self.is_valid():
+            apellido=self.cleaned_data['apellido']
+            if not apellido:
+                raise forms.ValidationError('El campo apellido no puede estar vacio')
+            return apellido
+
     def clean_username(self):
+
         if self.is_valid():
             username = self.cleaned_data['username']
             if not username:
@@ -87,13 +97,3 @@ class UserUpdateForm(forms.ModelForm):
             except get_user_model().DoesNotExist:
                 return username
             raise forms.ValidationError(f'User: { username } ya esta en uso')
-
-    '''
-        def clean_apellido(self):
-
-            if self.is_valid():
-                apellido=self.cleaned_data['apellido']
-                if not apellido:
-                    raise forms.ValidationError('El campo apellido no puede estar vacio')
-                return apellido
-    '''
