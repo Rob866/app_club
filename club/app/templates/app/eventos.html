@@ -37,7 +37,7 @@
                         {% if seleccion == "clases" %}
                         url: '/paquetes/{{ event.paquete_id }}/{{ event.clase_id }}',
                         {% else %}
-                          url: '/notificactionsList/{{ event.id }}',
+                          url: '/notificactionsList/vista/{{ event.id }}',
                         {%endif%}
                         color: '{{ event.color }}'
                     },
