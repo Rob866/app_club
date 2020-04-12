@@ -58,11 +58,10 @@ def deleteNotification(request,id):
             notificacion.delete()
             return HttpResponseRedirect(reverse('app:notificationsList'))
     else:
-        raise Http404("La notificación  que buscas no existe")
+        raise Http404
     context  =   {"notificacion": notificacion }
 
     return render(request,'app/delete_notification.html',context)
-
 '''
 @login_required
 def notificationPageAdmin(request):
