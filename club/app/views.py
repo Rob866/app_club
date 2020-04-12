@@ -54,10 +54,10 @@ def deleteNotification(request,id):
     notificacion = request.user.notifications.all().get(id=id)
     if notificacion:
         if request.POST:
-        notificacion.delete()
-        return HttpResponseRedirect(reverse('app:notificationsList'))
+            notificacion.delete()
+            return HttpResponseRedirect(reverse('app:notificationsList'))
     else:
-        raise Http404()    
+        raise Http404()
     context  =   {"notificacion": notificacion}
 
     return render(request,'app/delete_notification.html',context)
