@@ -44,7 +44,7 @@ class UserUpdateForm(forms.ModelForm):
     username         = forms.CharField(label="Username",required=True,widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Username'}))
     email            = forms.EmailField(label="Email de contacto",required=False,widget=forms.EmailInput(attrs={'class': 'form-control'}))
     facebook         = forms.CharField(label="Facebook de contacto",required=False,widget=forms.TextInput(attrs={'class': 'form-control'}))
-    nombre           = forms.CharField(label="Nombre del Alumno",required=True,widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
+    nombre           = forms.CharField(label="Nombre del Alumno",required=False,widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Nombre'}))
     apellido         = forms.CharField(label="Apellido del Alumno",required=True,widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Apellido'}))
     fecha_nacimiento = forms.DateField(label="Fecha de nacimiento del Alumno",widget=forms.SelectDateWidget(attrs={ 'class':'custom-select'},years=YEARS),initial="1990-06-21")
     edad             = forms.IntegerField(label="Edad del Alumno",required=False,widget=forms.TextInput(attrs={ 'class':'form-control','placeholder':'Edad'}))
@@ -97,17 +97,3 @@ class UserUpdateForm(forms.ModelForm):
             except get_user_model().DoesNotExist:
                 return username
             raise forms.ValidationError(f'User: { username } ya esta en uso')
-
-
-
-'''
-
-    def clean_email(self):
-        if self.is_valid():
-            email = self.cleaned_data['email']
-            try:
-                account = get_user_model().objects.exclude(pk=self.instance.pk).get(email=email)
-            except get_user_model().DoesNotExist:
-                return email
-            raise forms.ValidationError(f'Email:{ email } esta en uso')
-'''
