@@ -71,7 +71,6 @@ class UserUpdateForm(forms.ModelForm):
                   'numero_del_padre')
 
     def clean_nombre(self):
-
         if self.is_valid():
             nombre= self.cleaned_data['nombre']
             if not nombre:
