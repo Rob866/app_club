@@ -38,9 +38,9 @@ def notificacionPage(request):
                 verb="Mensaje del Staff"
             else:
                 #obtengo todos los usuarios que son del staff
-                users = get_user_model().objects.filter(is_superuser=True)
+                users = list(get_user_model().objects.filter(is_superuser=True))
                 verb="Mensaje de usuario"
-            notify.send(request.user,recipient=users,verb=verb,
+            notify.send(request.user,recipient_list=users,verb=verb,
             description=mensaje,action_object= request.user)
             messages.success(request,'Tu mensaje a sido enviado con éxito')
             return HttpResponseRedirect(reverse('app:form_notification'))
@@ -48,6 +48,18 @@ def notificacionPage(request):
         form = NotificationForm()
     context["notification_form"] = form
     return render(request,'app/form_notification.html',context)
+
+@login_required
+def deleteNotification(request,id):
+    notifiacion = request.user.notifications.all().get(id=id)
+    if request.POST:
+        notifiacion.delete()
+        messages.success(request,'Notifiacion eliminada con éxito')
+        return HttpResponseRedirect(reverse('app:notificactionList'))
+    context  =   {"notifiacion": notifiacion}
+
+    return render(request,'app/delete_notification.html')
+
 '''
 @login_required
 def notificationPageAdmin(request):
