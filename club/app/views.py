@@ -21,7 +21,7 @@ import online_users.models
 from datetime import timedelta
 from datetime import datetime
 from blog.models import Publicidad
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 
 @login_required
 def notificacionPage(request):
