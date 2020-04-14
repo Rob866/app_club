@@ -274,7 +274,7 @@ def notificationsList(request):
         except  PageEmptyPage:
             notificaciones_edit_profile_user = paginator.page(paginator.num_pages)
 
-        context = {"notificaciones_message_user", notificaciones_message_user,
-         'notificaciones_edit_profile_user', notificaciones_edit_profile_user}
+        context = {"notificaciones_message_user":notificaciones_message_user,
+         'notificaciones_edit_profile_user':notificaciones_edit_profile_user}
 
         render(request,'app/notificationsList0.html',context)
