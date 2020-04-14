@@ -137,13 +137,13 @@
 
         <span class="step-links pagination">
             {% if notificaciones_edit_profile_user.has_previous %}
-                <a href="?page2={{ notificaciones_edit_profile_user.previous_page_number }}"> previous </a>
+                <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.previous_page_number }}"> Anterior</a>
             {% endif %}
             <span class="current">
                 Page {{ notificaciones_edit_profile_user.number }} of {{ notificaciones_edit_profile_user.paginator.num_pages }}
             </span>
             {% if notificaciones_edit_profile_user.has_next %}
-                <a href="?page2={{ notificaciones_edit_profile_user.next_page_number }}"> next </a>
+                <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.next_page_number }}"> Siguiente</a>
             {% endif %}
         </span>
 

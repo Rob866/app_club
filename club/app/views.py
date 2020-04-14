@@ -241,7 +241,6 @@ def notificationsList(request):
         notificaciones = request.user.notifications.all()
         paginator = Paginator(notificaciones,5)
         page= request.GET.get('page')
-
         try:
             notificaciones = paginator.page(page)
         except PageNotAnInteger:
