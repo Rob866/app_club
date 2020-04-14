@@ -1,0 +1,158 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="ftco-section" style="background:#31de79">
+  <div class="container ftco-animate">
+    <div class="row mt-4 ml-1">
+        <a href="" class="btn btn-warning" role="button">Mensajes de usuarios</a>
+    </div>
+   <!-- mensajes de usuarios-->
+    <div class="row mt-2"  style="padding:10px;background-color:#7FFFD4;">
+        <ul class="list-group" style="width: 100%">
+            {% if notificaciones_message_user %}
+                {% for notificacion in notificaciones_message_user %}
+                <a  class="bg-light" href="">
+                 <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
+                   <div style="background-color: white;border-radius: 5px; position: relative ">
+                     <div class="inset">
+                       <img  style="width: 50px;height:50px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
+                     </div>
+                     {% if notificacion.unread %}
+                         <span class="badge badge-success" style="border-radius: 50%; position:absolute; top:10%; left:0;
+                         z-index:1000;transform: translate(-50%,-50%);">
+                         <i class="fa fa-comments"></i>
+                            </span>
+                     {%else%}
+                         <span class="badge badge-danger" style="border-radius: 50%; position:absolute; top:10%; left:0;
+                        z-index: 1000;transform: translate(-50%,-50%);">
+                         <i class="fa fa-comments"></i>
+                          </span>
+                     {%endif%}
+
+                       <div  style="padding-left: 60px;position:relative;">
+                         <h5> Asunto: {{ notificacion.verb}}</h5>
+                         <span style="color: #5897fb;">
+                           Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
+                         </span>
+                        <br>
+                         <span>
+                                   Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
+                         </span>
+                         <br>
+                         <div style="height:50px;width: 100px;"></div>
+                            <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
+                               <a href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn btn-info">Detalles</a>
+                              <a href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn btn-danger" role="button">Eliminar</a>
+                            </div>
+                       </div>
+
+                   </div>
+                 </div>
+
+                 </a>
+                {% endfor %}
+            {% else %}
+            <ul class="list-group" style="padding-bottom: 20px">
+                  <li class="list-group-item">No hay Notificaciones</li>
+            </ul>
+            {% endif%}
+        </ul>
+
+        {% if notificaciones_message_user %}
+
+          <span class="step-links pagination">
+              {% if notificaciones_message_user.has_previous %}
+                  <a href="?page1={{ notificaciones_message_user.previous_page_number }}">previous</a>
+              {% endif %}
+              <span class="current">
+                  Page {{ notificaciones_message_user.number }} of {{ notificaciones_message_user.paginator.num_pages }}
+              </span>
+              {% if notificaciones_message_user.has_next %}
+                  <a href="?page1={{ notificaciones_message_user.next_page_number }}"> next </a>
+              {% endif %}
+          </span>
+
+          {% endif %}
+
+    </div>
+  </div>
+<!-- mensajes de Edicion de perfiles    -->
+<div class="container ftco-animate">
+  <div class="row mt-4 ml-1">
+      <a href="" class="btn btn-warning" role="button">Notificación de edición de Perfil</a>
+  </div>
+  <div class="row mt-2"  style="padding:10px;background-color:#7FFFD4;">
+      <ul class="list-group" style="width: 100%">
+          {% if notificaciones_edit_profile_user %}
+              {% for notificacion in notificaciones_edit_profile_user %}
+              <a  class="bg-light" href="">
+               <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
+                 <div style="background-color: white;border-radius: 5px; position: relative ">
+                   <div class="inset">
+                     <img  style="width: 50px;height:50px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
+                   </div>
+                   {% if notificacion.unread %}
+                       <span class="badge badge-success" style="border-radius: 50%; position:absolute; top:10%; left:0;
+                       z-index:1000;transform: translate(-50%,-50%);">
+                       <i class="fa fa-comments"></i>
+                          </span>
+                   {%else%}
+                       <span class="badge badge-danger" style="border-radius: 50%; position:absolute; top:10%; left:0;
+                      z-index: 1000;transform: translate(-50%,-50%);">
+                       <i class="fa fa-comments"></i>
+                        </span>
+                   {%endif%}
+
+                     <div  style="padding-left: 60px;position:relative;">
+                       <h5> Asunto: {{ notificacion.verb}}</h5>
+                       <span style="color: #5897fb;">
+                         Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
+                       </span>
+                      <br>
+                       <span>
+                                 Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
+                       </span>
+                       <br>
+                       <div style="height:50px;width: 100px;"></div>
+                          <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
+                             <a href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn btn-info">Detalles</a>
+                            <a href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn btn-danger" role="button">Eliminar</a>
+                          </div>
+                     </div>
+
+                 </div>
+               </div>
+
+               </a>
+              {% endfor %}
+          {% else %}
+          <ul class="list-group" style="padding-bottom: 20px">
+                <li class="list-group-item">No hay Notificaciones</li>
+          </ul>
+          {% endif%}
+      </ul>
+
+      {% if notificaciones_edit_profile_user %}
+
+        <span class="step-links pagination">
+            {% if notificaciones_edit_profile_user.has_previous %}
+                <a href="?page2={{ notificaciones_edit_profile_user.previous_page_number }}"> previous </a>
+            {% endif %}
+            <span class="current">
+                Page {{ notificaciones_edit_profile_user.number }} of {{ notificaciones_edit_profile_user.paginator.num_pages }}
+            </span>
+            {% if notificaciones_edit_profile_user.has_next %}
+                <a href="?page2={{ notificaciones_edit_profile_user.next_page_number }}"> next </a>
+            {% endif %}
+        </span>
+
+        {% endif %}
+
+  </div>
+</div>
+
+
+
+
+  </section>

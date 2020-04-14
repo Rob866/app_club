@@ -21,7 +21,7 @@ import online_users.models
 from datetime import timedelta
 from datetime import datetime
 from blog.models import Publicidad
-
+from django.core.paginator import Paginator
 
 @login_required
 def notificacionPage(request):
@@ -39,7 +39,7 @@ def notificacionPage(request):
             else:
                 #obtengo todos los usuarios que son del staff
                 users = get_user_model().objects.filter(is_superuser=True)
-                verb="Mensaje de usuario"
+                verb="Mensaje de Usuario"
             notify.send(request.user,recipient=users,verb=verb,
             description=mensaje,action_object= request.user)
             messages.success(request,'Tu mensaje a sido enviado con éxito')
@@ -226,6 +226,7 @@ def notificacion(request,id):
     return render(request,'app/notificacion.html',context)
 
 #@login_required
+'''
 class notificationsList(ListView):
     template_name ='app/notificationsList.html'
     paginate_by= 8
@@ -233,3 +234,47 @@ class notificationsList(ListView):
 
     def get_queryset(self):
         return self.request.user.notifications.all()
+'''
+@login_required
+def notificacionList(request):
+    if not request.is_superuser:
+        notificaciones = request.user.notifications.all()
+        paginator = Paginator(notificaciones,5)
+        page= request.GET.get('page')
+
+        try:
+            notificaciones = paginator.page(page)
+        except PageNotAnInteger:
+            notificaciones = paginator.page(1)
+        except  PageEmptyPage:
+            notificaciones = paginator.page(paginator.num_pages)
+        context = {"notificaciones": notificaciones}
+        render(request,'app/noticationsList.html',context)
+    else:
+        notificaciones = request.user.notificaciones
+        notificaciones_message_user =  notificaciones.filter(verb="Mensaje de Usuario")
+
+        paginator = Paginator(notificaciones_message_user,5)
+        page= request.GET.get('page1')
+        try:
+            notificaciones_message_user = paginator.page(page)
+        except PageNotAnInteger:
+            notificaciones_message_user = paginator.page(1)
+        except  PageEmptyPage:
+            notificaciones_message_user = paginator.page(paginator.num_pages)
+
+        notificaciones_edit_profile_user = notificaciones.filter(verb="Datos de Perfil Actualizado")
+
+        paginator = Paginator(notificaciones_edit_profile_user,5)
+        page= request.GET.get('page2')
+        try:
+            notificaciones_edit_profile_user = paginator.page(page)
+        except PageNotAnInteger:
+            notificaciones_edit_profile_user = paginator.page(1)
+        except  PageEmptyPage:
+            notificaciones_edit_profile_user = paginator.page(paginator.num_pages)
+
+        context = {"notificaciones_message_user", notificaciones_message_user,
+         'notificaciones_edit_profile_user', notificaciones_edit_profile_user}
+
+        render(request,'app/notificationsList0.html',context)
