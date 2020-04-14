@@ -259,7 +259,7 @@ def notificationsList(request):
             notificaciones_message_user = paginator.page(page)
         except PageNotAnInteger:
             notificaciones_message_user = paginator.page(1)
-        except  PageEmptyPage:
+        except  EmptyPage:
             notificaciones_message_user = paginator.page(paginator.num_pages)
 
         notificaciones_edit_profile_user = notificaciones.filter(verb="Datos de Perfil Actualizado")
