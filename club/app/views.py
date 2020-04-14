@@ -237,7 +237,7 @@ class notificationsList(ListView):
 '''
 @login_required
 def notificationsList(request):
-    if not request.is_superuser:
+    if not request.user.is_superuser:
         notificaciones = request.user.notifications.all()
         paginator = Paginator(notificaciones,5)
         page= request.GET.get('page')
