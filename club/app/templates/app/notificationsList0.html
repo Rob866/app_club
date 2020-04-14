@@ -63,13 +63,13 @@
 
           <span class="step-links pagination">
               {% if notificaciones_message_user.has_previous %}
-                  <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.previous_page_number }}">previous</a>
+                  <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.previous_page_number }}">anterior</a>
               {% endif %}
-              <span class="current">
-                  Page {{ notificaciones_message_user.number }} of {{ notificaciones_message_user.paginator.num_pages }}
+              <span class="current" style="padding: 5px;">
+                  Página {{ notificaciones_message_user.number }} of {{ notificaciones_message_user.paginator.num_pages }}
               </span>
               {% if notificaciones_message_user.has_next %}
-                  <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.next_page_number }}"> next </a>
+                  <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.next_page_number }}">siguiente</a>
               {% endif %}
           </span>
 
@@ -137,13 +137,13 @@
 
         <span class="step-links pagination">
             {% if notificaciones_edit_profile_user.has_previous %}
-                <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.previous_page_number }}"> Anterior</a>
+                <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.previous_page_number }}"> anterior</a>
             {% endif %}
-            <span class="current">
+            <span class="current" style="padding:5px;">
                 Page {{ notificaciones_edit_profile_user.number }} of {{ notificaciones_edit_profile_user.paginator.num_pages }}
             </span>
             {% if notificaciones_edit_profile_user.has_next %}
-                <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.next_page_number }}"> Siguiente</a>
+                <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.next_page_number }}"> siguiente</a>
             {% endif %}
         </span>
 

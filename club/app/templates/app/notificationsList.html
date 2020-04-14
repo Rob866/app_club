@@ -61,13 +61,13 @@
 
           <span class="step-links pagination">
               {% if notificaciones.has_previous %}
-                  <a  class="btn btn-info" role="button"href="?page={{ notificaciones.previous_page_number }}"> Anterior </a>
+                  <a  class="btn btn-info" role="button"href="?page={{ notificaciones.previous_page_number }}">anterior</a>
               {% endif %}
               <span class="current">
-                  Page {{ notificaciones.number }} of {{ notificaciones.paginator.num_pages }}
+                  Página {{ notificaciones.number }} of {{ notificaciones.paginator.num_pages }}
               </span>
               {% if notificaciones.has_next %}
-                  <a  class="btn btn-info" role="button"href="?page={{ notificaciones_edit_profile_user.next_page_number }}"> Siguiente </a>
+                  <a  class="btn btn-info" role="button"href="?page={{ notificaciones_edit_profile_user.next_page_number }}">siguiente </a>
               {% endif %}
           </span>
 
