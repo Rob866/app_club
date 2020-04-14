@@ -236,7 +236,7 @@ class notificationsList(ListView):
         return self.request.user.notifications.all()
 '''
 @login_required
-def notificacionList(request):
+def notificationsList(request):
     if not request.is_superuser:
         notificaciones = request.user.notifications.all()
         paginator = Paginator(notificaciones,5)
@@ -251,7 +251,7 @@ def notificacionList(request):
         context = {"notificaciones": notificaciones}
         render(request,'app/notificationsList.html',context)
     else:
-        notificaciones = request.user.notificaciones
+        notificaciones = request.user.notifications
         notificaciones_message_user =  notificaciones.filter(verb="Mensaje de Usuario")
 
         paginator = Paginator(notificaciones_message_user,5)
