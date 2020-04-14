@@ -245,7 +245,7 @@ def notificationsList(request):
             notificaciones = paginator.page(page)
         except PageNotAnInteger:
             notificaciones = paginator.page(1)
-        except  PageEmptyPage:
+        except  EmptyPage:
             notificaciones = paginator.page(paginator.num_pages)
         context = {"notificaciones": notificaciones}
         return render(request,'app/notificationsList.html',context)
@@ -270,7 +270,7 @@ def notificationsList(request):
             notificaciones_edit_profile_user = paginator.page(page)
         except PageNotAnInteger:
             notificaciones_edit_profile_user = paginator.page(1)
-        except  PageEmptyPage:
+        except  EmptyPage:
             notificaciones_edit_profile_user = paginator.page(paginator.num_pages)
 
         context = {"notificaciones_message_user":notificaciones_message_user,
