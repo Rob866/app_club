@@ -1,11 +1,11 @@
 {% extends 'main/base.html' %}
 {% block content %}
     <div class="content-section">
-        <form method="POST" class="ftco-animate" style="padding-top: 80px;">
+        <form  action ="{% url 'app:delete_by_topic'%}" method="POST" class="ftco-animate" style="padding-top: 80px;">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Eliminar notificación</legend>
-                <h2>Estas seguro de eliminar la notificacion de {{ notificacion.actor.nombre }}</h2>
+                <legend class="border-bottom mb-4">Eliminar notificaciones</legend>
+                <h2>Estas seguro de eliminar todas las notificaciones de {{ verb}}</h2>
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-danger" type="submit">Si, Eliminar</button>

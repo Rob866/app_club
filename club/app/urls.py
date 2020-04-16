@@ -14,6 +14,7 @@ urlpatterns = [
     path('notificationsList/',views.notificationsList,name='notificationsList'),
     path('notificationsList/delete/<int:id>/',views.deleteNotification,name="borrar_notificacion"),
     path('notificationsList/vista/<int:id>/',views.notificacion,name='notificacion'),
+    path('notificatiList/delete/all/<str:verb>/',views.deleteByTopicNotifications,'delete_by_topic'),
     path('paquetes/<uuid:paquete_id>/',views.clases,name='clases'),
     path('paquetes/<uuid:paquete_id>/<uuid:clase_id>/',views.clase,name='clase'),
     path('events/',login_required(views.Eventos.as_view()),name="events"),

@@ -60,8 +60,22 @@ def deleteNotification(request,id):
     else:
         raise Http404
     context  =   {"notificacion": notificacion }
-
     return render(request,'app/delete_notification.html',context)
+
+
+@login_required
+def deleteByTopicNotifications(request,verb=None):
+    notificaciones = request.user.notifications.filter(verb=verb)
+    if notificaciones:
+        if request.POST:
+            for notificacion in notificaciones:
+                notificacion.delete()
+            return HttpResponseRedirect(reverse('app:notificacionsList'))
+    else:
+        raise  Http404
+    context ={ verb : verb}    
+    return render(request,'app/delete_by_topic_notifications.html')
+
 
 @login_required
 def profile(request):
