@@ -265,8 +265,8 @@ def notificationsList(request):
         return render(request,'app/notificationsList.html',context)
     else:
         notificaciones = request.user.notifications
-        notificaciones_message_user =  notificaciones.filter(verb="Mensaje de Usuario")
-
+        label_messages_users ="Mensaje de Usuario"
+        private_message_user =  notificaciones.filter(verb=label_messages_users)
         paginator = Paginator(notificaciones_message_user,5)
         page= request.GET.get('page1')
         try:
@@ -275,8 +275,8 @@ def notificationsList(request):
             notificaciones_message_user = paginator.page(1)
         except  EmptyPage:
             notificaciones_message_user = paginator.page(paginator.num_pages)
-
-        notificaciones_edit_profile_user = notificaciones.filter(verb="Datos de Perfil Actualizado")
+        label_edit_profile_user="Datos de Perfil Actualizado"
+        notificaciones_edit_profile_user = notificaciones.filter(verb=label_edit_profile_user)
 
         paginator = Paginator(notificaciones_edit_profile_user,5)
         page= request.GET.get('page2')
@@ -287,7 +287,10 @@ def notificationsList(request):
         except  EmptyPage:
             notificaciones_edit_profile_user = paginator.page(paginator.num_pages)
 
-        context = {"notificaciones_message_user":notificaciones_message_user,
-         'notificaciones_edit_profile_user':notificaciones_edit_profile_user}
+        context = {
+          'notificaciones_message_user':notificaciones_message_user,
+          'notificaciones_edit_profile_user':notificaciones_edit_profile_user,
+          'label_messages_users': label_messages_users,
+          'label_edit_profile_user': label_edit_profile_user}
 
         return render(request,'app/notificationsList0.html',context)
