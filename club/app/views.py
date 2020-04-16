@@ -74,7 +74,7 @@ def deleteByTopicNotifications(request,verb):
     else:
         raise  Http404
     context ={ 'verb' : verb }
-    return render(request,'app/delete_by_topic_notifications.html')
+    return render(request,'app/delete_by_topic_notifications.html',context)
 
 
 @login_required
