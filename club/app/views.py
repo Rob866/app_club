@@ -73,7 +73,7 @@ def deleteByTopicNotifications(request,verb=None):
             return HttpResponseRedirect(reverse('app:notificacionsList'))
     else:
         raise  Http404
-    context ={ verb : verb}    
+    context ={ 'verb' : verb}    
     return render(request,'app/delete_by_topic_notifications.html')
 
 
