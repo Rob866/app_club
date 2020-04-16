@@ -266,7 +266,7 @@ def notificationsList(request):
     else:
         notificaciones = request.user.notifications
         label_messages_users ="Mensaje de Usuario"
-        private_message_user =  notificaciones.filter(verb=label_messages_users)
+        notificaciones_message_user =  notificaciones.filter(verb=label_messages_users)
         paginator = Paginator(notificaciones_message_user,5)
         page= request.GET.get('page1')
         try:
