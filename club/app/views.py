@@ -176,7 +176,7 @@ def paquetes(request):
 @login_required
 def clases(request,paquete_id):
     try:
-        paquete = Paquete_Inscrito.objects.filter(id=paquete_id,usuario=request.user)
+        paquete = Paquete_Inscrito.objects.get(id=paquete_id,usuario=request.user)
         clases = paquete.sesiones.all()
        #clases = Sesion.objects.filter(paquete_inscrito=paquete)
         #clases = paquete.sesiones.all()
