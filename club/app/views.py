@@ -68,7 +68,7 @@ def deleteByTopicNotifications(request,verb):
     data=None
     if verb == "mensaje_de_usuario":
         data = "Mensaje de Usuario"
-    elif verb == "datos_de_perfil_actualizado"
+    elif verb == "datos_de_perfil_actualizado":
         data = "Datos de Perfil Actualizado"
     notificaciones = request.user.notifications.filter(verb=data)
     if notificaciones:
