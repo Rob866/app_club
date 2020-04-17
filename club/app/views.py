@@ -65,9 +65,7 @@ def deleteNotification(request,id):
 
 @login_required
 def deleteByTopicNotifications(request,verb=None):
-    if verb:
-        verb = verb.replace('_',' ')
-    notificaciones = request.user.notifications.filter(verb=verb)
+    notificaciones = request.user.notifications.filter(verb=verb.replace('_',' '))
     if notificaciones:
         if request.POST:
             for notificacion in notificaciones:
@@ -75,7 +73,7 @@ def deleteByTopicNotifications(request,verb=None):
             return HttpResponseRedirect(reverse('app:notificacionsList'))
     else:
         raise  Http404
-    context ={ 'verb' : verb }
+    context ={ 'verb' : verb.replace('_',' ') }
     return render(request,'app/delete_by_topic_notifications.html',context)
 
 
