@@ -14,7 +14,7 @@ class SearchForm(forms.Form):
 
 
 class NotificationForm(forms.Form):
-    description = forms.CharField(label="Mensaje",required=True,widget=forms.Textarea(attrs={ 'class':'form-control','placeholder':'Escribe un mensaje..'}))
+    description = forms.CharField(label="Mensaje",required=True,widget=forms.Textarea(attrs={ 'class':'form-control','placeholder':'Escribe un mensaje..','style':'background: aliceblue !important'}))
 
     def clean_description(self):
         description = self.cleaned_data['description']

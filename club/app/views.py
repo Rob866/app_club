@@ -175,10 +175,17 @@ def paquetes(request):
 
 @login_required
 def clases(request,paquete_id):
-    paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
+   try:
+       paquete = Paquete_Inscrito.objects.filter(id=paquete_id,usuario= request.user)
+       clases = paquete.sesiones.all()
+       #paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
+   except:
+       Paquete_Inscrito.DoesNotExist:
+       raise Http404
+
     context = {
         'student':request.user,
-        'clases': paquete.sesiones.all(),
+        'clases': clases,
         'paquete':paquete
          }
     return render(request,'app/clases.html',context)
