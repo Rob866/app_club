@@ -175,16 +175,8 @@ def paquetes(request):
 
 @login_required
 def clases(request,paquete_id):
-    try:
-        paquete = Paquete_Inscrito.objects.get(id=paquete_id)
-        if ! paquete.usuario == request.user:
-            return HttpResponse('Sin autorización', status=401)
-        clases = paquete.sesiones.all()
-       #clases = Sesion.objects.filter(paquete_inscrito=paquete)
-        #clases = paquete.sesiones.all()
-       #paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
-    except Paquete_Inscrito.DoesNotExist:
-       raise Http404
+       paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
+       clases = paquete.sesiones.all()
 
     context = {
         'student':request.user,
