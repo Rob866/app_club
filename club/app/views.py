@@ -65,12 +65,7 @@ def deleteNotification(request,id):
 
 @login_required
 def deleteByTopicNotifications(request,verb):
-    data=None
-    if verb == "mensaje_de_usuario":
-        data = "Mensaje de Usuario"
-    elif verb == "datos_de_perfil_actualizado":
-        data = "Datos de Perfil Actualizado"
-    notificaciones = request.user.notifications.filter(verb=data)
+    notificaciones = request.user.notifications.filter(verb=verb)
     if notificaciones:
         if request.POST:
             for notificacion in notificaciones:
@@ -78,7 +73,7 @@ def deleteByTopicNotifications(request,verb):
             return HttpResponseRedirect(reverse('app:notificacionsList'))
     else:
         raise  Http404
-    context ={ 'verb' : data }
+    context ={ 'verb' : verb }
     return render(request,'app/delete_by_topic_notifications.html',context)
 
 
@@ -270,8 +265,7 @@ def notificationsList(request):
         return render(request,'app/notificationsList.html',context)
     else:
         notificaciones = request.user.notifications
-        label_messages_users ="Mensaje de Usuario"
-        notificaciones_message_user =  notificaciones.filter(verb=label_messages_users)
+        notificaciones_message_user =  notificaciones.filter(verb="Mensaje de Usuario")
         paginator = Paginator(notificaciones_message_user,5)
         page= request.GET.get('page1')
         try:
@@ -280,8 +274,7 @@ def notificationsList(request):
             notificaciones_message_user = paginator.page(1)
         except  EmptyPage:
             notificaciones_message_user = paginator.page(paginator.num_pages)
-        label_edit_profile_user="Datos de Perfil Actualizado"
-        notificaciones_edit_profile_user = notificaciones.filter(verb=label_edit_profile_user)
+        notificaciones_edit_profile_user = notificaciones.filter(verb="Datos de Perfil Actualizado")
 
         paginator = Paginator(notificaciones_edit_profile_user,5)
         page= request.GET.get('page2')
