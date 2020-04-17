@@ -12,7 +12,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from django.http import HttpResponseRedirect,Http404
+from django.http import HttpResponseRedirect,Http404,HttpResponse
 from .forms import (UserAuthentication, UserUpdateForm,NotificationForm)
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -176,7 +176,9 @@ def paquetes(request):
 @login_required
 def clases(request,paquete_id):
     try:
-        paquete = Paquete_Inscrito.objects.get(id=paquete_id,usuario=request.user)
+        paquete = Paquete_Inscrito.objects.get(id=paquete_id)
+        if ! paquete.usuario == request.user:
+            return HttpResponse('Sin autorización', status=401)
         clases = paquete.sesiones.all()
        #clases = Sesion.objects.filter(paquete_inscrito=paquete)
         #clases = paquete.sesiones.all()
