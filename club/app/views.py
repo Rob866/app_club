@@ -70,7 +70,7 @@ def deleteByTopicNotifications(request,verb=None):
         if request.POST:
             for notificacion in notificaciones:
                 notificacion.delete()
-            return HttpResponseRedirect(reverse('app:notificacionsList'))
+            return HttpResponseRedirect(reverse('app:notificationsList'))
     else:
         raise  Http404
     context ={ 'verb' : verb.replace('_',' ') }
