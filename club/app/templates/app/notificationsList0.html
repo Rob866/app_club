@@ -11,7 +11,7 @@
           {% endif %}
       </div>
 
-    </div>
+
    <!-- mensajes de usuarios-->
     <div class="row mt-2"  style="padding:10px;background-color:#7FFFD4;">
         <ul class="list-group" style="width: 100%">
@@ -87,7 +87,7 @@
   <div class="row mt-4 ml-1">
       <a href="" class="btn btn-warning" role="button">Notificación de edición de Perfil</a>
       {% if notificaciones_edit_profile_user %}
-      <a href="{% url 'app:delete_by_topic' verb=label_edit_profile_user %}" class="btn btn-danger" role="button">Eliminar todos</a>
+            <a href="{% url 'app:delete_by_topic' verb=label_edit_profile_user %}" class="btn btn-danger" role="button">Eliminar todos</a>
       {% endif %}
   </div>
   <div class="row mt-2"  style="padding:10px;background-color:#7FFFD4;">
