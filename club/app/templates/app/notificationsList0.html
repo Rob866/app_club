@@ -5,14 +5,14 @@
   <section class="ftco-section" style="background:#31de79">
   <div class="container ftco-animate">
     <div class="row mt-4 ml-1" style="position:relative;">
-        <a href="" class="btn btn-warning" role="button">Mensajes de usuarios</a>
+        <a href="" class="btn btn-warning"  style="border-radius: none;" role="button">Mensajes de usuarios</a>
           {% if  notificaciones_message_user %}
               <a  style="position:absolute; top:0; right:0;" href="{% url 'app:delete_by_topic' verb='Mensaje_de_Usuario' %}" class="btn btn-danger" role="button">Eliminar todos</a>
           {% endif %}
       </div>
 
    <!-- mensajes de usuarios-->
-    <div class="row mt-2"  style="padding:10px;background-color:#7FFFD4;">
+    <div class="row mt-2"  style="padding:0;background-color:#7FFFD4;">
         <ul class="list-group" style="width: 100%">
             {% if notificaciones_message_user %}
                 {% for notificacion in notificaciones_message_user %}
@@ -84,12 +84,12 @@
 <!-- mensajes de Edicion de perfiles    -->
 <div class="container ftco-animate">
   <div class="row mt-4 ml-1" style="position: relative;">
-      <a href="" class="btn btn-warning" role="button">Notificación de edición de Perfil</a>
+      <a href="" class="btn btn-warning"  style="border-radius: none;"role="button">Edición de Perfil</a>
       {% if notificaciones_edit_profile_user%}
             <a style="position:absolute; top:0; right:0;" href="{% url 'app:delete_by_topic' verb='Datos_de_Perfil_Actualizado' %}" class="btn btn-danger" role="button">Eliminar todos</a>
       {% endif %}
   </div>
-  <div class="row mt-2"  style="padding:10px;background-color:#7FFFD4;">
+  <div class="row mt-2"  style="padding:0;background-color:#7FFFD4;">
       <ul class="list-group" style="width: 100%">
           {% if notificaciones_edit_profile_user %}
               {% for notificacion in notificaciones_edit_profile_user %}
