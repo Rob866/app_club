@@ -175,8 +175,8 @@ def paquetes(request):
 
 @login_required
 def clases(request,paquete_id):
-       paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
-       clases = paquete.sesiones.all()
+    paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
+    clases = paquete.sesiones.all()
 
     context = {
         'student':request.user,
