@@ -184,7 +184,7 @@ def clases(request,paquete_id):
    except Paquete_Inscrito.DoesNotExist:
        raise Http404
 
-    context = {
+   context = {
         'student':request.user,
         'clases': clases,
         'paquete':paquete
