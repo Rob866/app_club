@@ -65,7 +65,12 @@ def deleteNotification(request,id):
 
 @login_required
 def deleteByTopicNotifications(request,verb):
-    notificaciones = request.user.notifications.filter(verb=verb)
+    data=None
+    if verb == "mensaje_de_usuario":
+        data = "Mensaje de Usuario"
+    elif verb == "datos_de_perfil_actualizado"
+        data = "Datos de Perfil Actualizado"
+    notificaciones = request.user.notifications.filter(verb=data)
     if notificaciones:
         if request.POST:
             for notificacion in notificaciones:
@@ -73,7 +78,7 @@ def deleteByTopicNotifications(request,verb):
             return HttpResponseRedirect(reverse('app:notificacionsList'))
     else:
         raise  Http404
-    context ={ 'verb' : verb }
+    context ={ 'verb' : data }
     return render(request,'app/delete_by_topic_notifications.html',context)
 
 
@@ -289,8 +294,6 @@ def notificationsList(request):
 
         context = {
           'notificaciones_message_user':notificaciones_message_user,
-          'notificaciones_edit_profile_user':notificaciones_edit_profile_user,
-          'label_messages_users': label_messages_users,
-          'label_edit_profile_user': label_edit_profile_user}
+          'notificaciones_edit_profile_user':notificaciones_edit_profile_user}
 
         return render(request,'app/notificationsList0.html',context)
