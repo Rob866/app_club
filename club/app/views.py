@@ -175,16 +175,16 @@ def paquetes(request):
 
 @login_required
 def clases(request,paquete_id):
-   try:
-       paquete = Paquete_Inscrito.objects.filter(id=paquete_id,usuario=request.user)
-       clases = paquete.sesiones.all()
+    try:
+        paquete = Paquete_Inscrito.objects.filter(id=paquete_id,usuario=request.user)
+        clases = paquete.sesiones.all()
        #clases = Sesion.objects.filter(paquete_inscrito=paquete)
         #clases = paquete.sesiones.all()
        #paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
-   except Paquete_Inscrito.DoesNotExist:
+    except Paquete_Inscrito.DoesNotExist:
        raise Http404
 
-   context = {
+    context = {
         'student':request.user,
         'clases': clases,
         'paquete':paquete
