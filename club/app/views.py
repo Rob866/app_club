@@ -65,8 +65,9 @@ def deleteNotification(request,id):
 
 @login_required
 def deleteByTopicNotifications(request,verb=None):
-   
-    notificaciones = request.user.notifications.filter(verb=verb.replace('_',' '))
+    if verb:
+        verb = verb.replace('_',' ')
+    notificaciones = request.user.notifications.filter(verb=verb)
     if notificaciones:
         if request.POST:
             for notificacion in notificaciones:
