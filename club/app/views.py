@@ -197,7 +197,19 @@ def clases(request,paquete_id):
 
 @login_required
 def clase(request,paquete_id,clase_id):
-    sesion = Sesion.objects.all().get(id=clase_id)
+    try:
+        paquete = Paquete_Inscrito.objects.all(id=paquete_id)
+        sesion = Sesion.objects.all().get(id=clase_id)
+    except  Paquete_Inscrito.DoesNotExist:
+        raise Http404()
+    except  Sesion.DoesNotExist:
+        raise Http404()
+
+    if not paquete.usuario == request.user or sesion.paquete_inscrito == paquete:
+        raise PermissionDenied
+    if not sesion.paquete_inscrito == paquete:
+        raise  PermissionDenied
+
     context = {
     'sesion': sesion,
     'paquete_id': paquete_id
