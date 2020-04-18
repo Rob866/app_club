@@ -207,8 +207,6 @@ def clase(request,paquete_id,clase_id):
 
     if not paquete.usuario == request.user or sesion.paquete_inscrito == paquete:
         raise PermissionDenied
-    if not sesion.paquete_inscrito == paquete:
-        raise  PermissionDenied
 
     context = {
     'sesion': sesion,
