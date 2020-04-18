@@ -179,10 +179,10 @@ def clases(request,paquete_id):
     #paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
     #clases = paquete.sesiones.all()
     try:
-        paquete = Paquete_Inscrito.objects.get(id=paquete_id)
+        paquete = Paquete_Inscrito.objects.all().get(id=paquete_id)
         if not paquete.usuario == request.user:
             raise PermissionDenied
-        clases = Sesion.objects.get(paquete_inscrito=paquete)
+        clases = Sesion.objects.all().get(paquete_inscrito=paquete)
     except  Paquete_Inscrito.DoesNotExist:
         raise Http404
     except  Sesion.DoesNotExist:
