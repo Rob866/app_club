@@ -198,7 +198,7 @@ def clases(request,paquete_id):
 @login_required
 def clase(request,paquete_id,clase_id):
     try:
-        paquete = Paquete_Inscrito.objects.all().get(paquete_id)
+        paquete = Paquete_Inscrito.objects.all().get(id=paquete_id)
         sesion = Sesion.objects.all().get(id=clase_id)
     except  Paquete_Inscrito.DoesNotExist:
         raise Http404()
