@@ -22,6 +22,7 @@ from datetime import timedelta
 from datetime import datetime
 from blog.models import Publicidad
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
+from django.core.exceptions import PermissionDenied
 
 @login_required
 def notificacionPage(request):
@@ -175,8 +176,17 @@ def paquetes(request):
 
 @login_required
 def clases(request,paquete_id):
-    paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
-    clases = paquete.sesiones.all()
+    #paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
+    #clases = paquete.sesiones.all()
+    try:
+        paquete = Paquete_Inscrito.objects.get(id=paquete_id)
+        if not paquete.usuario == request.user:
+            raise PermissionDenied
+        clases = Sesion.objects.get(paquete_inscrito=paquete)
+    except  Paquete_Inscrito.DoesNotExist:
+        raise Http404
+    except  Sesion.DoesNotExist:
+        raise Http404
 
     context = {
         'student':request.user,
