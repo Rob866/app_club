@@ -184,9 +184,9 @@ def clases(request,paquete_id):
             raise PermissionDenied
         clases = Sesion.objects.filter(paquete_inscrito=paquete)
     except  Paquete_Inscrito.DoesNotExist:
-        raise Http404
+        raise Http404()
     except  Sesion.DoesNotExist:
-        raise Http404
+        raise Http404()
 
     context = {
         'student':request.user,
