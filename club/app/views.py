@@ -70,7 +70,7 @@ def deleteAllNotification(request):
     if  request.user.is_superuser:
         return HttpResponseRedirect(reverse('app:notificationsList'))
     if request.POST:
-        notificaciones = request.user.notificaciones.all()
+        notificaciones = request.user.notifications.all()
         if notificaciones:
             notificaciones.delete_all()
         return HttpResponseRedirect('app:notificationsList')
