@@ -70,8 +70,9 @@ def deleteAllNotification(request):
     if  request.user.is_superuser:
         return HttpResponseRedirect(reverse('app:notificationsList'))
     if request.POST:
-        if request.user.notifications.all():
-            request.user.notifications.delete_all()
+        notificaciones = request.user.notificaciones.all()
+        if notificaciones:
+            notificaciones.delete_all()
         return HttpResponseRedirect('app:notificationsList')
     context = {"mensaje": "Seguro de que quieres eliminar todas las Notificaciones?"}
     return render(request,'app/delete_all_notifications.html', context)
