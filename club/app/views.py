@@ -74,7 +74,7 @@ def deleteAllNotification(request):
         if notificaciones:
             for notificacion in notificaciones:
                 notificacion.delete()
-        return HttpResponseRedirect('app:notificationsList')
+        return HttpResponseRedirect(reverse('app:notificationsList'))
     context = {"mensaje": "Seguro de que quieres eliminar todas las Notificaciones?"}
     return render(request,'app/delete_all_notifications.html', context)
 
