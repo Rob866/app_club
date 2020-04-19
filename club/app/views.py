@@ -79,7 +79,7 @@ def deleteAllNotification(request):
 #borrar notificaciones segun el tipo de notificacion
 #para super usuarios
 @login_required
-def deleteByTopicNotifications(request,verb=None):    if notificacion:
+def deleteByTopicNotifications(request,verb=None):
     notificaciones = request.user.notifications.filter(verb=verb.replace('_',' '))
     if notificaciones:
         if request.POST:
