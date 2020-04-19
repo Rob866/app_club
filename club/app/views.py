@@ -50,6 +50,7 @@ def notificacionPage(request):
     context["notification_form"] = form
     return render(request,'app/form_notification.html',context)
 
+#borrar una sola notificacion
 @login_required
 def deleteNotification(request,id):
     #no sirve de nada raise Http404
@@ -63,9 +64,22 @@ def deleteNotification(request,id):
     context  =   {"notificacion": notificacion }
     return render(request,'app/delete_notification.html',context)
 
-
+#borrar todas las notificaciones de un usuario normal
 @login_required
-def deleteByTopicNotifications(request,verb=None):
+def deleteAllNotification(request):
+    if  request.user.is_superuser:
+        return HttpResponseRedirect(reverse('app:notificationsList'))
+    if request.POST:
+        if request.user.notifications.all():
+            request.user.notifications.delete_all()
+        return HttpResponseRedirect('app:notificationsList')
+    context = {"mensaje": "Seguro de que quieres eliminar todas las Notificaciones?"}
+    return render(request,'app/delete_all_notifications.html', context)
+
+#borrar notificaciones segun el tipo de notificacion
+#para super usuarios
+@login_required
+def deleteByTopicNotifications(request,verb=None):    if notificacion:
     notificaciones = request.user.notifications.filter(verb=verb.replace('_',' '))
     if notificaciones:
         if request.POST:
