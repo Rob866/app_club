@@ -70,7 +70,7 @@
                   Página {{ notificaciones.number }} of {{ notificaciones.paginator.num_pages }}
               </span>
               {% if notificaciones.has_next %}
-                  <a  class="btn btn-info" role="button"href="?page={{ notificaciones_edit_profile_user.next_page_number }}">siguiente </a>
+                  <a  class="btn btn-info" role="button"href="?page={{ notificaciones.next_page_number }}">siguiente </a>
               {% endif %}
           </span>
 
