@@ -61,7 +61,7 @@ def deleteNotification(request,id):
         return Http404("Notificacion no encontrada")
 
     if not (notificacion.recipient == request.user):
-         raise PermissionDenied
+         raise PermissionDenied()
 
     if request.POST:
         if notificacion:
@@ -220,7 +220,7 @@ def clases(request,paquete_id):
         paquete = Paquete_Inscrito.objects.all().get(id=paquete_id)
         clases = Sesion.objects.filter(paquete_inscrito=paquete)
         if not (paquete.usuario == request.user):
-            raise PermissionDenied
+            raise PermissionDenied()
     except  Paquete_Inscrito.DoesNotExist:
         raise Http404
     except  Sesion.DoesNotExist:
@@ -246,7 +246,7 @@ def clase(request,paquete_id,clase_id):
         raise Http404("Sesion no encontrada")
 
     if (not paquete.usuario == request.user) or (not sesion.paquete_inscrito == paquete):
-        raise PermissionDenied
+        raise PermissionDenied()
 
     context = {
     'sesion': sesion,
@@ -312,7 +312,6 @@ def notificacion(request,id):
 @login_required
 def notificationsList(request):
     if not request.user.is_superuser:
-        #notificaciones = request.user.notifications.all()
         try:
             notificaciones = Notification.objects.all().filter(recipient=request.user)
         except  Notification.DoesNotExist:
