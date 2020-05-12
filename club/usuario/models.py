@@ -61,18 +61,20 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
     ocupacion_del_padre = models.CharField(verbose_name="Ocupación",max_length=100,blank=True)
     numero_del_padre    =  models.IntegerField(verbose_name="Número de contacto",blank=True,null=True)
     fecha_nacimiento = models.DateField(verbose_name="Fecha de nacimiento",blank=True, null=True)
-    escuela      =  models.CharField(verbose_name="Nombre de la escuela",max_length=60,blank=True)
+    escuela      =  models.CharField(verbose_name="Nombre de la escuela",max_length=100,blank=True)
     domicilio    =  models.CharField(verbose_name="Domicilio",max_length=150,blank=True)
     status_paquetes = models.BooleanField(verbose_name="¿Tiene Paquetes Activos?",default=False)
 
+    '''
     NIVEL_STATUS = (
          ('k','Kinder'),
          ('p','Primaria'),
          ('s','Secundaria'),
          ('b','bachillerato'),
          ('u','universidad'))
+    '''
 
-    nivel_academico = models.CharField(max_length=1,choices=NIVEL_STATUS,blank=True,verbose_name='Nivel académico del alumno')
+    nivel_academico = models.CharField(max_length=500,blank=True,verbose_name='Nivel académico del alumno')
 
     date_joined  =  models.DateTimeField(verbose_name="Fecha de ingreso",auto_now_add=True)
     last_login   =  models.DateTimeField(verbose_name="Ultima fecha de Sesión",auto_now=True)

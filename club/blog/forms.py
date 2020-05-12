@@ -32,6 +32,7 @@ class MensajeForm(forms.ModelForm):
     class Meta:
         model = Mensaje
         fields = ('nombre','asunto','body','email')
+    '''    
 
     def clean_nombre(self):
         if self.is_valid():
@@ -60,3 +61,4 @@ class MensajeForm(forms.ModelForm):
             if not email:
                 raise  forms.ValidationError("email vacío")
             return email
+    '''

@@ -17,7 +17,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = Usuario
-        fields = '__all__'
+        fields = ('username','nombre','apellido','password1', 'password2',)
 
 class CustomUserChangeForm(UserChangeForm):
 
@@ -55,7 +55,22 @@ class UsuarioAdmin(UserAdmin):
     check_status_paquetes.boolean = True
 
     filter_horizontal = ()
-    fieldsets = ()
+    fieldsets = (
+        (None, {'fields': ('username', 'password',)}),
+        ('Información del Alumno', {'fields': ('nombre', 'apellido','edad','imagen','preview','padecimientos','enfoque','fecha_nacimiento','escuela','domicilio','status_paquetes')}),
+        ('Información del Padre o Tutor', {'fields': ('nombre_del_padre','edad_del_padre','ocupacion_del_padre','numero_del_padre',)}),
+        ('Información de la Madre o Tutor', {'fields': ('nombre_de_la_madre','edad_de_la_madre','ocupacion_de_la_madre','numero_de_la_madre',)}),
+        ('Permisos', {'fields': ('is_active', 'is_staff','is_admin','is_superuser')}),
+    )
+
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username','nombre', 'apellido','password1', 'password2', ),
+        }),
+    )
+
+
     readonly_fields = ['preview','date_joined','last_login','status_paquetes']
 
     def preview(self, obj):

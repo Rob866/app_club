@@ -25,8 +25,8 @@ SECRET_KEY = '7vow$b=$!f^097uwh(9wk#e9m5d_ni&ub2xs(oqe-$$!cf+^&c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rob92.pythonanywhere.com' ]
-
+#ALLOWED_HOSTS = ['rob92.pythonanywhere.com' ]
+ALLOWED_HOSTS = ['*' ]
 
 # Application definition
 
@@ -85,6 +85,15 @@ WSGI_APPLICATION = 'club.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -99,7 +108,7 @@ DATABASES = {
 
         }
 }
-
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

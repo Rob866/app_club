@@ -59,7 +59,7 @@
         </div>
         <div class="row no-gutters block-9">
           <div class=" col-12 col-md-6 order-md-last d-flex">
-            <form method="POST" class="bg-light p-5 contact-form">
+            <form method="POST" class="bg-light p-5 contact-form" novalidate>
               {% csrf_token %}
               {% for field in mensaje_form %}
                   <div class="form-group">

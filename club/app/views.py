@@ -180,6 +180,7 @@ def login_view(request):
         form = UserAuthentication()
     context['login_form'] = form
 
+
     return render(request,'app/login.html',context)
 
 @login_required
@@ -189,6 +190,7 @@ def paquetes(request):
     'paquetes': request.user.paquetes_inscritos.all()
     }
     return render(request,'app/paquetes.html',context)
+
 
 @login_required
 def clases(request,paquete_id):
@@ -210,6 +212,7 @@ def clases(request,paquete_id):
         'paquete':paquete
          }
     return render(request,'app/clases.html',context)
+
 
 @login_required
 def clase(request,paquete_id,clase_id):

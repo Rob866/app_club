@@ -267,7 +267,7 @@
       <img src="{% static 'main/images/bg.svg' %}">
     </div>
     <div class="login-content">
-      <form method="POST">
+      <form method="POST" novalidate>
         {% csrf_token %}
         <img src="{% static 'main/images/avatar.svg' %}">
         <h2 class="title">Bienvenido</h2>
@@ -279,6 +279,11 @@
                     {{ login_form.username }}
                  </div>
               </div>
+                   {% for error in login_form.username.errors %}
+                      <div class="alert alert-danger" style="padding: 0 1.5em 1em 1.5em">
+                        <strong>{{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}
               <div class="input-div pass">
                  <div class="i">
                     <i class="fas fa-lock"></i>
@@ -287,15 +292,14 @@
                     {{ login_form.password }}
                  </div>
               </div>
-              <a href="#">Forgot Password?</a>
-              <input type="submit" class="btn" value="Login">
-              {% for field in login_form %}
-                  {% for error in field.errors %}
+              {% for error in login_form.password.errors %}
                       <div class="alert alert-danger" style="padding: 0 1.5em 1em 1.5em">
                         <strong>{{ error|escape }}</strong>
                       </div>
-                  {% endfor %}
-              {% endfor %}
+                {% endfor %}
+              <a href="#">Forgot Password?</a>
+              <input type="submit" class="btn" value="Login">
+  
 
               {% for error in login_form.non_field_errors%}
               <div class="alert alert-danger" style="margin: 0 2em 1em 2em">

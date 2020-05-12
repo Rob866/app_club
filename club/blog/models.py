@@ -88,7 +88,7 @@ class Post(models.Model):
     def __str__(self):
         return self.titulo
 
-
+#comentarios de los posts
 class Comentario(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id del comentario")
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comentarios',null=True)
@@ -104,6 +104,7 @@ class Comentario(models.Model):
     def __str__(self):
         return 'Comentario de:{}'.format(self.nombre)
 
+#mensaje de contacto
 class Mensaje(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id del mensaje")
     nombre = models.CharField(max_length=80)
