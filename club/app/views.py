@@ -17,6 +17,7 @@ from .forms import (UserAuthentication, UserUpdateForm,NotificationForm)
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from  notifications.signals import notify
+from  notifications.models import Notification
 import online_users.models
 from datetime import timedelta
 from datetime import datetime
@@ -53,14 +54,20 @@ def notificacionPage(request):
 #borrar una sola notificacion
 @login_required
 def deleteNotification(request,id):
-    #no sirve de nada raise Http404
-    notificacion = request.user.notifications.all().get(id=id)
-    if notificacion:
-        if request.POST:
+
+    try:
+        notificacion = Notification.objects.all().get(id=id)
+    except  Notification.DoesNotExist:
+        return Http404("Notificacion no encontrada")
+
+    if not (notificacion.recipient == request.user):
+         raise PermissionDenied
+
+    if request.POST:
+        if notificacion:
             notificacion.delete()
-            return HttpResponseRedirect(reverse('app:notificationsList'))
-    else:
-        raise Http404
+        return HttpResponseRedirect(reverse('app:notificationsList'))
+   
     context  =   {"notificacion": notificacion }
     return render(request,'app/delete_notification.html',context)
 
@@ -70,26 +77,40 @@ def deleteAllNotification(request):
     if  request.user.is_superuser:
         return HttpResponseRedirect(reverse('app:notificationsList'))
     if request.POST:
-        notificaciones = request.user.notifications.all()
-        if notificaciones:
-            for notificacion in notificaciones:
+        try:
+            user_notifications = Notification.objects.all().filter(recipient=request.user)
+        except Notification.DoesNotExist:
+            return Http404("Notificaciones no encontradas")
+
+        if user_notifications:
+            for notificacion in user_notifications:
                 notificacion.delete()
         return HttpResponseRedirect(reverse('app:notificationsList'))
     context = {"mensaje": "Seguro de que quieres eliminar todas las Notificaciones?"}
     return render(request,'app/delete_all_notifications.html', context)
 
+
 #borrar notificaciones segun el tipo de notificacion
-#para super usuarios
+#para superusuarios
+
 @login_required
 def deleteByTopicNotifications(request,verb=None):
-    notificaciones = request.user.notifications.filter(verb=verb.replace('_',' '))
-    if notificaciones:
-        if request.POST:
-            for notificacion in notificaciones:
+    if  not request.user.is_superuser:
+        return HttpResponseRedirect(reverse('app:notificationsList'))
+
+    if request.POST:
+        try:
+            user_notifications = Notification.objects.all().filter(recipient=request.user)
+            notificaciones_by_topic = user_notifications.filter(verb=verb.replace('_',' '))
+        
+        except Notification.DoesNotExist:
+            return Http404("Notificaciones no encontradas")
+        
+        if notificaciones_by_topic:
+            for notificacion in notificaciones_by_topic:
                 notificacion.delete()
-            return HttpResponseRedirect(reverse('app:notificationsList'))
-    else:
-        raise  Http404
+        return HttpResponseRedirect(reverse('app:notificationsList'))
+  
     context ={ 'verb' : verb.replace('_',' ') }
     return render(request,'app/delete_by_topic_notifications.html',context)
 
@@ -194,17 +215,16 @@ def paquetes(request):
 
 @login_required
 def clases(request,paquete_id):
-    #paquete = request.user.paquetes_inscritos.all().get(id=paquete_id)
-    #clases = paquete.sesiones.all()
+
     try:
         paquete = Paquete_Inscrito.objects.all().get(id=paquete_id)
-        if not paquete.usuario == request.user:
-            raise PermissionDenied
         clases = Sesion.objects.filter(paquete_inscrito=paquete)
+        if not (paquete.usuario == request.user):
+            raise PermissionDenied
     except  Paquete_Inscrito.DoesNotExist:
-        raise Http404()
+        raise Http404
     except  Sesion.DoesNotExist:
-        raise Http404()
+        raise Http404
 
     context = {
         'student':request.user,
@@ -221,9 +241,9 @@ def clase(request,paquete_id,clase_id):
         paquete = Paquete_Inscrito.objects.all().get(id=paquete_id)
         sesion = Sesion.objects.all().get(id=clase_id)
     except  Paquete_Inscrito.DoesNotExist:
-        raise Http404()
+        raise Http404("Pauete no Encontrado")
     except  Sesion.DoesNotExist:
-        raise Http404()
+        raise Http404("Sesion no encontrada")
 
     if (not paquete.usuario == request.user) or (not sesion.paquete_inscrito == paquete):
         raise PermissionDenied
@@ -274,27 +294,30 @@ class Eventos(ListView):
 
 @login_required
 def notificacion(request,id):
-    notificacion = request.user.notifications.all().get(id=id)
+    try:
+        notificacion = Notification.objects.all().get(id=id)
+    except Notification.DoesNotExist:
+        raise Http404("Elemento no Encontrado")
+
+    if not (notificacion.recipient == request.user):
+        raise PermissionDenied
+
     notificacion.mark_as_read()
     context ={
     "notificacion": notificacion
     }
     return render(request,'app/notificacion.html',context)
 
-#@login_required
-'''
-class notificationsList(ListView):
-    template_name ='app/notificationsList.html'
-    paginate_by= 8
-    context_object_name='notificaciones'
 
-    def get_queryset(self):
-        return self.request.user.notifications.all()
-'''
 @login_required
 def notificationsList(request):
     if not request.user.is_superuser:
-        notificaciones = request.user.notifications.all()
+        #notificaciones = request.user.notifications.all()
+        try:
+            notificaciones = Notification.objects.all().filter(recipient=request.user)
+        except  Notification.DoesNotExist:
+            raise Http404("Elementos no encontrados")
+
         paginator = Paginator(notificaciones,5)
         page= request.GET.get('page')
         try:
@@ -306,7 +329,12 @@ def notificationsList(request):
         context = {"notificaciones": notificaciones}
         return render(request,'app/notificationsList.html',context)
     else:
-        notificaciones = request.user.notifications
+        try:
+            notificaciones = Notification.objects.all().filter(recipient=request.user)
+        except  Notification.DoesNotExist:
+            raise Http404('Elementos no encontrados')
+
+
         notificaciones_message_user =  notificaciones.filter(verb="Mensaje de Usuario")
         paginator = Paginator(notificaciones_message_user,5)
         page= request.GET.get('page1')
