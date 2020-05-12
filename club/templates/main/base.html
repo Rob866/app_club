@@ -79,7 +79,7 @@
 
                       </a>
                       {% if request.user.is_superuser %}
-                            <a class="dropdown-item" href="{% url 'admin:index' %}"><span style="padding-right: 5px;"><i class="fa fa-users"></i></span><span>Admin</span></a>
+                            <a class="dropdown-item" href="{% url 'admin:index' %}"><span style="padding-right: 5px;"><i class="fa fa-users"></i></span><span>Administración</span></a>
                       {%endif%}
                       <a class="dropdown-item" href="{% url 'app:events' %}">
                         <span style="padding-right: 5px;"><i class="fa fa-calendar"></i></i></span><span>Calendario</span></a>

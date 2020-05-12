@@ -10,7 +10,7 @@ class Notificacion(models.Model):
        asunto = models.CharField(max_length=100,default="Notifiación del Staff")
        mensaje= models.TextField()
        fecha_de_creacion = models.DateTimeField(auto_now_add=True)
-       grupo = models.ForeignKey(Group,on_delete=models.CASCADE,null=True)
+       grupo = models.ForeignKey(Group,on_delete=models.CASCADE)
 
        class Meta:
            verbose_name_plural = ("Envio de Notificaciones a grupos")
@@ -19,14 +19,14 @@ class Notificacion(models.Model):
 
 class Sesion(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id de la sesion")
-    paquete_inscrito = models.ForeignKey('Paquete_Inscrito',related_name="sesiones",on_delete=models.CASCADE,null=True)
+    paquete_inscrito = models.ForeignKey('Paquete_Inscrito',related_name="sesiones",on_delete=models.CASCADE)
     asignatura = models.CharField(max_length=100)
-    tiempo_de_inicio = models.DateTimeField(null=True,blank=True)
+    tiempo_de_inicio = models.DateTimeField(null=False,blank=False)
     tiempo_de_salida = models.DateTimeField(null=True,blank=True)
-    observaciones = models.CharField(max_length=200,null=True,blank=True)
+    observaciones = models.CharField(max_length=200,blank=True)
 
     def _get_tiempo_de_sesion(self):
-        if self.tiempo_de_salida == None:
+        if (self.tiempo_de_salida == None ) or (self.tiempo_de_inicio == None):
             return None
         return self.tiempo_de_salida - self.tiempo_de_inicio
 
@@ -36,6 +36,7 @@ class Sesion(models.Model):
         verbose_name = ("Sesion")
         verbose_name_plural = ("Sesiones")
         ordering = ['-tiempo_de_inicio']
+    
     def __str__(self):
         return f'{self.asignatura}: duración: { self.tiempo_de_sesion}'
 
@@ -52,7 +53,7 @@ class Tipo_de_Paquete(models.Model):
 
 class Historial_User(models.Model):
       mensaje = models.CharField(max_length=200)
-      usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="historial",on_delete=models.CASCADE,null=True)
+      usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="historial",on_delete=models.CASCADE)
       fecha = models.DateTimeField(auto_now_add=True,null=True)
 
       class Meta:
@@ -61,8 +62,7 @@ class Historial_User(models.Model):
 
 class Paquete_Inscrito(models.Model):
      id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id del Paquete")
-     #related_name='_clases_concluidas'
-     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="paquetes_inscritos",on_delete=models.CASCADE,null=True)
+     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="paquetes_inscritos",on_delete=models.CASCADE)
      fecha_de_inscripcion = models.DateField(null=True,blank=True)
      horas_consumidas =models.CharField(max_length=100,default="00:00:00 Hrs")
      horas_restantes= models.CharField(max_length=100,default="00:00:00 Hrs")
@@ -74,9 +74,9 @@ class Paquete_Inscrito(models.Model):
      (False,'Finalizado')
      )
 
-     tipo_de_paquete = models.ForeignKey('Tipo_de_Paquete', on_delete=models.SET_NULL, null=True,help_text='Elige el tipo de paquete del alumno')
+     tipo_de_paquete = models.ForeignKey('Tipo_de_Paquete', on_delete=models.SET_NULL,help_text='Elige el tipo de paquete del alumno',null=True)
      #sesiones = models.ForeignKey('Sesion',on_delete=models.SET_NULL,null=True)
-     status = models.BooleanField(default=True,choices=ESTADO_STATUS,blank=True,help_text="Elige el estado del paquete")
+     status = models.BooleanField(default=True,choices=ESTADO_STATUS,help_text="Elige el estado del paquete")
 
      class Meta:
          verbose_name = ("Paquete Inscrito")
