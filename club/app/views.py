@@ -10,8 +10,9 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView, 
 )
+from django.views import View
 from django.http import HttpResponseRedirect,Http404,HttpResponse
 from .forms import (UserAuthentication, UserUpdateForm,NotificationForm)
 from django.urls import reverse
@@ -264,31 +265,32 @@ def historial(request):
     return render(request,'app/historial.html',context)
 
 
-class Eventos(ListView):
-    template_name= "app/aventos.html"
-    seleccion=""
-    eventslist=[]
+class Eventos(View):
+
+
     def get(self,request,*args,**kwargs):
-        if 'seleccion' in self.request.GET:
-            self.seleccion = self.request.GET.get('seleccion')
-            self.eventslist= []
-            if self.seleccion == "clases":
-                for paquete  in self.request.user.paquetes_inscritos.all():
+        seleccion=""
+        eventslist=[]
+        if 'seleccion' in request.GET:
+            seleccion = request.GET.get('seleccion')
+            eventslist= []
+            if seleccion == "clases":
+                for paquete  in request.user.paquetes_inscritos.all():
                     for clase in paquete.sesiones.all():
-                        self.eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
+                        eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
             else:
-                self.eventslist= []
-                for notificacion in self.request.user.notifications.all():
-                    self.eventslist.append({'titulo': notificacion.verb, 'fecha': notificacion.timestamp,'id':notificacion.id,'color':'blue' })
+                eventslist= []
+                for notificacion in request.user.notifications.all():
+                    eventslist.append({'titulo': notificacion.verb, 'fecha': notificacion.timestamp,'id':notificacion.id,'color':'blue' })
         else:
-            self.seleccion = "clases"
-            self.eventslist=[]
+            seleccion = "clases"
+            eventslist=[]
             for paquete in self.request.user.paquetes_inscritos.all():
                 for clase in paquete.sesiones.all():
-                    self.eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
+                    eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
         context = {
-            'eventslist': self.eventslist,
-            'seleccion': self.seleccion
+            'eventslist': eventslist,
+            'seleccion': seleccion
             }
         return render(request,'app/eventos.html',context)
 
