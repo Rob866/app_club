@@ -158,11 +158,13 @@ class Historial_UserAdmin(admin.ModelAdmin):
 
 class NotificacionAdmin(admin.ModelAdmin):
     list_display =('asunto','fecha_de_creacion')
+    readonly_fields = ['asunto']
 
     def save_model(self, request, obj, form, change):
-        if form.changed_data:
-            usuarios = get_user_model().objects.filter(groups__name=obj.grupo)
-            notify.send(request.user,recipient=usuarios,verb=obj.asunto,description=obj.mensaje,action_object=request.user)
+        usuarios = get_user_model().objects.filter(grupo=obj.grupo)
+
+
+        notify.send(request.user,recipient=usuarios,verb=obj.asunto,description=obj.mensaje,action_object=request.user)    
         super(NotificacionAdmin, self).save_model(request, obj, form, change)
 
 
