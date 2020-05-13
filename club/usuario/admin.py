@@ -56,7 +56,7 @@ class UsuarioAdmin(UserAdmin):
 
     filter_horizontal = ()
     fieldsets = (
-        (None, {'fields': ('username', 'password',)}),
+        (None, {'fields': ('username', 'password','grupo')}),
         ('Información del Alumno', {'fields': ('nombre', 'apellido','edad','imagen','preview','padecimientos','enfoque','fecha_nacimiento','escuela','domicilio','status_paquetes')}),
         ('Información del Padre o Tutor', {'fields': ('nombre_del_padre','edad_del_padre','ocupacion_del_padre','numero_del_padre',)}),
         ('Información de la Madre o Tutor', {'fields': ('nombre_de_la_madre','edad_de_la_madre','ocupacion_de_la_madre','numero_de_la_madre',)}),

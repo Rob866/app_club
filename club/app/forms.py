@@ -17,13 +17,6 @@ class SearchForm(forms.Form):
 class NotificationForm(forms.Form):
     description = forms.CharField(label="Mensaje",required=True,widget=forms.Textarea(attrs={ 'class':'form-control','placeholder':'Escribe un mensaje..','style':'background-color: aliceblue !important;'}))
 
-    def clean_description(self):
-        description = self.cleaned_data['description']
-        if not description:
-            raise forms.ValidationError("Campo de Mensaje vacío")
-        return description
-
-
 class UserAuthentication(forms.ModelForm):
 
     username= forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'fadeIn second username_login','placeholder':'Username'}))
@@ -37,7 +30,7 @@ class UserAuthentication(forms.ModelForm):
         if self.is_valid():
             username = self.cleaned_data['username']
             password = self.cleaned_data['password']
-            
+
             if not authenticate(username=username,password=password):
                 raise forms.ValidationError("Login Inválido")
 

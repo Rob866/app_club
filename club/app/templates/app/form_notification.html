@@ -43,7 +43,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="home">
-                                <form method="POST" style="height:400px;">
+                                <form method="POST" style="height:400px;"novalidate>
                                   {% csrf_token %}
                                   {% for field in notification_form %}
                                   <div class="form-group">
