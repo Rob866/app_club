@@ -2712,8 +2712,6 @@ body{
 }
 
 
-
-
 p.info-alumno{
   color: white;
 }
@@ -2749,5 +2747,12 @@ p.info-alumno{
   .info-alumno {
        font-size: 20px !important;
   }
+    .notifications-fix-top {
+        padding-top: 2em !important;
+    }
+    .content-gap{
+       height: 80px !important;
+    }
+
 
 }

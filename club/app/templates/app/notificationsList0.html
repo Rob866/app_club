@@ -1,18 +1,12 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block css_tag %}
-<style type="text/css">
-  
-  @media screen and (min-width: 480px) {
-    
-  }
-</style>
 
 
 {%endblock%}
 
 {% block content %}
-  <section class="ftco-section" style="background:#31de79">
+  <section class="ftco-section notifications-fix-top" style="background:#31de79">
   <div class="container ftco-animate">
     <div class="row mt-4 ml-1" style="position:relative; display: inline-block;">
        <button class="btn btn-warning"  style="border-radius: 0;" role="button">Mensajes de usuarios</button>   
@@ -54,7 +48,7 @@
                                    Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
                          </span>
                          <br>
-                         <div style="height:50px;width: 100px;"></div>
+                         <div  class="content-gap" style="height:50px;width: 100px;"></div>
                             <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
                                <a  style="font-size: 30px;" href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn"><i class="fa fa-file"></i></a>
                               <a style="font-size: 35px;" href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn" role="button"><i class="fa fa-trash"></i></a>
@@ -131,7 +125,7 @@
                                  Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
                        </span>
                        <br>
-                       <div style="height:50px;width: 100px;"></div>
+                       <div  class="content-gap" style="height:50px;width: 100px;"></div>
                           <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
                             <a  style="font-size: 30px;" href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn"><i class="fa fa-file"></i>
                             </a>
