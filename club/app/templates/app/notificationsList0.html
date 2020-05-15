@@ -1,22 +1,32 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% block css_tag %}
+<style type="text/css">
+  
+  @media screen and (min-width: 480px) {
+    
+  }
+</style>
+
+
+{%endblock%}
 
 {% block content %}
   <section class="ftco-section" style="background:#31de79">
   <div class="container ftco-animate">
-    <div class="row mt-4 ml-1" style="position:relative;">
-        <a href="" class="btn btn-warning"  style="border-radius: 0;" role="button">Mensajes de usuarios</a>
-          {% if  notificaciones_message_user %}
-              <a  style="position:absolute; top:0; right:0;" href="{% url 'app:delete_by_topic' verb='Mensaje_de_Usuario' %}" class="btn btn-danger" role="button">Eliminar todos</a>
-          {% endif %}
-      </div>
+    <div class="row mt-4 ml-1" style="position:relative; display: inline-block;">
+       <button class="btn btn-warning"  style="border-radius: 0;" role="button">Mensajes de usuarios</button>   
+     </div>
+      {% if  notificaciones_message_user %}
+              <a  style="font-size: 40px; display: inline-block; border-radius: 0; margin-left: 20px;" href="{% url 'app:delete_by_topic' verb='Mensaje_de_Usuario' %}" class="btn "><i class="fa fa-trash"></i></a>
+      {% endif %}
 
    <!-- mensajes de usuarios-->
-    <div class="row mt-2"  style="padding:0;background-color:#7FFFD4;">
+    <div class="row mt-2"  style="padding:0;">
         <ul class="list-group" style="width: 100%">
             {% if notificaciones_message_user %}
                 {% for notificacion in notificaciones_message_user %}
-                <a  class="bg-light" href="">
+                <a  class="bg-light">
                  <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
                    <div style="background-color: white;border-radius: 5px; position: relative ">
                      <div class="inset">
@@ -35,7 +45,7 @@
                      {%endif%}
 
                        <div  style="padding-left: 80px;position:relative;">
-                         <h5> Asunto: {{ notificacion.verb}}</h5>
+                         <p> Asunto: {{ notificacion.verb}}</p>
                          <span style="color: #5897fb;">
                            Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
                          </span>
@@ -46,8 +56,8 @@
                          <br>
                          <div style="height:50px;width: 100px;"></div>
                             <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
-                               <a href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn btn-info">Detalles</a>
-                              <a href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn btn-danger" role="button">Eliminar</a>
+                               <a  style="font-size: 30px;" href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn"><i class="fa fa-file"></i></a>
+                              <a style="font-size: 35px;" href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn" role="button"><i class="fa fa-trash"></i></a>
                             </div>
                        </div>
 
@@ -83,13 +93,13 @@
   </div>
 <!-- mensajes de Edicion de perfiles    -->
 <div class="container ftco-animate">
-  <div class="row mt-4 ml-1" style="position: relative;">
+  <div class="row mt-4 ml-1" style="position: relative; display: inline-block;">
       <a href="" class="btn btn-warning"  style="border-radius: 0;"role="button">Edición de Perfil</a>
-      {% if notificaciones_edit_profile_user%}
-            <a style="position:absolute; top:0; right:0;" href="{% url 'app:delete_by_topic' verb='Datos_de_Perfil_Actualizado' %}" class="btn btn-danger" role="button">Eliminar todos</a>
-      {% endif %}
   </div>
-  <div class="row mt-2"  style="padding:0;background-color:#7FFFD4;">
+  {% if notificaciones_edit_profile_user%}
+            <a style="margin-left: 20px; display: inline-block; border-radius: 0; font-size: 40px;" href="{% url 'app:delete_by_topic' verb='Datos_de_Perfil_Actualizado' %}" class="btn "><i class="fa fa-trash"></i></a>
+  {% endif %}
+  <div class="row mt-2"  style="padding:0;">
       <ul class="list-group" style="width: 100%">
           {% if notificaciones_edit_profile_user %}
               {% for notificacion in notificaciones_edit_profile_user %}
@@ -112,7 +122,7 @@
                    {%endif%}
 
                      <div  style="padding-left: 80px;position:relative;">
-                       <h5> Asunto: {{ notificacion.verb}}</h5>
+                       <p> Asunto: {{ notificacion.verb}}</p>
                        <span style="color: #5897fb;">
                          Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
                        </span>
@@ -123,8 +133,11 @@
                        <br>
                        <div style="height:50px;width: 100px;"></div>
                           <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
-                             <a href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn btn-info">Detalles</a>
-                            <a href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn btn-danger" role="button">Eliminar</a>
+                            <a  style="font-size: 30px;" href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn"><i class="fa fa-file"></i>
+                            </a>
+                            <a style="font-size: 35px;" href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn">
+                              <i class="fa fa-trash"></i>
+                            </a>
                           </div>
                      </div>
 

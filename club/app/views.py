@@ -25,6 +25,7 @@ from datetime import datetime
 from blog.models import Publicidad
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
+import json
 
 @login_required
 def notificacionPage(request):
@@ -288,6 +289,7 @@ class Eventos(View):
             for paquete in self.request.user.paquetes_inscritos.all():
                 for clase in paquete.sesiones.all():
                     eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
+        
         context = {
             'eventslist': eventslist,
             'seleccion': seleccion
