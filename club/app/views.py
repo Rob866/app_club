@@ -10,7 +10,7 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView, 
+    DeleteView,
 )
 from django.views import View
 from django.http import HttpResponseRedirect,Http404,HttpResponse
@@ -56,20 +56,21 @@ def notificacionPage(request):
 #borrar una sola notificacion
 @login_required
 def deleteNotification(request,id):
-
     try:
         notificacion = Notification.objects.all().get(id=id)
     except  Notification.DoesNotExist:
-        return Http404("Notificacion no encontrada")
-
-    if not (notificacion.recipient == request.user):
-         raise PermissionDenied()
+        raise Http404("Notificacion no encontrada")
 
     if request.POST:
+        if not (notificacion.recipient == request.user):
+             raise PermissionDenied()
+
         if notificacion:
             notificacion.delete()
-        return HttpResponseRedirect(reverse('app:notificationsList'))
-   
+            return HttpResponseRedirect(reverse('app:notificationsList'))
+        else:
+            raise Http404("Elemento no emcontrado")
+
     context  =   {"notificacion": notificacion }
     return render(request,'app/delete_notification.html',context)
 
@@ -82,7 +83,7 @@ def deleteAllNotification(request):
         try:
             user_notifications = Notification.objects.all().filter(recipient=request.user)
         except Notification.DoesNotExist:
-            return Http404("Notificaciones no encontradas")
+            raise  Http404("Notificaciones no encontradas")
 
         if user_notifications:
             for notificacion in user_notifications:
@@ -99,20 +100,22 @@ def deleteAllNotification(request):
 def deleteByTopicNotifications(request,verb=None):
     if  not request.user.is_superuser:
         return HttpResponseRedirect(reverse('app:notificationsList'))
+    try:
+        user_notifications = Notification.objects.all().filter(recipient=request.user)
+        notificaciones_by_topic = user_notifications.filter(verb=verb.replace('_',' '))
+    except Notification.DoesNotExist:
+        raise Http404("Notificaciones no encontradas")
+    if not  notificaciones_by_topic:
+        raise Http404("Notificaciones no encontradas")
 
     if request.POST:
-        try:
-            user_notifications = Notification.objects.all().filter(recipient=request.user)
-            notificaciones_by_topic = user_notifications.filter(verb=verb.replace('_',' '))
-        
-        except Notification.DoesNotExist:
-            return Http404("Notificaciones no encontradas")
-        
         if notificaciones_by_topic:
             for notificacion in notificaciones_by_topic:
                 notificacion.delete()
-        return HttpResponseRedirect(reverse('app:notificationsList'))
-  
+            return HttpResponseRedirect(reverse('app:notificationsList'))
+        else:
+            raise Http404("Elemento que se desea eliminar no encontrado")
+
     context ={ 'verb' : verb.replace('_',' ') }
     return render(request,'app/delete_by_topic_notifications.html',context)
 
@@ -265,36 +268,34 @@ def historial(request):
     }
     return render(request,'app/historial.html',context)
 
-
-class Eventos(View):
-
-
-    def get(self,request,*args,**kwargs):
-        seleccion=""
-        eventslist=[]
-        if 'seleccion' in request.GET:
-            seleccion = request.GET.get('seleccion')
-            eventslist= []
-            if seleccion == "clases":
-                for paquete  in request.user.paquetes_inscritos.all():
-                    for clase in paquete.sesiones.all():
-                        eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
-            else:
-                eventslist= []
-                for notificacion in request.user.notifications.all():
-                    eventslist.append({'titulo': notificacion.verb, 'fecha': notificacion.timestamp,'id':notificacion.id,'color':'blue' })
-        else:
-            seleccion = "clases"
-            eventslist=[]
-            for paquete in self.request.user.paquetes_inscritos.all():
+@login_required
+def eventos(request):
+    seleccion = ''
+    eventslist = []
+    if 'seleccion' in request.GET:
+        seleccion = request.GET.get('seleccion')
+        eventslist= []
+        if seleccion == "clases":
+            for paquete  in request.user.paquetes_inscritos.all():
                 for clase in paquete.sesiones.all():
                     eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
-        
-        context = {
-            'eventslist': eventslist,
-            'seleccion': seleccion
-            }
-        return render(request,'app/eventos.html',context)
+        else:
+            eventslist= []
+            for notificacion in request.user.notifications.all():
+                eventslist.append({'titulo': notificacion.verb, 'fecha': notificacion.timestamp,'id':notificacion.id,'color':'blue' })
+    else:
+        seleccion = "clases"
+        eventslist=[]
+        for paquete in request.user.paquetes_inscritos.all():
+            for clase in paquete.sesiones.all():
+                eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
+
+    context = {
+        'eventslist': eventslist,
+        'seleccion': seleccion
+        }
+    return render(request,'app/eventos.html',context)
+
 
 @login_required
 def notificacion(request,id):
