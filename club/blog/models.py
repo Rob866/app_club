@@ -72,7 +72,7 @@ class Post(models.Model):
     titulo = models.CharField(max_length=200,unique=True)
     autor = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='blog_posts')
     update_on= models.DateTimeField(auto_now=True)
-    imagen = models.ImageField(upload_to='post_image/%Y/%m/%d',blank=True)
+    imagen = models.ImageField(upload_to='post_image/%Y/%m/%d',blank=True,null=True)
     video = models.FileField(upload_to='videos/',null=True,blank=True)
     #video = EmbedVideoField(blank=True)
     content = models.TextField()
