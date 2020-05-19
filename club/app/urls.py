@@ -17,5 +17,5 @@ urlpatterns = [
     path('notificationsList/delete_all_notifications/',views.deleteAllNotification,name='delete_all'),
     path('paquetes/<uuid:paquete_id>/',views.clases,name='clases'),
     path('paquetes/<uuid:paquete_id>/<uuid:clase_id>',views.clase,name='clase'),
-    path('events',views.eventos,name="events")
+    path('events',login_required(views.Eventos.as_view()),name="events")
 ]

@@ -69,7 +69,7 @@ def deleteNotification(request,id):
             notificacion.delete()
             return HttpResponseRedirect(reverse('app:notificationsList'))
         else:
-            raise Http404("Elemento no emcontrado")
+            raise Http404("Elemento no encontrado")
 
     context  =   {"notificacion": notificacion }
     return render(request,'app/delete_notification.html',context)
@@ -220,7 +220,6 @@ def paquetes(request):
 
 @login_required
 def clases(request,paquete_id):
-
     try:
         paquete = Paquete_Inscrito.objects.all().get(id=paquete_id)
         clases = Sesion.objects.filter(paquete_inscrito=paquete)
@@ -241,7 +240,6 @@ def clases(request,paquete_id):
 
 @login_required
 def clase(request,paquete_id,clase_id):
-
     try:
         paquete = Paquete_Inscrito.objects.all().get(id=paquete_id)
         sesion = Sesion.objects.all().get(id=clase_id)
@@ -268,33 +266,28 @@ def historial(request):
     }
     return render(request,'app/historial.html',context)
 
-@login_required
-def eventos(request):
-    seleccion = ''
-    eventslist = []
-    if 'seleccion' in request.GET:
+
+class Eventos(View):
+
+    def get(self,request,*args,**kwargs):
+        seleccion = ''
+        eventslist = []
         seleccion = request.GET.get('seleccion')
-        eventslist= []
         if seleccion == "clases":
             for paquete  in request.user.paquetes_inscritos.all():
                 for clase in paquete.sesiones.all():
                     eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
         else:
+            seleccion = 'notificaciones'
             eventslist= []
             for notificacion in request.user.notifications.all():
                 eventslist.append({'titulo': notificacion.verb, 'fecha': notificacion.timestamp,'id':notificacion.id,'color':'blue' })
-    else:
-        seleccion = "clases"
-        eventslist=[]
-        for paquete in request.user.paquetes_inscritos.all():
-            for clase in paquete.sesiones.all():
-                eventslist.append({ 'titulo' : clase.asignatura, 'fecha':clase.tiempo_de_salida,'paquete_id':clase.paquete_inscrito.id ,'clase_id': clase.id,'color':'red'})
 
-    context = {
+        context = {
         'eventslist': eventslist,
         'seleccion': seleccion
         }
-    return render(request,'app/eventos.html',context)
+        return render(request,'app/eventos.html',context)
 
 
 @login_required
