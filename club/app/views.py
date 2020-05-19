@@ -100,14 +100,12 @@ def deleteAllNotification(request):
 def deleteByTopicNotifications(request,verb=None):
     if  not request.user.is_superuser:
         return HttpResponseRedirect(reverse('app:notificationsList'))
-    try:
-        user_notifications = Notification.objects.all().filter(recipient=request.user)
-        notificaciones_by_topic = user_notifications.filter(verb=verb.replace('_',' '))
-    except Notification.DoesNotExist:
-        raise Http404("Notificaciones no encontradas")
-    if not  notificaciones_by_topic:
-        raise Http404("Notificaciones no encontradas")
+    user_notifications = Notification.objects.all().filter(recipient=request.user)
+    notificaciones_by_topic = user_notifications.filter(verb=verb.replace('_',' '))
 
+    if (not user_notifications) or (not notificaciones_by_topic):
+        raise Http404("No hay notificaciones para eliminar")
+        
     if request.POST:
         if notificaciones_by_topic:
             for notificacion in notificaciones_by_topic:
@@ -137,8 +135,8 @@ def profile(request):
         else:
             messages.warning(request,'Error al procesar el formulario')
     else:
-        form =UserUpdateForm(
-        initial = {
+        form =UserUpdateForm(instance=request.user)
+        '''initial = {
           'username' :request.user.username,
           'email': request.user.email,
           'facebook': request.user.facebook,
@@ -162,7 +160,7 @@ def profile(request):
           'ocupacion_del_padre': request.user.ocupacion_del_padre,
           'numero_del_padre': request.user.numero_del_padre
           }
-        )
+        )'''
 
     context['profile_form'] = form
     user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
