@@ -9,7 +9,7 @@
   <section class="ftco-section notifications-fix-top" style="background:#31de79">
   <div class="container ftco-animate">
     <div class="row mt-4 ml-1" style="position:relative; display: inline-block;">
-       <button class="btn btn-warning"  style="border-radius: 0;" role="button">Mensajes de usuarios</button>   
+       <button class="btn btn-warning"  style="border-radius: 0;" role="button">Mensajes de usuarios</button>
      </div>
       {% if  notificaciones_message_user %}
               <a  style="font-size: 40px; display: inline-block; border-radius: 0; margin-left: 20px;" href="{% url 'app:delete_by_topic' verb='Mensaje_de_Usuario' %}" class="btn "><i class="fa fa-trash"></i></a>
@@ -97,7 +97,6 @@
       <ul class="list-group" style="width: 100%">
           {% if notificaciones_edit_profile_user %}
               {% for notificacion in notificaciones_edit_profile_user %}
-              <a  class="bg-light" href="">
                <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
                  <div style="background-color: white;border-radius: 5px; position: relative ">
                    <div class="inset">
@@ -137,8 +136,6 @@
 
                  </div>
                </div>
-
-               </a>
               {% endfor %}
           {% else %}
           <ul class="list-group" style="padding-bottom: 20px">

@@ -79,16 +79,13 @@ def deleteNotification(request,id):
 def deleteAllNotification(request):
     if  request.user.is_superuser:
         return HttpResponseRedirect(reverse('app:notificationsList'))
-    if request.POST:
-        try:
-            user_notifications = Notification.objects.all().filter(recipient=request.user)
-        except Notification.DoesNotExist:
-            raise  Http404("Notificaciones no encontradas")
-
-        if user_notifications:
-            for notificacion in user_notifications:
-                notificacion.delete()
+    user_notifications = Notification.objects.all().filter(recipient=request.user)
+    if not user_notifications:
+        raise  Http404("Notificaciones no encontradas para eliminar")
+    for notificacion in user_notifications:
+        notificacion.delete()
         return HttpResponseRedirect(reverse('app:notificationsList'))
+
     context = {"mensaje": "Seguro de que quieres eliminar todas las Notificaciones?"}
     return render(request,'app/delete_all_notifications.html', context)
 
@@ -105,7 +102,7 @@ def deleteByTopicNotifications(request,verb=None):
 
     if (not user_notifications) or (not notificaciones_by_topic):
         raise Http404("No hay notificaciones para eliminar")
-        
+
     if request.POST:
         if notificaciones_by_topic:
             for notificacion in notificaciones_by_topic:
