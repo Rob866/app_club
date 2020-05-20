@@ -61,15 +61,14 @@ def deleteNotification(request,id):
     except  Notification.DoesNotExist:
         raise Http404("Notificacion no encontrada")
 
-    if request.POST:
-        if not (notificacion.recipient == request.user):
-             raise PermissionDenied()
+    if not (notificacion.recipient == request.user):
+        raise PermissionDenied
 
+    if request.POST:
         if notificacion:
             notificacion.delete()
-            return HttpResponseRedirect(reverse('app:notificationsList'))
-        else:
-            raise Http404("Elemento no encontrado")
+        return HttpResponseRedirect(reverse('app:notificationsList'))
+
 
     context  =   {"notificacion": notificacion }
     return render(request,'app/delete_notification.html',context)
@@ -79,11 +78,13 @@ def deleteNotification(request,id):
 def deleteAllNotification(request):
     if  request.user.is_superuser:
         return HttpResponseRedirect(reverse('app:notificationsList'))
-    user_notifications = Notification.objects.all().filter(recipient=request.user)
-    if not user_notifications:
-        raise  Http404("Notificaciones no encontradas para eliminar")
-    for notificacion in user_notifications:
-        notificacion.delete()
+
+    if request.POST:
+        user_notifications = Notification.objects.all().filter(recipient=request.user)
+        if not user_notifications:
+            raise  Http404("Notificaciones no encontradas para eliminar")
+        for notificacion in user_notifications:
+            notificacion.delete()
         return HttpResponseRedirect(reverse('app:notificationsList'))
 
     context = {"mensaje": "Seguro de que quieres eliminar todas las Notificaciones?"}
@@ -97,19 +98,17 @@ def deleteAllNotification(request):
 def deleteByTopicNotifications(request,verb=None):
     if  not request.user.is_superuser:
         return HttpResponseRedirect(reverse('app:notificationsList'))
-    user_notifications = Notification.objects.all().filter(recipient=request.user)
-    notificaciones_by_topic = user_notifications.filter(verb=verb.replace('_',' '))
-
-    if (not user_notifications) or (not notificaciones_by_topic):
-        raise Http404("No hay notificaciones para eliminar")
 
     if request.POST:
-        if notificaciones_by_topic:
-            for notificacion in notificaciones_by_topic:
-                notificacion.delete()
+        user_notifications = Notification.objects.all().filter(recipient=request.user)
+        notificaciones_by_topic = user_notifications.filter(verb=verb.replace('_',' '))
+
+        if (not user_notifications) or (not notificaciones_by_topic):
+            raise Http404("No hay notificaciones para eliminar")
+
+        for notificacion in notificaciones_by_topic:
+            notificacion.delete()
             return HttpResponseRedirect(reverse('app:notificationsList'))
-        else:
-            raise Http404("Elemento que se desea eliminar no encontrado")
 
     context ={ 'verb' : verb.replace('_',' ') }
     return render(request,'app/delete_by_topic_notifications.html',context)
@@ -133,31 +132,6 @@ def profile(request):
             messages.warning(request,'Error al procesar el formulario')
     else:
         form =UserUpdateForm(instance=request.user)
-        '''initial = {
-          'username' :request.user.username,
-          'email': request.user.email,
-          'facebook': request.user.facebook,
-          'nombre': request.user.nombre,
-          'apellido': request.user.apellido,
-          'fecha_nacimiento': request.user.fecha_nacimiento,
-          'edad': request.user.edad,
-          'escuela': request.user.escuela,
-          'domicilio': request.user.domicilio,
-          'imagen': request.user.imagen,
-          'nivel_academico': request.user.nivel_academico,
-          'padecimientos': request.user.padecimientos,
-          'asistencia': request.user.asistencia,
-          'enfoque': request.user.enfoque,
-          'nombre_de_la_madre': request.user.nombre_de_la_madre,
-          'edad_de_la_madre': request.user.edad_de_la_madre,
-          'ocupacion_de_la_madre': request.user.ocupacion_de_la_madre,
-          'numero_de_la_madre': request.user.numero_de_la_madre,
-          'nombre_del_padre': request.user.nombre_del_padre,
-          'edad_del_padre': request.user.edad_del_padre,
-          'ocupacion_del_padre': request.user.ocupacion_del_padre,
-          'numero_del_padre': request.user.numero_del_padre
-          }
-        )'''
 
     context['profile_form'] = form
     user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
