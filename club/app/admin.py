@@ -153,7 +153,7 @@ class Historial_UserAdmin(admin.ModelAdmin):
     readonly_fields = ['mensaje','usuario']
 
     def _nombre(self,obj):
-        return obj.usuario.nombre + ' '+obj.usuario.apellido
+        return obj.usuario.nombre +' '+obj.usuario.apellido
 
 
 class NotificacionAdmin(admin.ModelAdmin):

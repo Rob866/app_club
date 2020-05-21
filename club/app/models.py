@@ -10,7 +10,7 @@ class Notificacion(models.Model):
        asunto = models.CharField(max_length=100,default="Mensaje de Usuario")
        mensaje= models.TextField()
        fecha_de_creacion = models.DateTimeField(auto_now_add=True)
-       grupo = models.ForeignKey(Group,on_delete=models.SET_NULL,null=True,blank=True)
+       grupo = models.ForeignKey(Group,on_delete=models.SET_NULL,null=True)
 
        class Meta:
            verbose_name_plural = ("Envio de Notificaciones a grupos")
