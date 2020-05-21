@@ -82,7 +82,8 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
     is_active    =  models.BooleanField(verbose_name="¿Esta Acivo?",default=True)
     is_staff     =  models.BooleanField(verbose_name="¿Es parte del Staff?",default=False)
     is_superuser =  models.BooleanField(verbose_name="¿Es Super Usuario?",default=False)
-    grupo = models.OneToOneField(Group,on_delete=models.SET_NULL,null=True,blank=True)
+    grupo = models.ForeignKey(Group,on_delete=models.SET_NULL,null=True,blank=True)
+    #grupo = models.OneToOneField(Group,on_delete=models.SET_NULL,null=True,blank=True)
 
     USERNAME_FIELD  = "username"
     REQUIRED_FIELDS = ["nombre","apellido"]

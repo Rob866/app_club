@@ -44,9 +44,10 @@ def notificacionPage(request):
                 #obtengo todos los usuarios que son del staff
                 users = get_user_model().objects.filter(is_superuser=True)
                 verb="Mensaje de Usuario"
-            notify.send(request.user,recipient=users,verb=verb,
-            description=mensaje,action_object= request.user)
-            messages.success(request,'Tu mensaje a sido enviado con éxito')
+            if users:
+                notify.send(request.user,recipient=users,verb=verb,
+                description=mensaje,action_object= request.user)
+                messages.success(request,'Tu mensaje a sido enviado con éxito')
             return HttpResponseRedirect(reverse('app:form_notification'))
     else:
         form = NotificationForm()
