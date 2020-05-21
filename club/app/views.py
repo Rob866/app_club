@@ -39,11 +39,11 @@ def notificacionPage(request):
             if request.user.is_superuser:
                 #obtengo a todos los usuarios que no son del staff
                 users = get_user_model().objects.filter(is_superuser=False)
-                verb="Mensaje del Staff"
+                verb="notificacion-del-staff"
             else:
                 #obtengo todos los usuarios que son del staff
                 users = get_user_model().objects.filter(is_superuser=True)
-                verb="Mensaje de Usuario"
+                verb="notificacion-de-usuario"
             if users:
                 notify.send(request.user,recipient=users,verb=verb,
                 description=mensaje,action_object= request.user)
@@ -102,14 +102,14 @@ def deleteByTopicNotifications(request,verb=None):
 
     if request.POST:
         user_notifications = Notification.objects.all().filter(recipient=request.user)
-        notificaciones_by_topic = user_notifications.filter(verb=verb.replace('_',' '))
-
+        notificaciones_by_topic = user_notifications.filter(verb=verb)
+        #verb.replace('_',' ')
         if (not user_notifications) or (not notificaciones_by_topic):
             raise Http404("No hay notificaciones para eliminar")
 
         for notificacion in notificaciones_by_topic:
             notificacion.delete()
-            return HttpResponseRedirect(reverse('app:notificationsList'))
+        return HttpResponseRedirect(reverse('app:notificationsList'))
 
     context ={ 'verb' : verb.replace('_',' ') }
     return render(request,'app/delete_by_topic_notifications.html',context)
@@ -128,7 +128,7 @@ def profile(request):
                 messages.success( request,'Los datos del formulario han sido actualizados')
                 if not request.user.is_superuser:
                     usuarios = get_user_model().objects.filter(is_superuser=True)
-                    notify.send(request.user,recipient=usuarios,verb="Datos de Perfil Actualizado",description=f"datos actualizados del Perfil: {form.changed_data}",action_object=request.user)
+                    notify.send(request.user,recipient=usuarios,verb="notificacion-de-edicion-de-perfil",description=f"datos actualizados del Perfil: {form.changed_data}",action_object=request.user)
         else:
             messages.warning(request,'Error al procesar el formulario')
     else:
@@ -280,10 +280,7 @@ def notificacion(request,id):
 @login_required
 def notificationsList(request):
     if not request.user.is_superuser:
-        try:
-            notificaciones = Notification.objects.all().filter(recipient=request.user)
-        except  Notification.DoesNotExist:
-            raise Http404("Elementos no encontrados")
+        notificaciones = Notification.objects.all().filter(recipient=request.user)
 
         paginator = Paginator(notificaciones,5)
         page= request.GET.get('page')
@@ -296,13 +293,9 @@ def notificationsList(request):
         context = {"notificaciones": notificaciones}
         return render(request,'app/notificationsList.html',context)
     else:
-        try:
-            notificaciones = Notification.objects.all().filter(recipient=request.user)
-        except  Notification.DoesNotExist:
-            raise Http404('Elementos no encontrados')
+        notificaciones = Notification.objects.all().filter(recipient=request.user)
 
-
-        notificaciones_message_user =  notificaciones.filter(verb="Mensaje de Usuario")
+        notificaciones_message_user =  notificaciones.filter(verb="notificacion-de-usuario")
         paginator = Paginator(notificaciones_message_user,5)
         page= request.GET.get('page1')
         try:
@@ -311,7 +304,7 @@ def notificationsList(request):
             notificaciones_message_user = paginator.page(1)
         except  EmptyPage:
             notificaciones_message_user = paginator.page(paginator.num_pages)
-        notificaciones_edit_profile_user = notificaciones.filter(verb="Datos de Perfil Actualizado")
+        notificaciones_edit_profile_user = notificaciones.filter(verb="notificacion-de-edicion-de-perfil")
 
         paginator = Paginator(notificaciones_edit_profile_user,5)
         page= request.GET.get('page2')

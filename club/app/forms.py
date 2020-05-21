@@ -65,32 +65,3 @@ class UserUpdateForm(forms.ModelForm):
         fields = ('username','email','facebook','nombre','apellido','fecha_nacimiento','edad','escuela','domicilio','imagen','nivel_academico','asistencia',
                   'enfoque','padecimientos','nombre_de_la_madre','edad_de_la_madre','ocupacion_de_la_madre','numero_de_la_madre','nombre_del_padre','edad_del_padre','ocupacion_del_padre',
                   'numero_del_padre')
-    '''
-    def clean_nombre(self):
-
-        if self.is_valid():
-            nombre= self.cleaned_data['nombre']
-            if not nombre:
-                raise forms.ValidationError('El campo nombre no puede estar vacio')
-            return nombre
-
-    def clean_apellido(self):
-
-        if self.is_valid():
-            apellido=self.cleaned_data['apellido']
-            if not apellido:
-                raise forms.ValidationError('El campo apellido no puede estar vacio')
-            return apellido
-
-    def clean_username(self):
-
-        if self.is_valid():
-            username = self.cleaned_data['username']
-            if not username:
-                raise forms.ValidationError('El campo username no puede estar vacio')
-            try:
-                account = get_user_model().objects.exclude(pk=self.instance.pk).get(username=username)
-            except get_user_model().DoesNotExist:
-                return username
-            raise forms.ValidationError(f'User: { username } ya esta en uso')
-    '''

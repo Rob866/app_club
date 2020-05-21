@@ -12,7 +12,7 @@
        <button class="btn btn-warning"  style="border-radius: 0;" role="button">Mensajes de usuarios</button>
      </div>
       {% if  notificaciones_message_user %}
-              <a  style="font-size: 40px; display: inline-block; border-radius: 0; margin-left: 20px;" href="{% url 'app:delete_by_topic' verb='Mensaje_de_Usuario' %}" class="btn "><i class="fa fa-trash"></i></a>
+              <a  style="font-size: 40px; display: inline-block; border-radius: 0; margin-left: 20px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-usuario' %}" class="btn "><i class="fa fa-trash"></i></a>
       {% endif %}
 
    <!-- mensajes de usuarios-->
@@ -91,7 +91,7 @@
       <a href="" class="btn btn-warning"  style="border-radius: 0;"role="button">Edición de Perfil</a>
   </div>
   {% if notificaciones_edit_profile_user%}
-            <a style="margin-left: 20px; display: inline-block; border-radius: 0; font-size: 40px;" href="{% url 'app:delete_by_topic' verb='Datos_de_Perfil_Actualizado' %}" class="btn "><i class="fa fa-trash"></i></a>
+            <a style="margin-left: 20px; display: inline-block; border-radius: 0; font-size: 40px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-edicion-de-perfil' %}" class="btn "><i class="fa fa-trash"></i></a>
   {% endif %}
   <div class="row mt-2"  style="padding:0;">
       <ul class="list-group" style="width: 100%">
