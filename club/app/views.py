@@ -19,7 +19,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from  notifications.signals import notify
 from  notifications.models import Notification
-import online_users.models
+import online_users
 from datetime import timedelta
 from datetime import datetime
 from blog.models import Publicidad
@@ -135,9 +135,6 @@ def profile(request):
         form =UserUpdateForm(instance=request.user)
 
     context['profile_form'] = form
-    user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
-
-    context['online_users'] = (user for user in  user_status)
     context['historial'] = request.user.historial.all().order_by('-fecha')
 
     publicidad = Publicidad.objects.all()
@@ -317,6 +314,10 @@ def notificationsList(request):
 
         context = {
           'notificaciones_message_user':notificaciones_message_user,
-          'notificaciones_edit_profile_user':notificaciones_edit_profile_user}
+          'notificaciones_edit_profile_user':notificaciones_edit_profile_user
+          }
+
+        user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
+        context['online_users'] = (user for user in  user_status)
 
         return render(request,'app/notificationsList0.html',context)

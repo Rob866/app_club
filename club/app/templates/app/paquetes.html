@@ -43,21 +43,8 @@
 				<ul class="list-group" style="padding-bottom: 20px">
 							<li class="list-group-item">No hay Paquetes activos para el Usuario: {{ student.nombre }} {{ student.apellido }}</li>
 				</ul>
-
 				{% endif %}
-				 {% comment %}
 
-				<div class="mt-5" style="height: 40px; width: 100%; position:relative">
-
-						<a href="{% url 'app:alumnos' %}?busqueda={{return_query}}" style="position: absolute; right:0">
-
-
-
-					<button type="button" class="btn btn-primary" style="font-size:15px;">
-								<i class="fa fa-chevron-left"></i> Ir Alumnos</button>
-					</a>
-				</div>
-				{% endcomment %}
 		</div>
 </section>
 </div>

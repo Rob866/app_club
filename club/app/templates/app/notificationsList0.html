@@ -4,164 +4,195 @@
 
 
 {%endblock%}
-
 {% block content %}
-  <section class="ftco-section notifications-fix-top" style="background:#31de79">
-  <div class="container ftco-animate">
-    <div class="row mt-4 ml-1" style="position:relative; display: inline-block;">
-       <button class="btn btn-warning"  style="border-radius: 0;" role="button">Mensajes de usuarios</button>
-     </div>
-      {% if  notificaciones_message_user %}
-              <a  style="font-size: 40px; display: inline-block; border-radius: 0; margin-left: 20px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-usuario' %}" class="btn "><i class="fa fa-trash"></i></a>
-      {% endif %}
+<div class="row" style="background:#31de79">
 
-   <!-- mensajes de usuarios-->
-    <div class="row mt-2"  style="padding:0;">
-        <ul class="list-group" style="width: 100%">
-            {% if notificaciones_message_user %}
-                {% for notificacion in notificaciones_message_user %}
-                <a  class="bg-light">
-                 <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
-                   <div style="background-color: white;border-radius: 5px; position: relative ">
-                     <div class="inset">
-                       <img  style="width: 80px;height:80px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
-                     </div>
-                     {% if notificacion.unread %}
-                         <span class="badge badge-success" style="border-radius: 50%; position:absolute; top:10%; left:0;
-                         z-index:1000;transform: translate(-50%,-50%);">
-                         <i class="fa fa-comments"></i>
-                            </span>
-                     {%else%}
-                         <span class="badge badge-danger" style="border-radius: 50%; position:absolute; top:10%; left:0;
-                        z-index: 1000;transform: translate(-50%,-50%);">
-                         <i class="fa fa-comments"></i>
-                          </span>
-                     {%endif%}
-
-                       <div  style="padding-left: 80px;position:relative;">
-                         <p> Asunto: {{ notificacion.verb}}</p>
-                         <span style="color: #5897fb;">
-                           Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
-                         </span>
-                        <br>
-                         <span>
-                                   Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
-                         </span>
-                         <br>
-                         <div  class="content-gap" style="height:50px;width: 100px;"></div>
-                            <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
-                               <a  style="font-size: 30px;" href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn"><i class="fa fa-file"></i></a>
-                              <a style="font-size: 35px;" href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn" role="button"><i class="fa fa-trash"></i></a>
-                            </div>
-                       </div>
-
-                   </div>
-                 </div>
-
-                 </a>
-                {% endfor %}
-            {% else %}
-            <ul class="list-group" style="padding-bottom: 20px">
-                  <li class="list-group-item">No hay Notificaciones</li>
-            </ul>
-            {% endif%}
-        </ul>
-
-        {% if notificaciones_message_user %}
-
-          <span class="step-links pagination">
-              {% if notificaciones_message_user.has_previous %}
-                  <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.previous_page_number }}">anterior</a>
+    <div class="col-md-8">
+        <div class="col-12">
+          <section class="ftco-section" >
+          <div class="container ftco-animate">
+            <div class="row mt-4 ml-1" style="position:relative; display: inline-block;">
+               <button class="btn btn-warning"  style="border-radius: 0;" role="button">Mensajes de usuarios</button>
+             </div>
+              {% if  notificaciones_message_user %}
+                      <a  style="font-size: 40px; display: inline-block; border-radius: 0; margin-left: 20px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-usuario' %}" class="btn "><i class="fa fa-trash"></i></a>
               {% endif %}
-              <span class="current" style="padding: 5px;">
-                  Página {{ notificaciones_message_user.number }} de {{ notificaciones_message_user.paginator.num_pages }}
-              </span>
-              {% if notificaciones_message_user.has_next %}
-                  <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.next_page_number }}">siguiente</a>
-              {% endif %}
-          </span>
 
+           <!-- mensajes de usuarios-->
+            <div class="row mt-2"  style="padding:0;">
+                <ul class="list-group" style="width: 100%">
+                    {% if notificaciones_message_user %}
+                        {% for notificacion in notificaciones_message_user %}
+                        <a  class="bg-light">
+                         <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
+                           <div style="background-color: white;border-radius: 5px; position: relative ">
+                             <div class="inset">
+                               <img  style="width: 80px;height:80px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
+                             </div>
+                             {% if notificacion.unread %}
+                                 <span class="badge badge-success" style="border-radius: 50%; position:absolute; top:10%; left:0;
+                                 z-index:1000;transform: translate(-50%,-50%);">
+                                 <i class="fa fa-comments"></i>
+                                    </span>
+                             {%else%}
+                                 <span class="badge badge-danger" style="border-radius: 50%; position:absolute; top:10%; left:0;
+                                z-index: 1000;transform: translate(-50%,-50%);">
+                                 <i class="fa fa-comments"></i>
+                                  </span>
+                             {%endif%}
+
+                               <div  style="padding-left: 80px;position:relative;">
+                                 <p> Asunto: {{ notificacion.verb}}</p>
+                                 <span style="color: #5897fb;">
+                                   Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
+                                 </span>
+                                <br>
+                                 <span>
+                                           Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
+                                 </span>
+                                 <br>
+                                 <div  class="content-gap" style="height:50px;width: 100px;"></div>
+                                    <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
+                                       <a  style="font-size: 30px;" href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn"><i class="fa fa-file"></i></a>
+                                      <a style="font-size: 35px;" href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn" role="button"><i class="fa fa-trash"></i></a>
+                                    </div>
+                               </div>
+
+                           </div>
+                         </div>
+
+                         </a>
+                        {% endfor %}
+                    {% else %}
+                    <ul class="list-group" style="padding-bottom: 20px">
+                          <li class="list-group-item">No hay Notificaciones</li>
+                    </ul>
+                    {% endif%}
+                </ul>
+
+                {% if notificaciones_message_user %}
+
+                  <span class="step-links pagination">
+                      {% if notificaciones_message_user.has_previous %}
+                          <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.previous_page_number }}">anterior</a>
+                      {% endif %}
+                      <span class="current" style="padding: 5px;">
+                          Página {{ notificaciones_message_user.number }} de {{ notificaciones_message_user.paginator.num_pages }}
+                      </span>
+                      {% if notificaciones_message_user.has_next %}
+                          <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.next_page_number }}">siguiente</a>
+                      {% endif %}
+                  </span>
+
+                  {% endif %}
+
+            </div>
+          </div>
+        <!-- mensajes de Edicion de perfiles    -->
+        <div class="container ftco-animate">
+          <div class="row mt-4 ml-1" style="position: relative; display: inline-block;">
+              <a href="" class="btn btn-warning"  style="border-radius: 0;"role="button">Edición de Perfil</a>
+          </div>
+          {% if notificaciones_edit_profile_user%}
+                    <a style="margin-left: 20px; display: inline-block; border-radius: 0; font-size: 40px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-edicion-de-perfil' %}" class="btn "><i class="fa fa-trash"></i></a>
           {% endif %}
+          <div class="row mt-2"  style="padding:0;">
+              <ul class="list-group" style="width: 100%">
+                  {% if notificaciones_edit_profile_user %}
+                      {% for notificacion in notificaciones_edit_profile_user %}
+                       <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
+                         <div style="background-color: white;border-radius: 5px; position: relative ">
+                           <div class="inset">
+                             <img  style="width: 80px;height:80px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
+                           </div>
+                           {% if notificacion.unread %}
+                               <span class="badge badge-success" style="border-radius: 50%; position:absolute; top:10%; left:0;
+                               z-index:1000;transform: translate(-50%,-50%);">
+                               <i class="fa fa-comments"></i>
+                                  </span>
+                           {%else%}
+                               <span class="badge badge-danger" style="border-radius: 50%; position:absolute; top:10%; left:0;
+                              z-index: 1000;transform: translate(-50%,-50%);">
+                               <i class="fa fa-comments"></i>
+                                </span>
+                           {%endif%}
 
+                             <div  style="padding-left: 80px;position:relative;">
+                               <p> Asunto: {{ notificacion.verb}}</p>
+                               <span style="color: #5897fb;">
+                                 Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
+                               </span>
+                              <br>
+                               <span>
+                                         Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
+                               </span>
+                               <br>
+                               <div  class="content-gap" style="height:50px;width: 100px;"></div>
+                                  <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
+                                    <a  style="font-size: 30px;" href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn"><i class="fa fa-file"></i>
+                                    </a>
+                                    <a style="font-size: 35px;" href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn">
+                                      <i class="fa fa-trash"></i>
+                                    </a>
+                                  </div>
+                             </div>
+
+                         </div>
+                       </div>
+                      {% endfor %}
+                  {% else %}
+                  <ul class="list-group" style="padding-bottom: 20px">
+                        <li class="list-group-item">No hay Notificaciones</li>
+                  </ul>
+                  {% endif%}
+              </ul>
+
+              {% if notificaciones_edit_profile_user %}
+
+                <span class="step-links pagination">
+                    {% if notificaciones_edit_profile_user.has_previous %}
+                        <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.previous_page_number }}"> anterior</a>
+                    {% endif %}
+                    <span class="current" style="padding:5px;">
+                        Página {{ notificaciones_edit_profile_user.number }} de {{ notificaciones_edit_profile_user.paginator.num_pages }}
+                    </span>
+                    {% if notificaciones_edit_profile_user.has_next %}
+                        <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.next_page_number }}"> siguiente</a>
+                    {% endif %}
+                </span>
+
+                {% endif %}
+
+          </div>
+        </div>
+
+          </section>
+
+        </div>
     </div>
-  </div>
-<!-- mensajes de Edicion de perfiles    -->
-<div class="container ftco-animate">
-  <div class="row mt-4 ml-1" style="position: relative; display: inline-block;">
-      <a href="" class="btn btn-warning"  style="border-radius: 0;"role="button">Edición de Perfil</a>
-  </div>
-  {% if notificaciones_edit_profile_user%}
-            <a style="margin-left: 20px; display: inline-block; border-radius: 0; font-size: 40px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-edicion-de-perfil' %}" class="btn "><i class="fa fa-trash"></i></a>
-  {% endif %}
-  <div class="row mt-2"  style="padding:0;">
-      <ul class="list-group" style="width: 100%">
-          {% if notificaciones_edit_profile_user %}
-              {% for notificacion in notificaciones_edit_profile_user %}
-               <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
-                 <div style="background-color: white;border-radius: 5px; position: relative ">
-                   <div class="inset">
-                     <img  style="width: 80px;height:80px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
-                   </div>
-                   {% if notificacion.unread %}
-                       <span class="badge badge-success" style="border-radius: 50%; position:absolute; top:10%; left:0;
-                       z-index:1000;transform: translate(-50%,-50%);">
-                       <i class="fa fa-comments"></i>
-                          </span>
-                   {%else%}
-                       <span class="badge badge-danger" style="border-radius: 50%; position:absolute; top:10%; left:0;
-                      z-index: 1000;transform: translate(-50%,-50%);">
-                       <i class="fa fa-comments"></i>
-                        </span>
-                   {%endif%}
-
-                     <div  style="padding-left: 80px;position:relative;">
-                       <p> Asunto: {{ notificacion.verb}}</p>
-                       <span style="color: #5897fb;">
-                         Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
-                       </span>
-                      <br>
-                       <span>
-                                 Fecha: {{ notificacion.timestamp|date:"Y/m/d H:i:s" }}
-                       </span>
-                       <br>
-                       <div  class="content-gap" style="height:50px;width: 100px;"></div>
-                          <div style="position:absolute; bottom:0; right:0; padding-bottom: 10px; padding-right: 10px;">
-                            <a  style="font-size: 30px;" href="{% url 'app:notificacion'  id=notificacion.id %}" class="btn"><i class="fa fa-file"></i>
-                            </a>
-                            <a style="font-size: 35px;" href="{% url 'app:borrar_notificacion' id=notificacion.id %}" class="btn">
-                              <i class="fa fa-trash"></i>
-                            </a>
-                          </div>
-                     </div>
-
-                 </div>
-               </div>
-              {% endfor %}
-          {% else %}
-          <ul class="list-group" style="padding-bottom: 20px">
-                <li class="list-group-item">No hay Notificaciones</li>
-          </ul>
-          {% endif%}
-      </ul>
-
-      {% if notificaciones_edit_profile_user %}
-
-        <span class="step-links pagination">
-            {% if notificaciones_edit_profile_user.has_previous %}
-                <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.previous_page_number }}"> anterior</a>
-            {% endif %}
-            <span class="current" style="padding:5px;">
-                Página {{ notificaciones_edit_profile_user.number }} de {{ notificaciones_edit_profile_user.paginator.num_pages }}
-            </span>
-            {% if notificaciones_edit_profile_user.has_next %}
-                <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.next_page_number }}"> siguiente</a>
-            {% endif %}
-        </span>
-
-        {% endif %}
-
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-12">
+          <section class="ftco-section"  style="padding-left:20px; padding-right:20px;">
+          {% if request.user.is_superuser %}
+              <div class="col-12" style="height: 500px; overflow:scroll; background-color: white;">
+                <p>Usuarios en Línea:</p>
+                  {% for user in online_users  %}
+                        <div class="block-21 mb-4 d-flex">
+                          <a  href="#" class="blog-img mr-4" style="background-image: url('{{ user.user.imagen.url  }}');"></a>
+                          <div class="text">
+                              <h3 class="heading">Username: {{ user.user.username }}</h3>
+                            <h3 class="heading">Nombre: {{ user.user.nombre }} {{ user.user.apellido }}</h3>
+                        </div>
+                        </div>
+                {% endfor %}
+              </div>
+          {% endif %}
+        </section>
+        </div>
+      </div>
   </div>
 </div>
 
-  </section>
+
 {% endblock content %}
