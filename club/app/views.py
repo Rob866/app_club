@@ -278,7 +278,6 @@ def notificacion(request,id):
 def notificationsList(request):
     if not request.user.is_superuser:
         notificaciones = Notification.objects.all().filter(recipient=request.user)
-
         paginator = Paginator(notificaciones,5)
         page= request.GET.get('page')
         try:
@@ -290,9 +289,13 @@ def notificationsList(request):
         context = {"notificaciones": notificaciones}
         return render(request,'app/notificationsList.html',context)
     else:
-        notificaciones = Notification.objects.all().filter(recipient=request.user)
 
-        notificaciones_message_user =  notificaciones.filter(verb="notificacion-de-usuario")
+        notificaciones = Notification.objects.all().filter(recipient=request.user)
+        mensajes_de_usuarios = [mensaje for mensaje in  notificaciones.filter(verb="notificacion-de-usuario")]
+        mensajes_del_staff = [mensaje for mensaje in  notificaciones.filter(verb="notificacion-del-staff")]
+
+        notificaciones_message_user =  mensajes_de_usuarios + mensajes_del_staff
+
         paginator = Paginator(notificaciones_message_user,5)
         page= request.GET.get('page1')
         try:

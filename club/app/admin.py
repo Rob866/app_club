@@ -161,7 +161,7 @@ class NotificacionAdmin(admin.ModelAdmin):
     readonly_fields = ['asunto']
 
     def save_model(self, request, obj, form, change):
-        usuarios = get_user_model().objects.filter(grupo=obj.grupo)
+        usuarios = get_user_model().objects.filter(groups=obj.grupo)
         notify.send(request.user,recipient=usuarios,verb='notificacion-del-staff',description=obj.mensaje,action_object=request.user)
         super(NotificacionAdmin, self).save_model(request, obj, form, change)
 

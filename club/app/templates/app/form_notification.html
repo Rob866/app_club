@@ -15,19 +15,17 @@
       <div class="col-md-4">
 
             <div  style="height:400px;background-color: aliceblue;"class="portlet light profile-sidebar-portlet bordered  justify-content-center ftco-animate">
+              <div class="profile-userpic" style="text-align:center;">
+                  <img src="{% static "main/images/escuela.jpg" %}" class="img-responsive" alt="">
+              </div>
                 {%if request.user.is_superuser %}
-                <div class="profile-userpic" style="text-align:center;">
-                    <img src="{% static "main/images/escuela.jpg" %}" class="img-responsive" alt="">
-                </div>
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">Alumnos</div>
                     <div class="profile-usertitle-job">Club de tareas</div>
                     <p>Enviar Notificación</p>
                 </div>
                 {% else %}
-                <div class="profile-userpic" style="text-align:center;">
-                    <img src="{% static "main/images/profesores.jpg" %}" class="img-responsive" alt="">
-                </div>
+
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">Profesores</div>
                     <div class="profile-usertitle-job">Club de tareas</div>
