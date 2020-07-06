@@ -33,7 +33,6 @@ class MyUsuarioManager(BaseUserManager):
 
         )
 
-        user.is_admin =True
         user.is_staff = True
         user.is_superuser= True
         user.save(using=self._db)
@@ -76,12 +75,12 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
 
     nivel_academico = models.CharField(max_length=500,blank=True,verbose_name='Nivel académico del alumno')
 
-    date_joined  =  models.DateTimeField(verbose_name="Fecha de ingreso",auto_now_add=True)
+    date_joined  =  models.DateTimeField(verbose_name="Fecha de Inscripción",auto_now_add=True)
     last_login   =  models.DateTimeField(verbose_name="Ultima fecha de Sesión",auto_now=True)
-    is_admin     =  models.BooleanField(verbose_name="¿Es Administrador?",default=False)
+    #is_admin     =  models.BooleanField(verbose_name="¿Es Administrador?",default=False)
     is_active    =  models.BooleanField(verbose_name="¿Esta Acivo?",default=True)
     is_staff     =  models.BooleanField(verbose_name="¿Es parte del Staff?",default=False)
-    is_superuser =  models.BooleanField(verbose_name="¿Es Super Usuario?",default=False)
+    #is_superuser =  models.BooleanField(verbose_name="¿Es Super Usuario?",default=False)
     #grupo = models.ForeignKey(Group,on_delete=models.SET_NULL,null=True)
     #grupo = models.OneToOneField(Group,on_delete=models.SET_NULL,null=True,blank=True)
 
@@ -101,9 +100,10 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
 
     def __str__(self):
         return f'{self.nombre}  {self.apellido}'
-
+'''
     def has_perm(self,perm,obj=None):
         return self.is_admin
 
     def has_module_perms(self,app_label):
         return True
+'''

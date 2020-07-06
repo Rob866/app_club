@@ -1,22 +1,19 @@
 {% extends 'main/base.html' %}
 {% load static %}
-{% block css_tag %}
-
-
-{%endblock%}
 {% block content %}
 <div class="row" style="background:#31de79">
-
     <div class="col-md-8">
         <div class="col-12">
           <section class="ftco-section" >
           <div class="container ftco-animate">
-            <div class="row mt-4 ml-1" style="position:relative; display: inline-block;">
-               <button class="btn btn-warning"  style="border-radius: 0;" role="button">Mensajes de usuarios</button>
-             </div>
-              {% if  notificaciones_message_user %}
-                      <a  style="font-size: 40px; display: inline-block; border-radius: 0; margin-left: 20px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-usuario' %}" class="btn "><i class="fa fa-trash"></i></a>
-              {% endif %}
+            <div style="background-color: white;">
+              <div class="row mt-4 ml-1" style="position:relative; display: inline-block;">
+                 <button class="btn"  style="border-radius: 0;background:#31de79;" role="button">Mensajes de usuarios</button>
+               </div>
+                {% if  notificaciones_message_user %}
+                        <a  style="font-size: 40px; display: inline-block; border-radius: 0; margin-left: 20px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-usuario' %}" class="btn "><i class="fa fa-trash"></i></a>
+                {% endif %}
+            </div>
 
            <!-- mensajes de usuarios-->
             <div class="row mt-2"  style="padding:0;">
@@ -34,12 +31,12 @@
                                  z-index:1000;transform: translate(-50%,-50%);">
                                  <i class="fa fa-comments"></i>
                                     </span>
-                             {%else%}
+                             {% else %}
                                  <span class="badge badge-danger" style="border-radius: 50%; position:absolute; top:10%; left:0;
                                 z-index: 1000;transform: translate(-50%,-50%);">
                                  <i class="fa fa-comments"></i>
                                   </span>
-                             {%endif%}
+                             {% endif %}
 
                                <div  style="padding-left: 80px;position:relative;">
                                  <p> Asunto: {{ notificacion.verb}}</p>
@@ -69,33 +66,52 @@
                     </ul>
                     {% endif%}
                 </ul>
+                {% if notificaciones_message_user  %}
 
-                {% if notificaciones_message_user %}
-
-                  <span class="step-links pagination">
-                      {% if notificaciones_message_user.has_previous %}
-                          <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.previous_page_number }}">anterior</a>
-                      {% endif %}
-                      <span class="current" style="padding: 5px;">
-                          Página {{ notificaciones_message_user.number }} de {{ notificaciones_message_user.paginator.num_pages }}
-                      </span>
-                      {% if notificaciones_message_user.has_next %}
-                          <a class="btn btn-info" role="button" href="?page1={{ notificaciones_message_user.next_page_number }}">siguiente</a>
-                      {% endif %}
-                  </span>
-
+                <nav style="margin-left: 15px;">
+                  <ul class="pagination">
+                    {% if notificaciones_message_user.has_previous %}
+                      <li class="page-item">
+                        <a
+                          class="page-link"
+                          href="?page1={{notificaciones_message_user.previous_page_number}}">Anterior</a>
+                      </li>
+                    {% else %}
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#">Anterior</a>
+                      </li>
+                    {% endif %}
+                    {% for pagenum in notificaciones_message_user.paginator.page_range %}
+                    <li
+                       class="page-item{% if notificaciones_message_user.number == pagenum %} active {% endif %}">
+                      <a class="page-link" href="?page1={{pagenum}}">{{pagenum}}</a>
+                    </li>
+                   {% endfor %}
+                   {% if notificaciones_message_user.has_next %}
+                     <li class="page-item">
+                      <a class="page-link" href="?page1={{notificaciones_message_user.next_page_number}}">Siguiente</a>
+                     </li>
+                   {% else %}
+                     <li class="page-item disabled">
+                       <a class="page-link" href="#">Siguiente</a>
+                     </li>
+                   {% endif %}
+                 </ul>
+               </nav>
                   {% endif %}
 
             </div>
           </div>
         <!-- mensajes de Edicion de perfiles    -->
-        <div class="container ftco-animate">
-          <div class="row mt-4 ml-1" style="position: relative; display: inline-block;">
-              <a href="" class="btn btn-warning"  style="border-radius: 0;"role="button">Edición de Perfil</a>
-          </div>
-          {% if notificaciones_edit_profile_user%}
-                    <a style="margin-left: 20px; display: inline-block; border-radius: 0; font-size: 40px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-edicion-de-perfil' %}" class="btn "><i class="fa fa-trash"></i></a>
-          {% endif %}
+        <div class="container ftco-animate" style="margin-top: 50px;">
+          <div style="background-color: white;">
+                <div class="row mt-4 ml-1" style="position: relative; display: inline-block;">
+                    <a href="" class="btn"  style="border-radius: 0;background:#31de79;"role="button">Edición de Perfil</a>
+                </div>
+                {% if notificaciones_edit_profile_user%}
+                          <a style="margin-left: 20px; display: inline-block; border-radius: 0; font-size: 40px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-edicion-de-perfil' %}" class="btn "><i class="fa fa-trash"></i></a>
+                {% endif %}
+        </div>
           <div class="row mt-2"  style="padding:0;">
               <ul class="list-group" style="width: 100%">
                   {% if notificaciones_edit_profile_user %}
@@ -149,18 +165,36 @@
 
               {% if notificaciones_edit_profile_user %}
 
-                <span class="step-links pagination">
-                    {% if notificaciones_edit_profile_user.has_previous %}
-                        <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.previous_page_number }}"> anterior</a>
-                    {% endif %}
-                    <span class="current" style="padding:5px;">
-                        Página {{ notificaciones_edit_profile_user.number }} de {{ notificaciones_edit_profile_user.paginator.num_pages }}
-                    </span>
-                    {% if notificaciones_edit_profile_user.has_next %}
-                        <a  class="btn btn-info" role="button" href="?page2={{ notificaciones_edit_profile_user.next_page_number }}"> siguiente</a>
-                    {% endif %}
-                </span>
-
+              <nav style="margin-left: 15px;">
+                <ul class="pagination">
+                  {% if notificaciones_edit_profile_user.has_previous %}
+                    <li class="page-item">
+                      <a
+                        class="page-link"
+                        href="?page2={{notificaciones_edit_profile_user.previous_page_number}}">Anterior</a>
+                    </li>
+                  {% else %}
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#">Anterior</a>
+                    </li>
+                  {% endif %}
+                  {% for pagenum in notificaciones_edit_profile_user.paginator.page_range %}
+                  <li
+                     class="page-item{% if notificaciones_edit_profile_user.number == pagenum %} active {% endif %}">
+                    <a class="page-link" href="?page2={{pagenum}}">{{pagenum}}</a>
+                  </li>
+                 {% endfor %}
+                 {% if notificaciones_edit_profile_user.has_next %}
+                   <li class="page-item">
+                    <a class="page-link" href="?page2={{notificaciones_edit_profile_user.next_page_number}}">Siguiente</a>
+                   </li>
+                 {% else %}
+                   <li class="page-item disabled">
+                     <a class="page-link" href="#">Siguiente</a>
+                   </li>
+                 {% endif %}
+               </ul>
+             </nav>
                 {% endif %}
 
           </div>
@@ -193,6 +227,5 @@
       </div>
   </div>
 </div>
-
 
 {% endblock content %}

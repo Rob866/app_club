@@ -83,6 +83,7 @@
                       {%endif%}
                       <a class="dropdown-item" href="{% url 'app:events' %}">
                         <span style="padding-right: 5px;"><i class="fa fa-calendar"></i></i></span><span>Calendario</span></a>
+                      <a class="dropdown-item" href="{% url 'app:change_password' %}"><span style="padding-right: 5px;"><i class="fa fa-key"></i></span><span>Cambiar Password</span></a>
                       <a class="dropdown-item" href="{% url 'app:logout' %}">
                         <span style="padding-right: 5px;"><i class="fa fa-sign-out"></i></span><span>Logout</span></a>
                     </div>
@@ -96,12 +97,23 @@
 	      </div>
 	    </div>
 	  </nav>
+    {% if messages %}
+      <div class="container" style="position: absolute; top: 80px; left: 5%;z-index: 10000;">
+        {% for message in messages  %}
+            <div class="alert alert-{{ message.tags }}" id="msg" role="alert" style="width: 100%;">
+              <p style="text-align: center;">{{ message }}</p>
+            </div>
+        {% endfor %}
+      </div>
 
+   {% endif %}
     {% block content %}{% endblock %}
 
 
     <footer class="ftco-footer ftco-section">
       <div class="container">
+
+
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">

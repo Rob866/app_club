@@ -26,7 +26,7 @@ SECRET_KEY = '7vow$b=$!f^097uwh(9wk#e9m5d_ni&ub2xs(oqe-$$!cf+^&c'
 DEBUG = True
 
 #ALLOWED_HOSTS = ['rob92.pythonanywhere.com' ]
-ALLOWED_HOSTS = ['*' ]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 

@@ -276,7 +276,7 @@
                     <i class="fas fa-user"></i>
                  </div>
                  <div class="div">
-                    {{ login_form.username }}
+                    {{ form.username }}
                  </div>
               </div>
                    {% for error in login_form.username.errors %}
@@ -289,19 +289,19 @@
                     <i class="fas fa-lock"></i>
                  </div>
                  <div class="div">
-                    {{ login_form.password }}
+                    {{ form.password }}
                  </div>
               </div>
-              {% for error in login_form.password.errors %}
+              {% for error in form.password.errors %}
                       <div class="alert alert-danger" style="padding: 0 1.5em 1em 1.5em">
                         <strong>{{ error|escape }}</strong>
                       </div>
                 {% endfor %}
               <a href="#">Forgot Password?</a>
               <input type="submit" class="btn" value="Login">
-  
 
-              {% for error in login_form.non_field_errors%}
+
+              {% for error in form.non_field_errors%}
               <div class="alert alert-danger" style="margin: 0 2em 1em 2em">
                 <strong>{{ error|escape }}</strong>
               </div>

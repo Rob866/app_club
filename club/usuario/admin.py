@@ -33,11 +33,10 @@ class UsuarioAdmin(UserAdmin):
     #add_form = CustomUserCreationForm
     form = CustomUserChangeForm
 
-    list_display = ('nombre','apellido','email','date_joined','is_admin','check_status_paquetes')
-    list_filter = ('status_paquetes','is_admin')
-
+    list_display = ('nombre','apellido','email','date_joined','is_superuser','check_status_paquetes')
+    list_filter = ('status_paquetes','is_superuser')
     search_fields=('nombre', 'username',)
-
+    autocomplete_fields = ('groups',)
     #ready_fields =('date_joined','last_login','imagen_image')
     #inlines = [PaquetesInscritosInline]
 
@@ -55,18 +54,21 @@ class UsuarioAdmin(UserAdmin):
 
     filter_horizontal = ()
     fieldsets = (
-        (None, {'fields': ('username', 'password','email')}),
+        ("Credenciales", {"fields": ("username", "password",'email')}),
         ('Información del Alumno', {'fields': ('nombre', 'apellido','edad','imagen','preview','padecimientos','enfoque','fecha_nacimiento','escuela','domicilio','status_paquetes')}),
         ('Información del Padre o Tutor', {'fields': ('nombre_del_padre','edad_del_padre','ocupacion_del_padre','numero_del_padre',)}),
         ('Información de la Madre o Tutor', {'fields': ('nombre_de_la_madre','edad_de_la_madre','ocupacion_de_la_madre','numero_de_la_madre',)}),
-        ('Permisos', {'fields': ('is_active', 'is_staff','is_admin','is_superuser', "groups",
-        "user_permissions",)}),
+        ('Permisos', {'fields': ('is_active', 'is_staff','is_superuser', "groups",)}),
+        (
+            "Fechas importantes",
+            {"fields": ("last_login", "date_joined")},
+        ),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username','nombre', 'apellido','grupo','password1', 'password2', ),
+            'fields': ('username','nombre', 'apellido','password1', 'password2', 'groups'),
         }),
     )
 

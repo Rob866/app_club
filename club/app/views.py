@@ -11,11 +11,13 @@ from django.views.generic import (
     CreateView,
     UpdateView,
     DeleteView,
+
 )
+from django.views.generic.edit import  FormView
 from django.views import View
 from django.http import HttpResponseRedirect,Http404,HttpResponse
 from .forms import (UserAuthentication, UserUpdateForm,NotificationForm)
-from django.urls import reverse
+from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 from  notifications.signals import notify
 from  notifications.models import Notification
@@ -26,6 +28,8 @@ from blog.models import Publicidad
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 import json
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 @login_required
 def notificacionPage(request):
@@ -153,28 +157,22 @@ def logout_view(request):
     messages.success( request,'Has salido de sesión con éxito')
     return HttpResponseRedirect(reverse('app:login'))
 
-def login_view(request):
-    context= {}
-    user  = request.user
-    if user.is_authenticated:
-        return HttpResponseRedirect(reverse('app:profile'))
 
-    if request.POST:
-        form = UserAuthentication(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(username=username,password=password)
+class LoginView(FormView):
+    form_class = UserAuthentication
+    template_name = "app/login.html"
+    success_url = reverse_lazy('app:profile')
 
-            if user:
-                login(request,user)
-                return HttpResponseRedirect(reverse('app:profile'))
-    else:
-        form = UserAuthentication()
-    context['login_form'] = form
+    def dispatch(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return redirect("/")
+        else:
+            return super(LoginView,self).dispatch(request,*args,**kwargs)
 
+    def form_valid(self, form):
+        login(self.request,form.get_user())
+        return super(LoginView, self).form_valid(form)
 
-    return render(request,'app/login.html',context)
 
 @login_required
 def paquetes(request):
@@ -304,8 +302,9 @@ def notificationsList(request):
             notificaciones_message_user = paginator.page(1)
         except  EmptyPage:
             notificaciones_message_user = paginator.page(paginator.num_pages)
-        notificaciones_edit_profile_user = notificaciones.filter(verb="notificacion-de-edicion-de-perfil")
 
+
+        notificaciones_edit_profile_user = notificaciones.filter(verb="notificacion-de-edicion-de-perfil")
         paginator = Paginator(notificaciones_edit_profile_user,5)
         page= request.GET.get('page2')
         try:
@@ -324,3 +323,21 @@ def notificationsList(request):
         context['online_users'] = (user for user in  user_status)
 
         return render(request,'app/notificationsList0.html',context)
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Tu password se a Actualizado con Éxito!')
+            return HttpResponseRedirect(reverse('app:change_password'))
+        else:
+            messages.warning(request, 'Por favor corrige los errors que se te indican.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'app/change_password.html', {
+        'form': form
+    })

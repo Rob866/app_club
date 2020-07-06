@@ -17,22 +17,29 @@ class SearchForm(forms.Form):
 class NotificationForm(forms.Form):
     description = forms.CharField(label="Mensaje",required=True,widget=forms.Textarea(attrs={ 'class':'form-control','placeholder':'Escribe un mensaje..','style':'background-color: aliceblue !important;'}))
 
-class UserAuthentication(forms.ModelForm):
+class UserAuthentication(forms.Form):
 
     username= forms.CharField(label="Username",widget=forms.TextInput(attrs={ 'class':'fadeIn second username_login','placeholder':'Username'}))
     password = forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'fadeIn third password_login','placeholder':'Password'}))
 
-    class Meta:
-        model  = get_user_model()
-        fields = ('username','password')
+    def __init__(self,request=None,*args,**kwargs):
+        self.request = request
+        self.user =None
+        super(UserAuthentication,self).__init__(*args,**kwargs)
 
     def clean(self):
-        if self.is_valid():
-            username = self.cleaned_data['username']
-            password = self.cleaned_data['password']
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
 
-            if not authenticate(username=username,password=password):
-                raise forms.ValidationError("Login Inválido")
+        if username is not None and password:
+            self.user = authenticate(username=username,password=password)
+        if self.user is None:
+            raise forms.ValidationError('error de autentificación')
+        return self.cleaned_data
+
+    def get_user(self):
+        return self.user
+
 
 class UserUpdateForm(forms.ModelForm):
 
