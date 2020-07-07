@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Paquete_Inscrito,Historial_User,Sesion,Notificacion
 from django.db.models import Q
 from django.templatetags.static import static

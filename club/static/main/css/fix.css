@@ -6,7 +6,7 @@ body{
 }
 
 #msg{
-  height: 40px;
+  height: 80px;
   transition: width 2s, transform 2s;
   -webkit-transition: width 2s, transform 2s; /* For Safari 3.1 to 6.0 */
 
@@ -2722,14 +2722,16 @@ p.info-alumno{
         touch-action: auto;
 }
 
-@media only screen and (max-width: 345px) {
-   .navbar-brand{
-     font-size:  20px !important;
-   }
 
-}
 
 @media only screen and (max-width: 460px) {
+  .img-fix{
+    width: 75px !important;
+    height: 75px !important;
+  }
+  .btn-fix {
+    font-size:  15px !important;
+  }
 
   .owl-carousel.home-slider .slider-item .slider-text h1{
     font-size: 30px !important;
@@ -2755,5 +2757,12 @@ p.info-alumno{
        height: 80px !important;
     }
 
+
+}
+
+@media only screen and (max-width: 345px) {
+   .navbar-brand{
+     font-size:  20px !important;
+   }
 
 }

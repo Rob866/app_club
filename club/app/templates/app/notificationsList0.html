@@ -6,13 +6,17 @@
         <div class="col-12">
           <section class="ftco-section" >
           <div class="container ftco-animate">
-            <div style="background-color: white;">
-              <div class="row mt-4 ml-1" style="position:relative; display: inline-block;">
-                 <button class="btn"  style="border-radius: 0;background:#31de79;" role="button">Mensajes de usuarios</button>
+            <div style="background-color: white;position: relative; width:100%; height:100px;">
+              <div class="row mt-4 ml-0"  style="position: absolute; left:5%;top:-15px;">
+                 <button class="btn btn-fix"  style="border-radius: 0;background:#31de79;" role="button">Mensajes de usuarios</button>
                </div>
-                {% if  notificaciones_message_user %}
-                        <a  style="font-size: 40px; display: inline-block; border-radius: 0; margin-left: 20px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-usuario' %}" class="btn "><i class="fa fa-trash"></i></a>
-                {% endif %}
+
+              <button class="btn btn-primary ml-1 btn-fix" style="position: absolute; right:5px; bottom:10px;">
+                    <a  style="color: black;border-radius:0;"href="{% url 'app:form_notification'%}">Enviar Notificación</a>
+              </button>
+              {% if  notificaciones_message_user %}
+                      <a  style="font-size: 40px;position: absolute; right:155px;bottom:-10px;" href="{% url 'app:delete_by_topic' verb='notificacion-de-usuario' %}" class="btn"><i class="fa fa-trash"></i></a>
+              {% endif %}
             </div>
 
            <!-- mensajes de usuarios-->
@@ -24,7 +28,7 @@
                          <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
                            <div style="background-color: white;border-radius: 5px; position: relative ">
                              <div class="inset">
-                               <img  style="width: 80px;height:80px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
+                               <img  class="img-fix"style="width: 80px;height:80px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
                              </div>
                              {% if notificacion.unread %}
                                  <span class="badge badge-success" style="border-radius: 50%; position:absolute; top:10%; left:0;
@@ -39,7 +43,7 @@
                              {% endif %}
 
                                <div  style="padding-left: 80px;position:relative;">
-                                 <p> Asunto: {{ notificacion.verb}}</p>
+                                 <p style="margin-bottom : 8px;"> Asunto: {{ notificacion.verb}}</p>
                                  <span style="color: #5897fb;">
                                    Notificacion de: {{ notificacion.actor.nombre }} {{ notificacion.actor.apellido}}
                                  </span>
@@ -119,7 +123,7 @@
                        <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
                          <div style="background-color: white;border-radius: 5px; position: relative ">
                            <div class="inset">
-                             <img  style="width: 80px;height:80px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
+                             <img  class="img-fix"style="width: 80px;height:80px;padding:5px;"src="{{ notificacion.actor.imagen.url }}">
                            </div>
                            {% if notificacion.unread %}
                                <span class="badge badge-success" style="border-radius: 50%; position:absolute; top:10%; left:0;
